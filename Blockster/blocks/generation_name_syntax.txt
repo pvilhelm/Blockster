@@ -1,0 +1,35 @@
+
+The generators for C++ have the following naming convention:
+
+void blocktypename_settings_vartypes_itypes_otypes_lib_parentlib...rootlib( ... );
+
+ Where:
+	settings is an unique string for the particular settings for the block, e.g. "saturate output on overflow" = "so"
+	vartypes is an unique string for the parameters types set for the block by Blockster, e.g. "single" = "f"
+	iotype is an unique string for the particular io types of the block, e.g. "single in single out" = "ff"
+	lib is the library it's in, e.g. "math"
+	parentlib is ... e.g. "" (No parent lib before root lib)
+	rootlib is the package, e.g. "core"
+
+
+E.g.
+
+void gain_so_if_of_math_core(const float* in, const float* out);
+
+A gain witch saturates on overflow, has singles for input and output and is in /core/math
+
+The naming convention has no function other than preventing name clashes in the namespace. 
+
+
+Éach generated block gives X things:
+
+1. The code body of the block, as a function for:
+	init
+	update
+	derivate
+	terminate
+	reset
+
+	of which none accepts parameters.
+
+2. The struct of parameters for the block for program namespace.
