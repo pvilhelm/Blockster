@@ -20,8 +20,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="blocks\core\math\gain\cpp\py_generate_cpp.py" />
     <None Include="testgen.py" />
+    <None Include="blocks\core\math\gain\cpp\py_gain_gen\__init__.py" />
+    <None Include="blocks\core\sources\constant\cpp\py_constant_gen\constant_gen.py" />
+    <None Include="blocks\core\sinks\to_console\cpp\py_to_console_gen\to_console_gen.py" />
+    <None Include="blocks\core\math\gain\cpp\py_gain_gen\gain_gen.py" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="blocks\generation_name_syntax.txt" />

@@ -1,6 +1,7 @@
 
 import xml.etree.ElementTree as ET
 
+
 def generate(path, node):
     Node_settings = node.find("Node_settings")
     if(len(Node_settings)>0):
