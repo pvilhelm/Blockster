@@ -1,2 +1,4 @@
+import xml.etree.ElementTree as ET
+
 def generateFromNode(node):
-    return "test"
+    return ET.ElementTree(ET.Element('Node_gen'))

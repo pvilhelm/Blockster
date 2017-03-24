@@ -52,7 +52,7 @@ def generateFromNode(node):
 
     members = node_init.find("Members")
     assert(type(members)==ET.Element),"Missing element Members in Node id {}".format(node_id)
-    member = node_init.find("Member")
+    member = members.find("Member")
     assert(type(member)==ET.Element),"Missing element Member in Node id {}".format(node_id)  
     
 
@@ -92,30 +92,50 @@ def generateFromNode(node):
 
     fnc_name = block_name +"_std"+in_types_abb+out_types_abb+libs
     
-    header_name = fcn_name +".h"
+    header_name = fnc_name +".h"
 
     header_text = "void "+fnc_name+"(){}" #Empty function, so its not added to the xml tree
 
-    #Generate the node specic code for init,update,derivate,terminate and reset -- if needed
+        #Generate the node specic code for init,update,derivate,terminate and reset -- if needed
     
-    #Generate structure to put in program namespace
+        #Generate structure to put in program namespace
     
     member_type = member.find("Member_type")
     assert(type(member_type)==ET.Element),"Member_type element missing in node id {}".format(node_id)
     member_cpp_type = CppTypeFromBlocksterType(member_type.text)
     member_value = member.find("Member_value")
     assert(type(member_value)==ET.Element),"Member_value element missing in node id {}".format(node_id)
-    member_cpp_value = CppTypeFromBlocksterType(member_value.text)
+    member_cpp_value = CppValueFromBlocksterValue(member_value.text,member_cpp_type)
+    assert(member_value.text),"Member_value empty in node {}".format(node_id)
+    assert(member_cpp_value),"Member_value not legal in node {}".format(node_id)
+    member_value_name = member.find("Member_name")
+    assert(type(member_value_name)==ET.Element),"Member_name element missing in node id {}".format(node_id)
+    member_value_name = member_value_name.text
+    assert(member_value_name),"Member_name empty in node {}".format(node_id)
 
+        #Generate a struct definition for the node
     struct_def = ET.SubElement(root_element,'Struct_def')
     struct_def_text = ( "typedef struct "+fnc_name+ " {\n"+
-                        "   "
-    
+                        "\t"+member_cpp_value+" "+member_value_name+";\n"
+                        "} "+fnc_name+"_t;\n")
+    struct_def.text = struct_def_text
 
-    
+        #Generate a data struct for the node
+    struct_data = ET.SubElement(root_element,'Struct_data')
+    struct_t = fnc_name+"_t"
+    struct_data_text = ( "struct_t " + node_id +" = { " + member_cpp_value + "};\n" )
+    struct_data.text = struct_data_text
+
+       
 
     return response_xml
 
+def CppValueFromBlocksterValue(s,v_type):
+    if(v_type == "float"):
+        s.lower()
+        reg_match = re.search(r"^(\d*)([\.])?(\d*)([-+]?[eE]?\d+)$",s)
+        assert(reg_match),"Member_value {} not valid {}".format(s,v_type)
+        return s+"f";
 
 def AbbreviationFromType(s):
     if(s == "single"):

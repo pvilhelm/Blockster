@@ -155,7 +155,6 @@
     <Text Include="blocks\generation_name_syntax.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\..\SimuVisual\SimuVisual\Program1\program1.xml" />
     <Xml Include="program1\program1.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

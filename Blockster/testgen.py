@@ -6,8 +6,8 @@ import sys
 import importlib
 
 this_blockster_ver = "0.0.1"
-blockster_libs_path = "C:/Users/petter/Source/Repos/Blockster/Blockster"
-program_xml_path = "C:/Users/petter/Source/Repos/Blockster/Blockster/program1/program1.xml"
+blockster_libs_path = "C:/Users/ITRL/Source/Repos/Blockster/Blockster"
+program_xml_path = "C:/Users/ITRL/Source/Repos/Blockster/Blockster/program1/program1.xml"
 program_folder = re.findall(r"^.*(?=\/)",program_xml_path)
 
 #parse program
@@ -16,6 +16,13 @@ root_elem = prgm_xml.getroot()
 assert(root_elem)
 assert(root_elem.tag == "Blockster")
 assert(root_elem.attrib.get("version")==this_blockster_ver)
+
+meta = root_elem.find("Meta")
+assert(meta),"Could not find Meta element"
+program_name = meta.find("Program_name")
+assert(type(program_name)==ET.Element),"could not find Program_name element"
+program_name = program_name.text
+assert(program_name),"Program_name text field empty"
 
 tasks = root_elem.find("Tasks").findall("Task")
 assert(len(tasks)>0)
@@ -80,6 +87,14 @@ for task in tasks:
 
 #generate code for all nodes
 module_dic = {}
+pgrm_gen_tree_root = ET.Element("Generation_tree")
+pgrm_gen_tree_root.set("program",program_name)
+xml_pgrm_gen_tree = ET.ElementTree(pgrm_gen_tree_root)
+    #Generate subelements for the tree
+ET.SubElement(pgrm_gen_tree_root,"Common_includes")
+ET.SubElement(pgrm_gen_tree_root,"Function_headers")
+ET.SubElement(pgrm_gen_tree_root,"Struct_def")
+ET.SubElement(pgrm_gen_tree_root,"Struct_data")
 
 for node in nodes:
     node_id = node.attrib.get("id")
@@ -109,7 +124,11 @@ for node in nodes:
         else:
             gen_module = module_dic[gen_file_path]
 
-        xml_gen_tree = gen_module.generateFromNode(node)
+        xml_node_gen_tree = gen_module.generateFromNode(node)
+        #parse xml_gen_tree 
+        node_gen_root = xml_node_gen_tree.getroot()
+        assert(type(node_gen_root)==ET.Element),"Could not retrive xml_node_gen_tree root element node id{}".format(node_id)
+
 
     else:
         assert(False),"TODO: Implement this"
