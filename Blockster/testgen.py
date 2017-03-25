@@ -6,8 +6,8 @@ import sys
 import importlib
 
 this_blockster_ver = "0.0.1"
-blockster_libs_path = "C:/Users/ITRL/Source/Repos/Blockster/Blockster"
-program_xml_path = "C:/Users/ITRL/Source/Repos/Blockster/Blockster/program1/program1.xml"
+blockster_libs_path = "C:/Users/Petter/Source/Repos/Blockster/Blockster"
+program_xml_path = "C:/Users/Petter/Source/Repos/Blockster/Blockster/program1/program1.xml"
 program_folder = re.findall(r"^.*(?=\/)",program_xml_path)
 
 #parse program
@@ -128,7 +128,8 @@ for node in nodes:
         #parse xml_gen_tree 
         node_gen_root = xml_node_gen_tree.getroot()
         assert(type(node_gen_root)==ET.Element),"Could not retrive xml_node_gen_tree root element node id{}".format(node_id)
-
+        
+        
 
     else:
         assert(False),"TODO: Implement this"
