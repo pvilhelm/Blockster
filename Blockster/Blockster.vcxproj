@@ -149,6 +149,9 @@
     <None Include="blocks\core\math\gain\cpp\py_gain_gen\__init__.py" />
     <None Include="blocks\core\sinks\to_console\cpp\py_to_console_gen\to_console_gen.py" />
     <None Include="blocks\core\sources\constant\cpp\py_constant_gen\constant_gen.py" />
+    <None Include="py_libs\blockster\gen\nodeutil\__init__.py" />
+    <None Include="py_libs\blockster\gen\util\__init__.py" />
+    <None Include="py_libs\blockster\__init__.py" />
     <None Include="testgen.py" />
   </ItemGroup>
   <ItemGroup>
