@@ -4,6 +4,8 @@ import re
 import os
 import sys
 import importlib
+import blockster.gen.maingen as maingen
+import blockster.gen.node as bgnode
 
 this_blockster_ver = "0.0.1"
 blockster_libs_path = "C:/Users/Petter/Source/Repos/Blockster/Blockster"
@@ -40,9 +42,9 @@ for node in nodes:
 
 #check that all node port target and sources exist and have matching types
 for node_id, node in nodes_dict.items():
-    node_settings = node.find("Node_settings")
-    assert(node_settings)
-    Inports = node_settings.find("Inports")
+    ports = node.find("Ports")
+    assert(ports)
+    Inports = ports.find("Inports")
     if(Inports):
         for Inport in Inports:
             Inport_id = Inport.attrib.get("id")
@@ -55,7 +57,7 @@ for node_id, node in nodes_dict.items():
             Inport_src_node_id = element_Inport_src_node_id.text
             assert(Inport_src_node_id in nodes_dict), "source node for node in port doesn't exist in xml tree. Source node id {}".format(Inport_src_node_id)
             source_node = nodes_dict[Inport_src_node_id]
-            source_node_Outports = source_node.find(".//Node_settings/Outports")
+            source_node_Outports = source_node.find(".//Ports/Outports")
             assert type(source_node_Outports)==ET.Element,"Outports element missing in node id {}".format(Inport_src_node_id)
             source_node_Outports_ids_dict = {}
             for source_node_Outport in source_node_Outports:
@@ -93,10 +95,16 @@ xml_pgrm_gen_tree = ET.ElementTree(pgrm_gen_tree_root)
     #Generate subelements for the tree
 ET.SubElement(pgrm_gen_tree_root,"Common_includes")
 ET.SubElement(pgrm_gen_tree_root,"Function_headers")
-ET.SubElement(pgrm_gen_tree_root,"Struct_def")
+ET.SubElement(pgrm_gen_tree_root,"Struct_defs")
 ET.SubElement(pgrm_gen_tree_root,"Struct_data")
+ET.SubElement(pgrm_gen_tree_root,"Execution_orders")
+ET.SubElement(pgrm_gen_tree_root,"Tasks")
+ET.SubElement(pgrm_gen_tree_root,"Executable")
+dict_commonincludes = {}
+dict_functionheaders = {}
 
 for node in nodes:
+    i = bgnode.node(node) #test
     node_id = node.attrib.get("id")
     node_type = node.find("Node_type")
     assert(node_type), "Node type element missing in node {}".format(node_id)
@@ -128,8 +136,59 @@ for node in nodes:
         #parse xml_gen_tree 
         node_gen_root = xml_node_gen_tree.getroot()
         assert(type(node_gen_root)==ET.Element),"Could not retrive xml_node_gen_tree root element node id{}".format(node_id)
-        
-        
+        node_id = node_gen_root.attrib.get("id")
+        assert(node_id)
+        prgrm_commonincludes = pgrm_gen_tree_root.find("Common_includes")
+        node_commonincludes = node_gen_root.find("Common_includes")
+        if(node_commonincludes is not None):
+            for element in node_commonincludes:
+                if(element.tag != "Include"):
+                    continue
+                incl = element.text
+                
+                if (incl not in dict_commonincludes):
+                    dict_commonincludes[incl]=incl
+                    el_incl = ET.SubElement(prgrm_commonincludes,"Include")
+                    el_incl.text = incl
+        el_struct_data = node_gen_root.find("Struct_data")
+        if(el_struct_data is not None):
+            prgrm_strctdata = pgrm_gen_tree_root.find("Struct_data")
+            if(not re.match(r"\s*$",el_struct_data.tag)):
+                el_tmp = ET.Element("Struct_datum",{"id":node_id})
+                el_tmp.text = el_struct_data.text
+                prgrm_strctdata.append(el_tmp)
+        el_struct_def = node_gen_root.find("Struct_def")
+        if(el_struct_def is not None):
+            prgrm_strctdefs = pgrm_gen_tree_root.find("Struct_defs")
+            if(not re.match(r"\s*$",el_struct_def.tag)):
+                el_tmp = ET.Element("Struct_def",{"id":node_id})
+                el_tmp.text = el_struct_def.text
+                prgrm_strctdefs.append(el_tmp)
+        el_node_exe = node_gen_root.find("Executable")
+        if(el_node_exe is not None):
+            el_prgrm_exe = pgrm_gen_tree_root.find("Executable")
+            for el in el_node_exe:
+                if(not re.match(r"\s*$",el.tag)):
+                    el_tmp = ET.Element(el.tag,{"id":node_id})
+                    el_tmp.text = el.text
+                    el_prgrm_exe.append(el_tmp)
 
-    else:
-        assert(False),"TODO: Implement this"
+        node_id = node.attrib.get("id")
+        task_id = node.find(".//Node_execution/Node_task").text
+        node_exec_order = node.find(".//Node_execution/Node_execution_order")
+        pgrm_execution_orders = pgrm_gen_tree_root.find('Execution_orders')
+        el_tmp = ET.SubElement(pgrm_execution_orders,"Execution_order",{"id":node_id,"task_id":task_id,"exec_order":node_exec_order.text})
+        
+for task in tasks:
+    task_id = task.attrib.get("id")
+    str_task_period = task.find("Task_period").text
+    prgrm_tasks = pgrm_gen_tree_root.find("Tasks")
+    prgrm_tasks.append(ET.Element("Task",{"id":task_id,"period":str_task_period}))
+
+xml_pgrm_gen_tree.write("Gen_code_tree.xml","UTF-8")
+
+main = maingen.main(xml_pgrm_gen_tree)
+
+f = open("program1.cpp","w")
+f.write(main.str_main)
+f.close()

@@ -21,22 +21,16 @@ def generateFromNode(node):
     #Parse settings and some pathes
     node_type,block_path,block_name,inports,outports = nutil.parseSettings(node)
 
-    #Parse node init
-    node_init = node.find("Node_init")
-    assert(type(node_init)==ET.Element),"Node id {} missing Node_init element".format(node_id)
-
-    members = node_init.find("Members")
-    assert(type(members)==ET.Element),"Missing element Members in Node id {}".format(node_id)
-    member = members.find("Member")
-    assert(type(member)==ET.Element),"Missing element Member in Node id {}".format(node_id)  
-    
+    #Parse node init 
+    node_init, = bgu.GetXmlElChildren(node,["Node_init"])
+    members,  = bgu.GetXmlElChildren(node_init,["Members"])
 
     #Generate common program includes e.g. <cstdint>
     include_list = ['<cstdint>']
-    nutil.AddCommonIncludesToXMLel(root_element,include_list)
+    nutil.Add_list_to_elXs_text_to_elY_to_el(include_list,"Include","Common_includes",root_element)
 
     #Generate function headers for block, specific to this nodes functions
-    function_headers = ET.SubElement(root_element,'Function_headers')
+        #function_headers = ET.SubElement(root_element,'Function_headers')
     
         #Generate some sub strings with helper function
     libs,out_types_abb,in_types_abb = nutil.GenerateTypeAndLibString(inports,outports,node_id, block_path)
@@ -53,16 +47,19 @@ def generateFromNode(node):
     
 
         #Generate a struct definition for the node
-    nutil.GenStructDef(members,node_id,fnc_name,root_element)     
+    nutil.GenStructDef(node,node_id,fnc_name,root_element)     
     
 
         #Generate a data struct for the node
-    member_cpp_value,member_value_name,member_cpp_type = nutil.ParseMember(member,node_id)
+    nutil.GenDataStruct(node,node_id,fnc_name,root_element)
 
-    struct_data = ET.SubElement(root_element,'Struct_data')
-    structname_t = fnc_name+"_t"
-    struct_data_text = ( structname_t +" "+ node_id +" = { " + member_cpp_value + "};\n" )
-    struct_data.text = struct_data_text
-    response_xml.write("test.xml","UTF-8")
+        #Generate node Execution_order
+    code_update = (
+"{\n"
+"   "+node_id+".out_000 = "+node_id+".value;\n"
+"}\n")
+
+    nutil.Add_list_to_elXs_text_to_elY_to_el([code_update],"Update","Executable",root_element)   
+
     return response_xml
 

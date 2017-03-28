@@ -18,19 +18,21 @@
       <Node_init>
         <Members>
           <Member>
-            <Member_value>2</Member_value>
+            <Member_value>22</Member_value>
             <Member_name>value</Member_name>
             <Member_type>single</Member_type>
             <Member_tunable>yes</Member_tunable>
           </Member>
         </Members>
       </Node_init>
-      <Node_settings>
-       <Outports>
+      <Ports>
+         <Outports>
           <Outport id="0">
             <Outport_type>single</Outport_type>
           </Outport>
         </Outports>
+      </Ports>
+      <Node_settings>
       </Node_settings>
       <Node_execution>
         <Node_task>0</Node_task>
@@ -46,7 +48,7 @@
         <Members>
         </Members>
       </Node_init>
-      <Node_settings>
+      <Ports>
         <Inports>
           <Inport id="0">
             <Inport_type>single</Inport_type>
@@ -56,6 +58,8 @@
         </Inports>
         <Outports>
         </Outports>
+      </Ports>
+      <Node_settings>
       </Node_settings>
       <Node_execution>
         <Node_task>0</Node_task>

@@ -1,4 +1,4 @@
-__all__ = ["XmlElHasChildren","CppTypeFromBlocksterType","AbbreviationFromType","CppValueFromBlocksterValue"]
+__all__ = ["GetXmlElChildren","XmlElHasChildren","CppTypeFromBlocksterType","AbbreviationFromType","CppValueFromBlocksterValue"]
 
 import re
 
@@ -121,3 +121,20 @@ def XmlElHasChildren(node,children_list,unique = True):
                 return False
 
     return True
+
+def GetXmlElChildren(node,children_list,assertion = True):
+    """Checks if an xml etree element has all children specifiec in children_list.
+             node:  The xml.etree.Element to check
+    children_list:  List of strings with children tag names
+    
+    Return tuple of children; or empty tuple, but throws if assertion is on"""
+    ret_list = []
+    for child in children_list:
+        child_list = node.findall(child)
+        if(len(child_list)==0):
+            if(assertion):
+                 raise RuntimeError("Missing child in node {} {}".format(node,node.items()))
+            return None
+        ret_list.extend(child_list)
+
+    return tuple(ret_list)
