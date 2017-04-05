@@ -1,35 +1,28 @@
-
 import xml.etree.ElementTree as ET
+import re
+import blockster.gen.util as bgu
+import blockster.gen.nodeutil as nutil
 
+def generateFromNode(node):
+    """
+    Generates a xml tree for the node input that will later be used to generate the program.
+    Also generates header and source files for the block if needed.
+    """
+    gen_node = Node.node(node)
 
-def generate(path, node):
-    Node_settings = node.find("Node_settings")
-    if(len(Node_settings)>0):
-        nop     #TODO: pase node settings
-    else:
-        nop
-
-    node_id = node.attrib.get("id")
-    assert(node_id)
+    #Generate common program includes e.g. <cstdint>
+    include_list = ['<cstdint>']
+    gen_node.generate_include_list(include_list)
     
-    
-    export_root = ET.Element("Node")
-    export_root.set("version","0.0.1")
-    export_root.set("id",node_id)
-    
-    export_xml = ET.ElementTree(export_root)
-    
-    includes = ET.SubElement(export_root,"Includes")
-    includes_str = ""
+    #header_name = gen_node.str_struct_name +".h"
 
-    node_structs = ET.SubElement(export_root,"Node_structs")
-    node_struct_str = ""
+    #header_text = "void "+gen_node.str_struct_name+"(){}" #Empty function, so its not added to the xml tree
 
-    node_init = ET.SubElement(export_root,"Node_init")
-    node_init_str = ""
+    code_update = (
+    "{\n"
+    "   std::cout << *" + gen_node.str_node_id + ".in_"+inportn.rjust(3, "0")+" << std::endl;\n"
+    "}\n") 
+  
+    gen_node.str_code_update = code_update
 
-    node_update = ET.SubElement(export_root,"Node_update")
-    node_node_update_str = ""
-
-    node_terminate = ET.SubElement(export_root,"Node_terminate")
-    node_terminate_str = ""
+    return gen_node.generate_xml()

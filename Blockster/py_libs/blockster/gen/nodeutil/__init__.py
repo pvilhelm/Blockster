@@ -138,8 +138,14 @@ def AddCommonIncludesToXMLel(el,include_list):
         a.text = include
 
 def Add_list_to_elXs_text_to_elY_to_el(text_list,X,Y,el):
-    """Adds the strings in include_list to text in grandchild elements in Common_includes
-     element in xml.etree.Element el"""
+    """For each string in text_list add the string 
+       to text in element X and make element X a child 
+       of Y who is a child of el
+        
+        X: string for element tag of Y:s to-be children
+        Y: string tag for element to add X to as a child
+        el: Parent of Y
+        text_list: List of strings """
     el_Y = el.find(Y)
     if(not el_Y):
         el_Y = ET.SubElement(el,Y)    

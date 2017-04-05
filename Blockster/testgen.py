@@ -104,7 +104,7 @@ dict_commonincludes = {}
 dict_functionheaders = {}
 
 for node in nodes:
-    i = bgnode.node(node) #test
+    #i = bgnode.node(node) #test
     node_id = node.attrib.get("id")
     node_type = node.find("Node_type")
     assert(node_type), "Node type element missing in node {}".format(node_id)

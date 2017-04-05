@@ -21,7 +21,7 @@
             <Member_value>22</Member_value>
             <Member_name>value</Member_name>
             <Member_type>single</Member_type>
-            <Member_tunable>yes</Member_tunable>
+            <Member_tunable>no</Member_tunable>
           </Member>
         </Members>
       </Node_init>
