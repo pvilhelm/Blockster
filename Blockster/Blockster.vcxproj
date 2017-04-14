@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="blocks\core\math\gain\cpp\py_gain_gen\gain_gen.py" />
+    <None Include="blocks\core\math\offset\cpp\py_offset_gen\offset_gen.py" />
     <None Include="blocks\core\sinks\to_console\cpp\py_to_console_gen\to_console_gen.py" />
     <None Include="blocks\core\sources\constant\cpp\py_constant_gen\constant_gen.py" />
     <None Include="py_libs\blockster\gen\maingen\__init__.py" />
@@ -162,6 +163,10 @@
     <Text Include="blocks\generation_name_syntax.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="blocks\core\math\gain\template_node_gain.xml" />
+    <Xml Include="blocks\core\sinks\to_console\template_node_to_console.xml" />
+    <Xml Include="blocks\core\sources\constant\mask_constant.xml" />
+    <Xml Include="blocks\core\sources\constant\template_node_constant.xml" />
     <Xml Include="program1\program1.xml" />
   </ItemGroup>
   <ItemGroup>

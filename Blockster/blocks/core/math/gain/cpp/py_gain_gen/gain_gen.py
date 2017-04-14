@@ -2,6 +2,7 @@ import xml.etree.ElementTree as ET
 import re
 import blockster.gen.util as bgu
 import blockster.gen.nodeutil as nutil
+import blockster.gen.node as Node
 
 def generateFromNode(node):
     """
@@ -20,7 +21,7 @@ def generateFromNode(node):
 
     code_update = (
     "{\n"
-    "   std::cout << *" + gen_node.str_node_id + ".in_"+inportn.rjust(3, "0")+" << std::endl;\n"
+    "   " + gen_node.str_node_id + ".out_000 = "+gen_node.str_node_id+".value * *"+gen_node.str_node_id+".in_000;\n"
     "}\n") 
   
     gen_node.str_code_update = code_update

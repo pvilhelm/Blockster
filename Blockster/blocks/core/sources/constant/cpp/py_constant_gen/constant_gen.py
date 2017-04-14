@@ -14,10 +14,6 @@ def generateFromNode(node):
     #Generate common program includes e.g. <cstdint>
     include_list = ['<cstdint>']
     gen_node.generate_include_list(include_list)
-    
-    header_name = gen_node.str_struct_name +".h"
-
-    header_text = "void "+gen_node.str_struct_name+"(){}" #Empty function, so its not added to the xml tree
 
     code_update = (
     "{\n"

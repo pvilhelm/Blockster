@@ -12,7 +12,7 @@ def generateFromNode(node):
     gen_node = Node.node(node)
 
     #Generate common program includes e.g. <cstdint>
-    include_list = ['<cstdint>']
+    include_list = ['<cstdint>','<iostream>']
     gen_node.generate_include_list(include_list)
     
     #header_name = gen_node.str_struct_name +".h"

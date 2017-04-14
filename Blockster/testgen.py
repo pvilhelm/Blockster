@@ -10,7 +10,7 @@ import blockster.gen.node as bgnode
 this_blockster_ver = "0.0.1"
 blockster_libs_path = "C:/Users/Petter/Source/Repos/Blockster/Blockster"
 program_xml_path = "C:/Users/Petter/Source/Repos/Blockster/Blockster/program1/program1.xml"
-program_folder = re.findall(r"^.*(?=\/)",program_xml_path)
+program_folder = re.match(r"^.*(?=\/)",program_xml_path)[0]
 
 #parse program
 prgm_xml = ET.parse(program_xml_path)
@@ -133,6 +133,8 @@ for node in nodes:
             gen_module = module_dic[gen_file_path]
 
         xml_node_gen_tree = gen_module.generateFromNode(node)
+        xml_node_gen_tree.write(program_folder+"/"+node_id,"UTF-8")
+
         #parse xml_gen_tree 
         node_gen_root = xml_node_gen_tree.getroot()
         assert(type(node_gen_root)==ET.Element),"Could not retrive xml_node_gen_tree root element node id{}".format(node_id)
@@ -185,7 +187,7 @@ for task in tasks:
     prgrm_tasks = pgrm_gen_tree_root.find("Tasks")
     prgrm_tasks.append(ET.Element("Task",{"id":task_id,"period":str_task_period}))
 
-xml_pgrm_gen_tree.write("Gen_code_tree.xml","UTF-8")
+xml_pgrm_gen_tree.write(program_folder+"/Gen_code_tree.xml","UTF-8")
 
 main = maingen.main(xml_pgrm_gen_tree)
 

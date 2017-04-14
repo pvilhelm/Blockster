@@ -65,7 +65,7 @@ class main:
     def gen_struct_data(self):
         list_elstruct_data = self.el_root.findall("Struct_data/Struct_datum")
         for el in list_elstruct_data:
-            self.str_struct_data += el.text
+            self.str_struct_data += el.text + "\n" + "\n"
 
 
 
@@ -129,7 +129,7 @@ class main:
                 node_id = dict_nodeid_by_execorder[n]
                 if node_id in dict_updatefcn_str_by_nodeid:
                     str_updatefcn += dict_updatefcn_str_by_nodeid[node_id]
-            str_updatefcn +="}\n"
+            str_updatefcn +="}\n"+ "\n"
 
             self.str_update_fcns += str_updatefcn
             if self.str_update_fcns[-1]!="\n":
@@ -175,7 +175,7 @@ class main:
         tmp_list = list(dict_struct_defs.keys())
         tmp_list.sort()
         for i in tmp_list:
-            self.str_struct_defs += dict_struct_defs[i]+"\n"
+            self.str_struct_defs += dict_struct_defs[i]+ "\n" + "\n"
 
     def mainToString(self):
         return self.str_common_includes+self.str_struct_defs

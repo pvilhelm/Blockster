@@ -110,11 +110,11 @@ class node:
 
         i = 0         
         for pair in list_of_valuecomment_pairs:
-            struct_data_text += value
+            struct_data_text += pair[0]
             if(i+1 != len(list_of_valuecomment_pairs)):
-                struct_data_text += ","+comment+"\n"
+                struct_data_text += ","+pair[1]+"\n"
             else:
-                struct_data_text += comment+"\n"
+                struct_data_text += pair[1]+"\n"
             ++i
 
             
