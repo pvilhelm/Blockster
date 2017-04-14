@@ -212,3 +212,4 @@ _Pvt_Extensions/
 ModelManifest.xml
 /Blockster/blocks/core/sources/constant/cpp/py_constant_gen/__pycache__
 /Blockster/blocks/core/sinks/to_console/cpp/py_to_console_gen/__pycache__
+/Blockster/Blockster.vcxproj.filters
