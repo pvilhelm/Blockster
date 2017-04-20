@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>blockster.svg</file>
+        <file>blockster.png</file>
+    </qresource>
+</RCC>
