@@ -5,19 +5,19 @@
 #include <QtXml>
 #include <QtWidgets>
 
+#include "signalsegment.h"
+
 class SignalLine : public QGraphicsItem
 {
 public:
     SignalLine(QPointF start);
 
     QRectF boundingRect() const override;
-    QPainterPath shape() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
 
     QColor color = Qt::black;
-    QVector<SignalLine> vec_signalnodes;
+    QVector<SignalSegment*> vec_signalnodes;
 
 
 };

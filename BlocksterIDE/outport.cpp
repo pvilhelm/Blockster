@@ -38,7 +38,7 @@ void Outport::mousePressEvent(QGraphicsSceneMouseEvent *event)
     ProgramScene* prg_scene = (ProgramScene*) this->scene();
     prg_scene->mode = ProgramScene::Mode::InsertLine;
     SignalLine* sig_line = new SignalLine(event->scenePos());
-
+    this->scene()->addItem(sig_line);
 
 }
 
