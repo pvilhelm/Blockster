@@ -5,6 +5,8 @@
 #include <QtWidgets>
 
 #include "block.h"
+#include "signalline.h"
+#include "signalsegment.h"
 
 class ProgramScene : public QGraphicsScene
 {
@@ -13,12 +15,15 @@ class ProgramScene : public QGraphicsScene
 
 public:
     enum Mode { None, InsertLine};
+    SignalSegment* lastSignalSegment;
 
     Mode mode = None;
 
     ProgramScene(QObject *parent);
 
     Block* test = new Block(100,120);
+
+    void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 
 };
 

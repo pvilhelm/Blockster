@@ -17,6 +17,15 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
+    Type type;
+
+    enum Type {
+        START_SEGMENT = 1,
+        END_SEGMENT = 2,
+        STARTEND_SEGMENT = 3,
+        MIDDLE_SEGMENT = 4
+    };
+
     float x0;
     float y0;
     float x1;

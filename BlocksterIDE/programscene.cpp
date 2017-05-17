@@ -9,3 +9,22 @@ ProgramScene::ProgramScene(QObject *parent)
     test->addOutport(1);
     this->update();
 }
+
+void ProgramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
+{
+    QPointF pos = mouseEvent->pos();
+
+    if(this->mode == ProgramScene::InsertLine){
+        if(lastSignalSegment == 0){
+            return;
+        }
+        else{
+            if(mouseEvent->button() == Qt::RightButton){
+                lastSignalSegment->type = SignalSegment::END_SEGMENT;
+            }
+            else if(mouseEvent->button() == Qt::LeftButton){
+
+            }
+        }
+    }
+}
