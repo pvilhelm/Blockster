@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Node id="">
+  <Node_name></Node_name>
+  <Node_type type="cpp">
+    <Lib_path>core/sources/constant</Lib_path>
+  </Node_type>
+  <Node_init>
+    <Members>
+      <Member>
+        <Member_value></Member_value>
+        <Member_name>value</Member_name>
+        <Member_type>single</Member_type>
+        <Member_allowed_types>single double int uint</Member_allowed_types>
+        <Member_tunable>no</Member_tunable>
+      </Member>
+    </Members>
+  </Node_init>
+  <Ports>
+    <Outports>
+      <Outport id="0">
+        <Outport_type>inherit%value</Outport_type>
+        <Outport_allowed_types>inherit%value</Outport_allowed_types>
+      </Outport>
+    </Outports>
+  </Ports>
+  <Node_execution>
+    <Node_task></Node_task>
+    <Node_execution_order></Node_execution_order>
+  </Node_execution>
+</Node>

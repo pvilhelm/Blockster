@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mask>
+  <Tabs>
+    <Tab id="0">
+      <Block_description>The constant block produces a constant signal with a specified value.</Block_description>
+      <Input_set_member type="edit_field">
+        <Input_promt>The constant's value:</Input_promt>
+        <Input_member_name>value</Input_member_name>
+        <Input_member_type></Input_member_type>
+      </Input_set_member>
+    </Tab>
+  </Tabs>
+</Mask>

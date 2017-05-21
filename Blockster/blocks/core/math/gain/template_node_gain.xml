@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Node id="">
+  <Node_name></Node_name>
+  <Node_type type="cpp">
+    <Lib_path>core/math/gain</Lib_path>
+  </Node_type>
+  <Node_init>
+    <Members>
+      <Member>
+        <Member_value>0</Member_value>
+        <Member_name>value</Member_name>
+        <Member_type>single</Member_type>
+        <Member_allowed_types>single double int uint</Member_allowed_types>
+        <Member_tunable>no</Member_tunable>
+      </Member>
+    </Members>
+  </Node_init>
+  <Ports>
+    <Inports>
+      <Inport id="0">
+        <Inport_type>single</Inport_type>
+        <Inport_allowed_types>single double int uint</Inport_allowed_types>
+        <Inport_source_node_id></Inport_source_node_id>
+        <Inport_source_node_Outport_id></Inport_source_node_Outport_id>
+      </Inport>
+    </Inports>
+    <Outports>
+      <Outport id="0">
+        <Outport_type>single</Outport_type>
+        <Outport_types>single double int uint</Outport_types>
+      </Outport>
+    </Outports>
+  </Ports>
+  <Node_settings>
+  </Node_settings>
+  <Node_execution>
+    <Node_task></Node_task>
+    <Node_execution_order></Node_execution_order>
+  </Node_execution>
+  <Mask>
+    <Tabs>
+      <Tab id="0">
+        <Block_description>The gain block multiplies the in-signal with a specified value and outputs the product.</Block_description>
+        <Input_set_member type="edit_field">
+          <Input_promt>The constant's value:</Input_promt>
+          <Input_member_name>value</Input_member_name>
+          <Input_member_type></Input_member_type>
+        </Input_set_member>
+      </Tab>
+    </Tabs>
+  </Mask>
+</Node>

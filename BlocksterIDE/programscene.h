@@ -15,7 +15,7 @@ class ProgramScene : public QGraphicsScene
 
 public:
     enum Mode { None, InsertLine};
-    SignalSegment* lastSignalSegment;
+    SignalSegment* lastSignalSegment = 0;
 
     Mode mode = None;
 

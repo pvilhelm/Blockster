@@ -41,7 +41,7 @@ void Outport::mousePressEvent(QGraphicsSceneMouseEvent *event)
     this->scene()->addItem(sig_line);
     ProgramScene* pc = (ProgramScene*)this->scene();
     pc->mode = ProgramScene::InsertLine;
-
+    pc->lastSignalSegment = sig_line->vec_signalnodes.last();
 
 }
 

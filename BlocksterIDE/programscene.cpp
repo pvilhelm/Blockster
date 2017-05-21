@@ -1,4 +1,5 @@
 #include "programscene.h"
+#include "signalsegment.h"
 
 ProgramScene::ProgramScene(QObject *parent)
     : QGraphicsScene(parent)
@@ -20,11 +21,15 @@ void ProgramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         }
         else{
             if(mouseEvent->button() == Qt::RightButton){
-                lastSignalSegment->type = SignalSegment::END_SEGMENT;
+                lastSignalSegment->type = SegmentType::END_SEGMENT;
+                this->mode = ProgramScene::None;
             }
             else if(mouseEvent->button() == Qt::LeftButton){
 
             }
         }
+    }
+    else{
+        QGraphicsScene::mousePressEvent(mouseEvent);
     }
 }
