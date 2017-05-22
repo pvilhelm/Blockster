@@ -5,6 +5,8 @@
 #include <QtXml>
 #include <QtWidgets>
 
+#include "signalline.h"
+
 class Outport : public QGraphicsItem
 {
 public:
@@ -15,6 +17,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
+    SignalLine* outSignalLine = 0;
     QColor color = Qt::black;
     int x = 0;
     int y = 0;

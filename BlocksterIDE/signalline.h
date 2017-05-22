@@ -13,8 +13,11 @@ public:
     SignalLine(QPointF start);
 
     QRectF boundingRect() const override;
-
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
+
+    void addSegment(QPointF startPoint, QPointF endPoint, SegmentType type);
+    void removeSegment(SignalSegment * ss);
+
 
     QColor color = Qt::black;
     QVector<SignalSegment*> vec_signalnodes;

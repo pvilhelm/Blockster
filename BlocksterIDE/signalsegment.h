@@ -6,6 +6,8 @@
 #include <QtXml>
 #include <QtWidgets>
 
+#include "signalline.h"
+
 enum SegmentType {
     START_SEGMENT = 1,
     END_SEGMENT = 2,
@@ -21,14 +23,15 @@ public:
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    //void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
     SegmentType type;
 
-    float x0;
-    float y0;
-    float x1;
-    float y1;
+
+
+    QPointF start = QPointF(0,0); //In SignalLine coordinates
+    QPointF end = QPointF(0,0);
+
 };
 
 #endif // SIGNALNODE_H

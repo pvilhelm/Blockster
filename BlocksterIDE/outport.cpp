@@ -36,12 +36,20 @@ void Outport::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWi
 void Outport::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     ProgramScene* prg_scene = (ProgramScene*) this->scene();
-    prg_scene->mode = ProgramScene::Mode::InsertLine;
-    SignalLine* sig_line = new SignalLine(this->scenePos()+QPointF(x,y));
-    this->scene()->addItem(sig_line);
-    ProgramScene* pc = (ProgramScene*)this->scene();
-    pc->mode = ProgramScene::InsertLine;
-    pc->lastSignalSegment = sig_line->vec_signalnodes.last();
+    if(prg_scene->mode == ProgramScene::InsertLine){
+        if(event->button() == Qt::LeftButton)
+            return;
+    }
+    else if(prg_scene->mode == ProgramScene::None){
+        if(event->button() == Qt::LeftButton){
+            prg_scene->mode = ProgramScene::InsertLine;
+            SignalLine* sig_line = new SignalLine(this->scenePos()+QPointF(x,y));
+            this->scene()->addItem(sig_line);
+            this->outSignalLine = sig_line;
+            prg_scene->mode = ProgramScene::InsertLine;
+            prg_scene->lastSignalSegment = sig_line->vec_signalnodes.last();
+        }
+    }
 
 }
 

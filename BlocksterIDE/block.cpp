@@ -1,8 +1,9 @@
 #include "block.h"
+#include "signalline.h"
 
 Block::Block(int w, int h): w(w), h(h)
 {
-    setFlags(ItemIsSelectable | ItemIsMovable);
+    setFlags(ItemIsSelectable | ItemIsMovable |  ItemSendsGeometryChanges );
 }
 
 QRectF Block::boundingRect() const
@@ -28,6 +29,26 @@ void Block::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
+}
+
+QVariant Block::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
+{
+    if(change == QGraphicsItem::ItemPositionHasChanged){
+        QPointF newPos = value.toPointF();
+        for( QGraphicsItem* i : this->childItems()){
+            Outport* o = dynamic_cast<Outport*>(i);
+            if(o){
+                SignalLine* sl = o->outSignalLine;
+                if(sl){
+                    SignalSegment* ss = sl->vec_signalnodes.first();
+                    ss->start = o->scenePos()+QPointF(o->x,o->y);
+                    ss->update();
+                }
+                continue;
+            }
+        }
+    }
+    return value;
 }
 
 void Block::addInport(int n)

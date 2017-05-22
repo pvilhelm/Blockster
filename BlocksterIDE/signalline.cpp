@@ -25,3 +25,25 @@ void SignalLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, 
 
 }
 
+void SignalLine::addSegment(QPointF startPoint, QPointF endPoint, SegmentType type)
+{
+    SignalSegment* ss = new SignalSegment(this,startPoint.x(),startPoint.y(),endPoint.x(),endPoint.y());
+    ss->type = type;
+    this->vec_signalnodes.append(ss);
+
+}
+
+void SignalLine::removeSegment(SignalSegment *ss)
+{
+    if(!ss)
+        return;
+
+    if(ss == this->vec_signalnodes.last()){
+        this->vec_signalnodes.removeLast();
+        delete ss;
+    }
+    else
+        return;
+
+}
+
