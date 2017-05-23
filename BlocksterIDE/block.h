@@ -12,7 +12,8 @@
 class Block : public QGraphicsItem
 {
 public:
-    Block(int w, int h);
+    Block(float w, float h);
+    Block(float x, float y, float w, float h);
 
     QString block_name;
     QString block_id;
@@ -29,13 +30,16 @@ public:
     void addOutport(int n);
     void setLibPath(QString lib_path);
     void parseXML();
+    void setName(QString name);
 
     QColor color = Qt::white;
-    int w = 0;
-    int h = 0;
+    float w = 0;
+    float h = 0;
+    QString name;
 
     QDomDocument* xml_root;
 
+    QGraphicsTextItem nameTextItem;
 
 
 };

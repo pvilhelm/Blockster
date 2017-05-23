@@ -1,14 +1,23 @@
 #include "block.h"
 #include "signalline.h"
 
-Block::Block(int w, int h): w(w), h(h)
+Block::Block(float w, float h): Block::Block(0,0,w,h)
 {
+}
+
+Block::Block(float x, float y, float w, float h) : w(w), h(h)
+{
+    setPos(x,y);
     setFlags(ItemIsSelectable | ItemIsMovable |  ItemSendsGeometryChanges );
+    nameTextItem.setTextInteractionFlags(Qt::TextEditable);
+    nameTextItem.setParentItem(this);
+    this->setName("");
 }
 
 QRectF Block::boundingRect() const
 {
     return QRectF(0, 0, w, h);
+
 }
 
 QPainterPath Block::shape() const
@@ -41,7 +50,17 @@ QVariant Block::itemChange(QGraphicsItem::GraphicsItemChange change, const QVari
                 SignalLine* sl = o->outSignalLine;
                 if(sl){
                     SignalSegment* ss = sl->vec_signalnodes.first();
-                    ss->start = o->scenePos()+QPointF(o->x,o->y);
+                    ss->start = o->scenePos();
+                    ss->update();
+                }
+                continue;
+            }
+            Inport* in = dynamic_cast<Inport*>(i);
+            if(in){
+                SignalLine* sl = in->inSignalLine;
+                if(sl){
+                    SignalSegment* ss = sl->vec_signalnodes.last();
+                    ss->end = in->scenePos();
                     ss->update();
                 }
                 continue;
@@ -53,17 +72,28 @@ QVariant Block::itemChange(QGraphicsItem::GraphicsItemChange change, const QVari
 
 void Block::addInport(int n)
 {
-
-    for(int i = 0; i<n; i++){
-        Inport* newInport = new Inport(0,h/(n+1));
+    for(float i = 1; i<=n; i++){
+        Inport* newInport = new Inport(0,i*h/(n+1));
         newInport->setParentItem(this);
     }
 }
 
 void Block::addOutport(int n)
 {
-    for(int i = 0; i<n; i++){
-        Outport* newOutport = new Outport(w,h/(n+1));
+    for(float i = 1; i<=n; i++){
+        Outport* newOutport = new Outport(w,i*h/(n+1));
         newOutport->setParentItem(this);
     }
 }
+
+void Block::setName(QString name)
+{
+    nameTextItem.setPlainText(name);
+    nameTextItem.adjustSize();
+    if(nameTextItem.textWidth()<40){
+        nameTextItem.setTextWidth(40);
+    }
+    nameTextItem.setPos(this->w/2-nameTextItem.textWidth()/2,h+10);
+}
+
+

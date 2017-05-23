@@ -37,6 +37,7 @@ void SignalSegment::paint(QPainter *painter, const QStyleOptionGraphicsItem *ite
     return;
 }
 
-
-
-
+void SignalSegment::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    event->ignore();
+}

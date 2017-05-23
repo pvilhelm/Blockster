@@ -10,7 +10,7 @@
 class Outport : public QGraphicsItem
 {
 public:
-    Outport(int x,int y);
+    Outport(float x,float y);
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
@@ -19,8 +19,8 @@ public:
 
     SignalLine* outSignalLine = 0;
     QColor color = Qt::black;
-    int x = 0;
-    int y = 0;
+    float x = 0;
+    float y = 0;
 };
 
 #endif // OUTPORT_H

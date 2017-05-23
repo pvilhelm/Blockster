@@ -1,20 +1,21 @@
 #include "inport.h"
 #include "programscene.h"
 
-Inport::Inport(int x, int y) : x(x), y(y)
+Inport::Inport(float x, float y) : x(x), y(y)
 {
     setFlags(ItemIsSelectable);
+    setPos(x,y);
 }
 
 QRectF Inport::boundingRect() const
 {
-    return QRectF(x-12, y-12, 24, 24);
+    return QRectF(-12, -12, 24, 24);
 }
 
 QPainterPath Inport::shape() const
 {
     QPainterPath path;
-    path.addRect(x-12, y-12, 24, 24);
+    path.addRect(-12, -12, 24, 24);
     return path;
 }
 
@@ -25,9 +26,9 @@ void Inport::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWid
     QPen pen;
     pen.setWidth(3);
     painter->setPen(pen);
-    painter->drawLine(QLine(x-5,y-5,x,y));
-    painter->drawLine(QLine(x,y,x-5,y+5));
-    painter->drawRect(x-12, y-12, 24, 24);
+    painter->drawLine(QLine(-5,-5,0,0));
+    painter->drawLine(QLine(0,0,-5,+5));
+    painter->drawRect( -12, -12, 24, 24);
 
     return;
 }
@@ -44,11 +45,11 @@ void Inport::mousePressEvent(QGraphicsSceneMouseEvent *event)
             SignalSegment* ss = prg_scene->lastSignalSegment;
             if(!ss)
                 throw std::runtime_error("ss is null");
+
             prg_scene->lastSignalSegment = 0;
 
             SignalLine* sl = (SignalLine*)ss->parentItem();
-            sl->addSegment(ss->end,scenePos+QPointF(x,y),SegmentType::END_SEGMENT);
-
+            sl->addSegment( ss->end, scenePos, SegmentType::END_SEGMENT);
 
             this->inSignalLine = sl;
         }

@@ -10,7 +10,7 @@
 class Inport : public QGraphicsItem
 {
 public:
-    Inport(int x,int y);
+    Inport(float x,float y);
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
@@ -19,8 +19,8 @@ public:
 
     SignalLine* inSignalLine = 0;
     QColor color = Qt::black;
-    int x = 0;
-    int y = 0;
+    float x = 0;
+    float y = 0;
 };
 
 #endif // INPORT_H

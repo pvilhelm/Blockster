@@ -21,7 +21,7 @@ public:
 
     ProgramScene(QObject *parent);
 
-    Block* test = new Block(100,120);
+
 
     void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 
