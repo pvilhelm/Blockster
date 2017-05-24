@@ -31,6 +31,7 @@ void SignalLine::addSegment(QPointF startPoint, QPointF endPoint, SegmentType ty
     ss->type = type;
     this->vec_signalnodes.append(ss);
 
+
 }
 
 void SignalLine::removeSegment(SignalSegment *ss)

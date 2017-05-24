@@ -1,12 +1,11 @@
 #include "programscene.h"
 #include "signalsegment.h"
-#include <cassert>
+
 
 ProgramScene::ProgramScene(QObject *parent)
     : QGraphicsScene(parent)
 {
     this->setSceneRect(QRectF(0,0,500,500));
-
     Block* test = new Block(100,120);
 
     this->addItem(test);
@@ -54,8 +53,9 @@ void ProgramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                     if(!sl)
                         throw std::runtime_error ("sl is null");
                     SignalSegment * ss = sl->vec_signalnodes.last();
+                    QPointF startPoint = ss->scenePos()+ss->end;
                     QPointF posWhole(std::round(pos.x()/10.f)*10.f,std::round(pos.y()/10.f)*10.f);
-                    sl->addSegment(ss->end,posWhole, SegmentType::MIDDLE_SEGMENT);
+                    sl->addSegment(startPoint,posWhole, SegmentType::MIDDLE_SEGMENT);
                     lastSignalSegment = sl->vec_signalnodes.last();
                 }
             }

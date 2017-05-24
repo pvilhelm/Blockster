@@ -18,9 +18,6 @@
     <item>
      <widget class="QTreeView" name="libTreeView"/>
     </item>
-    <item>
-     <widget class="QGraphicsView" name="graphicsView"/>
-    </item>
    </layout>
   </widget>
  </widget>

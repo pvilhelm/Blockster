@@ -5,7 +5,7 @@ import blockster.gen.nodeutil as nutil
 
 class node:
     """A class that represents a node in a blockster program and is used for convinience in code generation.
-    
+	
     Constructor taxes a xml-element of the node as input."""
     
 

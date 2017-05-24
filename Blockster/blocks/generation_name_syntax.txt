@@ -8,7 +8,7 @@ For shared block functions between blocks of the same type and settings:
 Where:
 	settings is an unique string for the particular settings for the block, e.g. "saturate output on overflow" = "so"
 	vartypes is an unique string for the parameters types set for the block by Blockster, e.g. "single" = "f"
-	iotype is an unique string for the particular io types of the block, e.g. "single in single out" = "ff"
+	iotype is an unique string for the particular io types of the block, e.g. "single in single out" = "if_of"
 	lib is the library it's in, e.g. "math"
 	parentlib is ... e.g. "" (No parent lib before root lib)
 	rootlib is the package, e.g. "core"
@@ -16,9 +16,9 @@ Where:
 	When there is nothing to write the preceding _ is removed.
 
 E.g.:
-	void gain_so_if_of_math_core(const float* in, const float* out);
+	void gain_dp_if_of_math_core(float* const in,  float* const out);
 
-	A gain witch saturates on overflow, has singles for input and output and is in /core/math
+	A gain witch internal double precision, has single constant pointers for input and output and is in /core/math
 
 For the blocks specific functions:
 	void nodeid_function(...);

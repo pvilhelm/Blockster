@@ -4,8 +4,9 @@ SignalSegment::SignalSegment(QGraphicsItem* parent, float x0, float y0, float x1
 {
     setParentItem(parent);
     SignalLine* sl = (SignalLine*)parent;
-    start = QPointF(x0,y0)-sl->scenePos();
-    end = QPointF(x1,y1)-sl->scenePos();
+    setPos(QPointF(x0,y0)-sl->scenePos());
+    start = QPointF(0,0);
+    end = QPointF(x1,y1)-sl->scenePos()-QPointF(x0,y0);
 }
 
 QRectF SignalSegment::boundingRect() const
@@ -41,3 +42,21 @@ void SignalSegment::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     event->ignore();
 }
+
+void SignalSegment::changePos(QPointF newStart, QPointF newEnd)
+{
+    this->prepareGeometryChange();
+    start = QPointF(0,0);
+    SignalLine* sl = (SignalLine*)this->parentItem();
+    end = newEnd-sl->scenePos()-newStart;
+    setPos(newStart-sl->scenePos());
+    update();
+}
+
+void SignalSegment::changePos(QPointF newStart)
+{
+    SignalLine* sl = (SignalLine*)this->parentItem();
+    this->changePos(newStart,end+this->scenePos());
+}
+
+

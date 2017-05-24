@@ -43,15 +43,14 @@ void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
 QVariant Block::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
 {
     if(change == QGraphicsItem::ItemPositionHasChanged){
-        QPointF newPos = value.toPointF();
+        //QPointF newPos = value.toPointF();
         for( QGraphicsItem* i : this->childItems()){
             Outport* o = dynamic_cast<Outport*>(i);
             if(o){
                 SignalLine* sl = o->outSignalLine;
                 if(sl){
                     SignalSegment* ss = sl->vec_signalnodes.first();
-                    ss->start = o->scenePos();
-                    ss->update();
+                    ss->changePos(o->scenePos());
                 }
                 continue;
             }
@@ -60,8 +59,7 @@ QVariant Block::itemChange(QGraphicsItem::GraphicsItemChange change, const QVari
                 SignalLine* sl = in->inSignalLine;
                 if(sl){
                     SignalSegment* ss = sl->vec_signalnodes.last();
-                    ss->end = in->scenePos();
-                    ss->update();
+                    ss->changePos(ss->scenePos(),in->scenePos());
                 }
                 continue;
             }
@@ -94,6 +92,13 @@ void Block::setName(QString name)
         nameTextItem.setTextWidth(40);
     }
     nameTextItem.setPos(this->w/2-nameTextItem.textWidth()/2,h+10);
+}
+
+QMimeData *Block::getMime()
+{
+    QMimeData* mime = new QMimeData();
+    mime->setText(this->lib_path);
+    return mime;
 }
 
 

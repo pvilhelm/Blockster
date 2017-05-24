@@ -31,6 +31,7 @@ public:
     void setLibPath(QString lib_path);
     void parseXML();
     void setName(QString name);
+    QMimeData* getMime();
 
     QColor color = Qt::white;
     float w = 0;

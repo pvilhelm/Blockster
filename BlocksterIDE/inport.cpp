@@ -49,7 +49,7 @@ void Inport::mousePressEvent(QGraphicsSceneMouseEvent *event)
             prg_scene->lastSignalSegment = 0;
 
             SignalLine* sl = (SignalLine*)ss->parentItem();
-            sl->addSegment( ss->end, scenePos, SegmentType::END_SEGMENT);
+            sl->addSegment(ss->scenePos()+ss->end, scenePos, SegmentType::END_SEGMENT);
 
             this->inSignalLine = sl;
         }

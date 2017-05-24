@@ -2,6 +2,10 @@
 #define LIBBROWSER_H
 
 #include <QDockWidget>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+
+#include "libscene.h"
 
 namespace Ui {
 class LibBrowser;
@@ -14,6 +18,10 @@ class LibBrowser : public QDockWidget
 public:
     explicit LibBrowser(QWidget *parent = 0, QString lib_path = "");
     ~LibBrowser();
+
+
+    QGraphicsView* root_view;
+    LibScene* root_scene;
 
     QString lib_path;
 

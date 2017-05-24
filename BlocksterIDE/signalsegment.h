@@ -25,6 +25,9 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
+    void changePos(QPointF newStart,QPointF newEnd);
+    void changePos(QPointF newStart);
+
     SegmentType type;
 
 
