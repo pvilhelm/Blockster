@@ -2,6 +2,7 @@
 #include "ui_libbrowser.h"
 #include <QDrag>
 #include "block.h"
+#include <QtDebug>
 
 LibBrowser::LibBrowser(QWidget *parent, QString lib_path) :
     QDockWidget(parent),
@@ -18,9 +19,15 @@ LibBrowser::LibBrowser(QWidget *parent, QString lib_path) :
 
     root_view->setObjectName(QStringLiteral("rootView"));
 
+    qDebug() << "LibBrowser is set up" << __LINE__ <<":"<< __FILE__;
 }
 
 LibBrowser::~LibBrowser()
 {
     delete ui;
+}
+
+void LibBrowser::ParseBlocks()
+{
+
 }

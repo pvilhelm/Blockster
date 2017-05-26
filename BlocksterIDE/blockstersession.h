@@ -3,13 +3,14 @@
 
 #include <vector>
 #include "programcontainer.h"
+#include "config.h"
 
 class BlocksterSession
 {
 public:
     BlocksterSession();
     QList<ProgramContainer*> openPrograms;
-
+    Config config;
 
 };
 

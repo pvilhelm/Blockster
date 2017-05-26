@@ -5,18 +5,26 @@
 LibScene::LibScene(QObject *parent) : QGraphicsScene(parent)
 {
     this->setSceneRect(QRectF(0,0,500,500));
+    //this->eventFilter()
 }
 
 void LibScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    if (mouseEvent->button() == Qt::LeftButton   &&
-        !this->itemAt(mouseEvent->pos(),QTransform())) {
+    //Qt::MouseButton a1 = mouseEvent->button();
+    //QGraphicsItem* a2 = this->itemAt(mouseEvent->scenePos(),QTransform());
 
-        Block* clickedBlock = dynamic_cast<Block*>(this->itemAt(mouseEvent->pos(),QTransform()));
+    if (mouseEvent->button() == Qt::LeftButton && this->itemAt(mouseEvent->scenePos(),QTransform())) {
+
+        Block* clickedBlock = dynamic_cast<Block*>(this->itemAt(mouseEvent->scenePos(),QTransform()));
+        if(clickedBlock){
+            QDrag *drag = new QDrag(this);
+            QMimeData *mimeData = new QMimeData;
+            mimeData->setText("");
+            drag->setMimeData(mimeData);
+            drag->exec();
+        }
 
 
-        QDrag *drag = new QDrag(this);
-        QMimeData *mimeData = new QMimeData;
 
     }
 }
@@ -30,5 +38,6 @@ void LibScene::addBlock(QString path)
         block->setPos(0,lastYPos);
         lastYPos+=100*1.1;
         this->addItem(block);
+        block->setEnabled(false);
     }
 }

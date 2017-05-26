@@ -6,6 +6,8 @@ ProgramScene::ProgramScene(QObject *parent)
     : QGraphicsScene(parent)
 {
     this->setSceneRect(QRectF(0,0,500,500));
+
+
     Block* test = new Block(100,120);
 
     this->addItem(test);
@@ -25,6 +27,14 @@ ProgramScene::ProgramScene(QObject *parent)
     test3->addOutport(1);
     this->update();
     test3->setName("test test ttttt");
+}
+
+void ProgramScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
+{
+    if (event->mimeData()->hasFormat("text/plain"))
+            event->acceptProposedAction();
+    //event->setAccepted(true);
+
 }
 
 void ProgramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
@@ -65,4 +75,20 @@ void ProgramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     QGraphicsScene::mousePressEvent(mouseEvent);
 
+}
+
+void ProgramScene::dropEvent(QGraphicsSceneDragDropEvent *event)
+{
+    const QMimeData* data = event->mimeData();
+    Qt::DropAction dropAction = event->dropAction();
+
+    if(dropAction == Qt::MoveAction){
+        if(!data->hasText())
+            return;
+        QString string = data->text();
+        Block* block = new Block(100,100);
+        this->addItem(block);
+        block->setPos(event->scenePos());
+
+    }
 }

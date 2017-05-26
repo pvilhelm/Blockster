@@ -4,6 +4,7 @@
 #include <QDockWidget>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QList>
 
 #include "libscene.h"
 
@@ -19,11 +20,12 @@ public:
     explicit LibBrowser(QWidget *parent = 0, QString lib_path = "");
     ~LibBrowser();
 
+    void ParseBlocks();
 
     QGraphicsView* root_view;
     LibScene* root_scene;
-
     QString lib_path;
+    QList<QString> libPathsList;
 
 private:
     Ui::LibBrowser *ui;

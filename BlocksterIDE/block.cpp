@@ -17,7 +17,6 @@ Block::Block(float x, float y, float w, float h) : w(w), h(h)
 QRectF Block::boundingRect() const
 {
     return QRectF(0, 0, w, h);
-
 }
 
 QPainterPath Block::shape() const

@@ -22,6 +22,7 @@ public:
     BlocksterSession blocksterS;
     LibBrowser* libBrowser;
 
+
 private slots:
     void on_actionNew_program_triggered();
 
