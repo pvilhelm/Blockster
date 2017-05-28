@@ -3,6 +3,9 @@
 #include <QDrag>
 #include "block.h"
 #include <QtDebug>
+#include <QRegExp>
+
+extern BlocksterSession blocksterS;
 
 LibBrowser::LibBrowser(QWidget *parent, QString lib_path) :
     QDockWidget(parent),
@@ -18,7 +21,7 @@ LibBrowser::LibBrowser(QWidget *parent, QString lib_path) :
     root_scene->addBlock("");
 
     root_view->setObjectName(QStringLiteral("rootView"));
-
+    ParseBlocks();
     qDebug() << "LibBrowser is set up" << __LINE__ <<":"<< __FILE__;
 }
 
@@ -29,5 +32,34 @@ LibBrowser::~LibBrowser()
 
 void LibBrowser::ParseBlocks()
 {
+    QString root_libpath = blocksterS.config.confParHashtable->value("BLOCKSTER_BLOCKLIBS_PATH");
+    if(root_libpath ==""){
+        throw std::runtime_error("BLOCKSTER_BLOCKLIBS_PATH missing in config.txt");
+    }
+
+    ParseFolder(root_libpath);
+    qDebug() << "Parsed"<<libpaths_list.count()<<"blocks into LibBrowser"<<__LINE__<<":"<<__FILE__;
+}
+
+void LibBrowser::ParseFolder(QString folder_path){
+    QDir dir(folder_path);
+    dir.setFilter(QDir::Dirs | QDir::NoSymLinks);
+
+    for(QString folder : dir.entryList()){
+        if(folder == ".." || folder == ".")
+            continue;
+        ParseFolder(folder_path+"/"+folder);
+    }
+
+    QString folder_name = dir.dirName();
+    QDir dir_files(folder_path);
+    dir_files.setFilter(QDir::Files | QDir::NoSymLinks);
+    for(QString file : dir_files.entryList()){
+        QRegExp is_block_template("^template_node_"+folder_name+".xml$");
+
+        if(is_block_template.exactMatch(file)){
+            this->libpaths_list.append(folder_path+"/"+file);
+        }
+    }
 
 }

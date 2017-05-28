@@ -4,6 +4,7 @@
 #include <QRegExp>
 #include <QTextStream>
 #include <QDir>
+#include <QDebug>
 
 Config::Config()
 {
@@ -15,14 +16,19 @@ Config::Config()
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         throw std::runtime_error("config.txt not found in current directory.");
     }
-    QTextStream in(&file);
 
-
-    lineN = 1;
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        ParseLine(line);
-        lineN++;
+    try{
+        QTextStream in(&file);
+        lineN = 1;
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            ParseLine(line);
+            lineN++;
+        }
+    }
+    catch(std::exception e){
+        qDebug()<< "config.txt error ..." << __LINE__ <<":"<< __FILE__ ;
+        throw e;
     }
 }
 

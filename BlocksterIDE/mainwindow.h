@@ -6,7 +6,6 @@
 #include "libbrowser.h"
 #include "blockstersession.h"
 
-
 namespace Ui {
 class MainWindow;
 }
@@ -19,8 +18,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    BlocksterSession blocksterS;
+
     LibBrowser* libBrowser;
+
 
 
 private slots:

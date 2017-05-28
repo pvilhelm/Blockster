@@ -5,6 +5,8 @@
 #include <QInputDialog>
 #include <QDir>
 
+BlocksterSession blocksterS;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)

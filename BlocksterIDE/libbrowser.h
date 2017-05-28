@@ -7,6 +7,8 @@
 #include <QList>
 
 #include "libscene.h"
+#include "config.h"
+#include "blockstersession.h"
 
 namespace Ui {
 class LibBrowser;
@@ -25,10 +27,11 @@ public:
     QGraphicsView* root_view;
     LibScene* root_scene;
     QString lib_path;
-    QList<QString> libPathsList;
+    QList<QString> libpaths_list;
 
 private:
     Ui::LibBrowser *ui;
+    void ParseFolder(QString folder_path);
 };
 
 #endif // LIBBROWSER_H

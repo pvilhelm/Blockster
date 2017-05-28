@@ -14,6 +14,7 @@ class Block : public QGraphicsItem
 public:
     Block(float w, float h);
     Block(float x, float y, float w, float h);
+    Block(QString template_path);
 
     QString block_name;
     QString block_id;
@@ -26,6 +27,7 @@ public:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
+    void ProcessXMLtemplate(QString template_path);
     void addInport(int n);
     void addOutport(int n);
     void setLibPath(QString lib_path);

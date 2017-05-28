@@ -4,6 +4,8 @@
 #include <vector>
 #include "programcontainer.h"
 #include "config.h"
+#include "libbrowser.h"
+
 
 class BlocksterSession
 {

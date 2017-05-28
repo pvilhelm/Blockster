@@ -14,6 +14,19 @@ Block::Block(float x, float y, float w, float h) : w(w), h(h)
     this->setName("");
 }
 
+Block::Block(QString template_path)
+{
+    setPos(0,0);
+    setFlags(ItemIsSelectable | ItemIsMovable |  ItemSendsGeometryChanges );
+    nameTextItem.setTextInteractionFlags(Qt::TextEditable);
+    nameTextItem.setParentItem(this);
+    this->setName("");
+    w = 100.;
+    h = 100.;
+
+    ProcessXMLtemplate(template_path);
+}
+
 QRectF Block::boundingRect() const
 {
     return QRectF(0, 0, w, h);
@@ -65,6 +78,36 @@ QVariant Block::itemChange(QGraphicsItem::GraphicsItemChange change, const QVari
         }
     }
     return value;
+}
+
+void Block::ProcessXMLtemplate(QString template_path)
+{
+    xml_root = new QDomDocument();
+    QFile file(template_path);
+    if (!file.open(QIODevice::ReadOnly)){
+        throw std::runtime_error("Could not open template path "+template_path.toStdString());
+    }
+
+    if (!xml_root->setContent(&file)) {
+        file.close();
+        throw std::runtime_error("Could not set XML DOM for "+template_path.toStdString());
+    }
+    file.close();
+
+    QDomElement root_el = xml_root->documentElement();
+
+    QDomNodeList  node_vis_list = root_el.elementsByTagName("Node_visualisation");
+    if(!node_vis_list.isEmpty() || node_vis_list.count()!=1){
+        throw std::runtime_error("XML parsing error "+template_path.toStdString());
+    }
+    QDomNode vis_el = node_vis_list.item(0);
+    QDomNode shape_el = vis_el.elementsByTagName("Node_shape").item(0);
+
+    if(shape_el.isEmpty() || node_vis_list.count()!=1){
+        QString error = "XML parsing error "+template_path+__LINE__+__FILE__;
+        throw std::runtime_error(error.toStdString());
+    }
+
 }
 
 void Block::addInport(int n)
