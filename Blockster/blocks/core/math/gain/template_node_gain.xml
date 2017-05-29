@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Node id="">
-  <Node_name></Node_name>
+<Node id="" libpath="core/math/gain" subtype="gain">
+  <Node_name>Gain</Node_name>
   <Node_type type="cpp">
     <Lib_path>core/math/gain</Lib_path>
   </Node_type>
@@ -27,7 +27,7 @@
     <Outports>
       <Outport id="0">
         <Outport_type>single</Outport_type>
-        <Outport_types>single double int uint</Outport_types>
+        <Outport_allowed_types>single double int uint</Outport_allowed_types>
       </Outport>
     </Outports>
   </Ports>
@@ -49,4 +49,10 @@
       </Tab>
     </Tabs>
   </Mask>
+  <Node_visualisation>
+	<Node_shape shape="rectangle">
+		<Node_width>50</Node_width>
+		<Node_height>50</Node_height>
+	</Node_shape>
+  </Node_visualisation>
 </Node>

@@ -12,8 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    libBrowser = new LibBrowser(this,"C:/Users/petter/Source/Repos/Blockster/Blockster/blocks");
-    this->addDockWidget(Qt::RightDockWidgetArea,libBrowser);
+    libBrowser = new LibBrowser(this);
+    this->addDockWidget(Qt::LeftDockWidgetArea,libBrowser);
 }
 
 MainWindow::~MainWindow()
@@ -35,10 +35,10 @@ void MainWindow::on_actionNew_program_triggered()
 
 
     if(blocksterS.openPrograms.isEmpty()){
-        this->addDockWidget(Qt::TopDockWidgetArea,prgC);
+        this->addDockWidget(Qt::RightDockWidgetArea,prgC);
     }
     else{
-        this->addDockWidget(Qt::TopDockWidgetArea,prgC);
+        this->addDockWidget(Qt::RightDockWidgetArea,prgC);
         this->tabifyDockWidget(blocksterS.openPrograms.last(),prgC);
     }
     blocksterS.openPrograms.append(prgC);

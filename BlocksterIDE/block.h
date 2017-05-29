@@ -12,14 +12,21 @@
 class Block : public QGraphicsItem
 {
 public:
+    enum BlockShapeType{
+        RECTANGLE
+    };
+
     Block(float w, float h);
     Block(float x, float y, float w, float h);
     Block(QString template_path);
 
-    QString block_name;
-    QString block_id;
-    QString block_type;
-    QString lib_path ="";
+    QString block_name = "";
+    QString block_id = "";
+    QString block_type = "";
+    QString lib_path = "";
+    QString task_id = "";
+    QString execution_order = "";
+    QString template_name = "";
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
@@ -38,11 +45,13 @@ public:
     QColor color = Qt::white;
     float w = 0;
     float h = 0;
-    QString name;
 
-    QDomDocument* xml_root;
+    BlockShapeType block_shape_type = RECTANGLE;
+    QList<Inport*> inportptr_list;
+    QList<Outport*> outportptr_list;
 
-    QGraphicsTextItem nameTextItem;
+
+    QGraphicsTextItem name_text_item;
 
 
 };

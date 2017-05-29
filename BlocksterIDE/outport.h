@@ -17,6 +17,11 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
+    QString signal_type = "";
+    QString port_id = "";
+
+    QList<QString> valid_signal_types;
+
     SignalLine* outSignalLine = 0;
     QColor color = Qt::black;
     float x = 0;

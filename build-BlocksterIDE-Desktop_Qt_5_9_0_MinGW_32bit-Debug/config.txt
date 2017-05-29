@@ -1,0 +1,2 @@
+#Defines some system variables
+BLOCKSTER_BLOCKLIBS_PATH = "C:/Repos/Blockster/Blockster/blocks"

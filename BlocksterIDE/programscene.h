@@ -8,6 +8,8 @@
 #include "signalline.h"
 #include "signalsegment.h"
 
+
+
 class ProgramScene : public QGraphicsScene
 {
 
@@ -25,6 +27,8 @@ public:
     void dragMoveEvent(QGraphicsSceneDragDropEvent *event) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
     void dropEvent(QGraphicsSceneDragDropEvent *event);
+
+
 };
 
 #endif // PROGRAMSCENE_H

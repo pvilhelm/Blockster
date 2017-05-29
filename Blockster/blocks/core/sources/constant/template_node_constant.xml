@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Node id="">
-  <Node_name></Node_name>
+  <Node_name>Constant</Node_name>
   <Node_type type="cpp">
     <Lib_path>core/sources/constant</Lib_path>
   </Node_type>
@@ -16,6 +16,7 @@
     </Members>
   </Node_init>
   <Ports>
+	<Inports></Inports>
     <Outports>
       <Outport id="0">
         <Outport_type>inherit%value</Outport_type>

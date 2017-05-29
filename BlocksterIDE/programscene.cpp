@@ -1,32 +1,13 @@
 #include "programscene.h"
 #include "signalsegment.h"
+#include "blockstersession.h"
 
+extern BlocksterSession blocksterS;
 
 ProgramScene::ProgramScene(QObject *parent)
     : QGraphicsScene(parent)
 {
     this->setSceneRect(QRectF(0,0,500,500));
-
-
-    Block* test = new Block(100,120);
-
-    this->addItem(test);
-    test->addInport(1);
-    test->addOutport(1);
-    this->update();
-
-    Block* test2 = new Block(200,200,100,100);
-    this->addItem(test2);
-    test2->addInport(2);
-    test2->addOutport(1);
-    this->update();
-
-    Block* test3 = new Block(200,300,120,120);
-    this->addItem(test3);
-    test3->addInport(2);
-    test3->addOutport(1);
-    this->update();
-    test3->setName("test test ttttt");
 }
 
 void ProgramScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
@@ -85,10 +66,11 @@ void ProgramScene::dropEvent(QGraphicsSceneDragDropEvent *event)
     if(dropAction == Qt::MoveAction){
         if(!data->hasText())
             return;
-        QString string = data->text();
-        Block* block = new Block(100,100);
+        QString subpath = data->text();
+        QString rootpath = blocksterS.config.confParHashtable->value("BLOCKSTER_BLOCKLIBS_PATH");
+        QString fullpath = rootpath+"/"+subpath;
+        Block* block = new Block(fullpath);
         this->addItem(block);
         block->setPos(event->scenePos());
-
     }
 }

@@ -21,6 +21,11 @@ public:
     QColor color = Qt::black;
     float x = 0;
     float y = 0;
+
+    QString port_id = "";
+    QString signal_type = "";
+
+    QList<QString> valid_signal_types;
 };
 
 #endif // INPORT_H

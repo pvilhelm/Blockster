@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Node id="">
-  <Node_name></Node_name>
+  <Node_name>To console</Node_name>
   <Node_type type="cpp">
     <Lib_path>core/sinks/to_console</Lib_path>
   </Node_type>
@@ -25,4 +25,10 @@
       </Tab>
     </Tabs>
   </Mask>
+  <Node_visualisation>
+	<Node_shape shape="rectangle">
+		<Node_width>50</Node_width>
+		<Node_height>50</Node_height>
+	</Node_shape>
+  </Node_visualisation>
 </Node>

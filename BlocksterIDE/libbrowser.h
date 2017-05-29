@@ -19,7 +19,7 @@ class LibBrowser : public QDockWidget
     Q_OBJECT
 
 public:
-    explicit LibBrowser(QWidget *parent = 0, QString lib_path = "");
+    explicit LibBrowser(QWidget *parent = 0);
     ~LibBrowser();
 
     void ParseBlocks();

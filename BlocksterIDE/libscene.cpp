@@ -16,28 +16,23 @@ void LibScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if (mouseEvent->button() == Qt::LeftButton && this->itemAt(mouseEvent->scenePos(),QTransform())) {
 
         Block* clickedBlock = dynamic_cast<Block*>(this->itemAt(mouseEvent->scenePos(),QTransform()));
+
         if(clickedBlock){
             QDrag *drag = new QDrag(this);
             QMimeData *mimeData = new QMimeData;
-            mimeData->setText("");
+            mimeData->setText(clickedBlock->lib_path+"/"+clickedBlock->template_name);
             drag->setMimeData(mimeData);
             drag->exec();
         }
-
-
-
     }
 }
 
 void LibScene::addBlock(QString path)
 {
     //TODO: Make this accept xml instead for more granity
-
-    if(path==""){
-        Block* block = new Block(100,100);
-        block->setPos(0,lastYPos);
-        lastYPos+=100*1.1;
-        this->addItem(block);
-        block->setEnabled(false);
-    }
+    Block* block = new Block(path);
+    block->setPos(30,lastYPos);
+    lastYPos+=(block->boundingRect()|block->childrenBoundingRect()).height()*1.1;
+    this->addItem(block);
+    block->setEnabled(false);
 }
