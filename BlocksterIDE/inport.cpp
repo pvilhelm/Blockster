@@ -47,7 +47,10 @@ void Inport::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
             prg_scene->lastSignalSegment = 0;
 
-            SignalLine* sl = (SignalLine*)ss->parentItem();
+            SignalLine* sl = dynamic_cast<SignalLine*>ss->parentItem();
+            if(!sl)
+                throw std::runtime_error("ss parent not SignalLine*");
+
             sl->addSegment(ss->scenePos()+ss->end, scenePos, SegmentType::END_SEGMENT);
 
             this->inSignalLine = sl;

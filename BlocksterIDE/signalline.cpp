@@ -43,6 +43,10 @@ void SignalLine::removeSegment(SignalSegment *ss)
         this->vec_signalnodes.removeLast();
         delete ss;
     }
+    else if(ss == this->vec_signalnodes.first()){
+        this->vec_signalnodes.removeFirst();
+        delete ss;
+    }
     else
         return;
 

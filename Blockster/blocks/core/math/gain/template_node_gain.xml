@@ -54,5 +54,11 @@
 		<Node_width>50</Node_width>
 		<Node_height>50</Node_height>
 	</Node_shape>
+	<Node_position>
+		<X>0</X>
+		<Y>0</Y>
+		<Z>0</Z>
+		<Rotation_degrees>0</Rotation_degrees>
+	</Node_position>
   </Node_visualisation>
 </Node>

@@ -12,9 +12,7 @@
 class Block : public QGraphicsItem
 {
 public:
-    enum BlockShapeType{
-        RECTANGLE
-    };
+
     class Member{
     public:
         QString member_value = "";
@@ -33,6 +31,7 @@ public:
     QString task_id = "";
     QString execution_order = "";
     QString template_name = "";
+    QString block_shape_type = "";
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
@@ -41,8 +40,8 @@ public:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
     void ProcessXMLtemplate(QString template_path);
-    void addInport(int n);
-    void addOutport(int n);
+    void addnInports(int n);
+    void addnOutports(int n);
     void setLibPath(QString lib_path);
     void parseXML();
     void setName(QString name);
@@ -50,10 +49,10 @@ public:
     QString getAsXML();
 
     QColor color = Qt::white;
-    float w = 0;
-    float h = 0;
+    double w = 0;
+    double h = 0;
 
-    BlockShapeType block_shape_type = RECTANGLE;
+
     QList<Inport*> inportptr_list;
     QList<Outport*> outportptr_list;
     QList<Member> member_list;

@@ -128,10 +128,10 @@ void Block::ProcessXMLtemplate(QString template_path)
     QDomAttr attr_shape = shape_el.attributes().namedItem("shape").toAttr();
     EXISTS_OR_THROW(attr_shape,"Node_visualisation@shape")
     if(attr_shape.value() == "rectangle"){
-        this->block_shape_type = RECTANGLE;
+        this->block_shape_type = "rectangle";
     }
     else{
-        qWarning() << "XML parsing error element doesn't exist: " << "Node_visualisation" << template_path << __LINE__<<__FILE__;
+        qWarning() << "XML parsing error unsuported attribute 'shape' in " << "Node_shape" << template_path << __LINE__<<__FILE__;
         throw std::runtime_error("XML parsing error");
     }
 
@@ -156,7 +156,7 @@ void Block::ProcessXMLtemplate(QString template_path)
     {
         QString width = w_el.text();
         bool ok;
-        float tmp = width.toFloat(&ok);
+        double tmp = width.toDouble(&ok);
         if(ok){
             w = tmp;
         }
@@ -243,7 +243,7 @@ void Block::ProcessXMLtemplate(QString template_path)
             n_outports++;
         }
         if(n_outports){
-            addOutport(n_outports);
+            addnOutports(n_outports);
         }
         for(int i =0; i< outports_el_list.length();i++){
             QDomElement e = outports_el_list[i];
@@ -289,7 +289,7 @@ void Block::ProcessXMLtemplate(QString template_path)
             inports_el_list.append(e);
         }
         if(n_inports){
-            addInport(n_inports);
+            addnInports(n_inports);
         }
         for(int i =0; i< inports_el_list.length();i++){
             QDomElement e = inports_el_list[i];
@@ -320,7 +320,7 @@ void Block::ProcessXMLtemplate(QString template_path)
 
 #undef EXISTS_OR_THROW
 
-void Block::addInport(int n)
+void Block::addnInports(int n)
 {
     for(float i = 1; i<=n; i++){
         Inport* newInport = new Inport(0,i*h/(n+1));
@@ -329,7 +329,7 @@ void Block::addInport(int n)
     }
 }
 
-void Block::addOutport(int n)
+void Block::addnOutports(int n)
 {
     for(float i = 1; i<=n; i++){
         Outport* newOutport = new Outport(w,i*h/(n+1));
@@ -434,6 +434,35 @@ QString Block::getAsXML()
         {
             ss.writeTextElement("Node_task",this->task_id);
             ss.writeTextElement("Node_execution_order",this->execution_order);
+        }
+        ss.writeEndElement();
+
+        ss.writeStartElement("Node_visualisation");
+        {
+            ss.writeStartElement("Node_shape");
+            ss.writeAttribute("shape",this->block_shape_type);
+            {
+                if(this->block_shape_type == "rectangle"){
+                    ss.writeTextElement("Node_width",QString::number(this->w,'g',17));
+                    ss.writeTextElement("Node_height",QString::number(this->h,'g',17));
+                }
+                else{
+                    qDebug() << "Unsupported shape" << __LINE__ << __FILE__;
+                    throw std::runtime_error("Unsupported shape attribute value");
+                }
+            }
+            ss.writeEndElement();
+
+            ss.writeStartElement("Node_position");
+            {
+                QPointF pos = this->scenePos();
+                double z = this->zValue();
+                ss.writeTextElement("X",QString::number(pos.x(),'g',17));
+                ss.writeTextElement("Y",QString::number(pos.y(),'g',17));
+                ss.writeTextElement("Z",QString::number(z,'g',17));
+
+            }
+            ss.writeEndElement();
         }
         ss.writeEndElement();
     }
