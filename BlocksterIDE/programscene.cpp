@@ -2,6 +2,8 @@
 #include "signalsegment.h"
 #include "blockstersession.h"
 
+#include <iostream>
+
 extern BlocksterSession blocksterS;
 
 ProgramScene::ProgramScene(QObject *parent)
@@ -101,4 +103,10 @@ void ProgramScene::addBlock(QString template_path, QPointF scene_pos)
     this->addItem(block);
     block->setPos(scene_pos);
 
+    //TODO remove
+    QString tmp = block->getAsXML();
+    QTextStream s(&tmp);
+
+    while(!s.atEnd())
+        qDebug() << s.readLine();
 }

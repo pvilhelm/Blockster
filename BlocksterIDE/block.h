@@ -15,6 +15,14 @@ public:
     enum BlockShapeType{
         RECTANGLE
     };
+    class Member{
+    public:
+        QString member_value = "";
+        QString member_type = "";
+        QString member_name = "";
+        QStringList member_allowed_types;
+        QString member_tunable = "no";
+    };
 
     Block(QString template_path);
 
@@ -39,7 +47,7 @@ public:
     void parseXML();
     void setName(QString name);
     QMimeData* getMime();
-    QString getAsXMLDom();
+    QString getAsXML();
 
     QColor color = Qt::white;
     float w = 0;
@@ -51,15 +59,6 @@ public:
     QList<Member> member_list;
 
     QGraphicsTextItem name_text_item;
-
-    class Member{
-    public:
-        QString member_value = "";
-        QString member_type = "";
-        QString member_name = "";
-        QStringList member_allowed_types;
-        bool member_tunable = false;
-    };
 };
 
 #endif // BLOCK_H

@@ -24,6 +24,8 @@ public:
 
     QString port_id = "";
     QString signal_type = "";
+    QString source_node_id = "";
+    QString source_node_outport_id ="";
 
     QList<QString> valid_signal_types;
 };

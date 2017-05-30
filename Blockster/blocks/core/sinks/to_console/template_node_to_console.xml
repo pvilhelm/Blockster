@@ -13,7 +13,11 @@
         <Inport_source_node_Outport_id></Inport_source_node_Outport_id>
       </Inport>
     </Inports>
+	<Outports/>
   </Ports>
+  <Node_init>
+	<Members/> 
+  </Node_init>
   <Node_execution>
     <Node_task></Node_task>
     <Node_execution_order></Node_execution_order>

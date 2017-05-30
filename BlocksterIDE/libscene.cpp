@@ -23,8 +23,6 @@ void LibScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             mimeData->setText(clickedBlock->lib_path+"/"+clickedBlock->template_name);
             drag->setMimeData(mimeData);
             drag->exec();
-            delete mimeData;
-            delete drag;
         }
     }
 }

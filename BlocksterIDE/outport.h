@@ -26,6 +26,8 @@ public:
     QColor color = Qt::black;
     float x = 0;
     float y = 0;
+
+
 };
 
 #endif // OUTPORT_H
