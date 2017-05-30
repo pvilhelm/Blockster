@@ -16,8 +16,6 @@ public:
         RECTANGLE
     };
 
-    Block(float w, float h);
-    Block(float x, float y, float w, float h);
     Block(QString template_path);
 
     QString block_name = "";
@@ -41,6 +39,7 @@ public:
     void parseXML();
     void setName(QString name);
     QMimeData* getMime();
+    QString getAsXMLDom();
 
     QColor color = Qt::white;
     float w = 0;
@@ -49,11 +48,18 @@ public:
     BlockShapeType block_shape_type = RECTANGLE;
     QList<Inport*> inportptr_list;
     QList<Outport*> outportptr_list;
-
+    QList<Member> member_list;
 
     QGraphicsTextItem name_text_item;
 
-
+    class Member{
+    public:
+        QString member_value = "";
+        QString member_type = "";
+        QString member_name = "";
+        QStringList member_allowed_types;
+        bool member_tunable = false;
+    };
 };
 
 #endif // BLOCK_H

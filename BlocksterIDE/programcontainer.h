@@ -22,7 +22,8 @@ public:
     ProgramScene* root_scene;
     QString prg_name;
 
-    QHash<QString,int> block_totn_hashtable;
+
+
 
 private:
     Ui::ProgramContainer *ui;

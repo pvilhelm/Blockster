@@ -28,7 +28,6 @@ void Inport::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWid
     painter->setPen(pen);
     painter->drawLine(QLine(-5,-5,0,0));
     painter->drawLine(QLine(0,0,-5,+5));
-    painter->drawRect( -12, -12, 24, 24);
 
     return;
 }

@@ -69,8 +69,36 @@ void ProgramScene::dropEvent(QGraphicsSceneDragDropEvent *event)
         QString subpath = data->text();
         QString rootpath = blocksterS.config.confParHashtable->value("BLOCKSTER_BLOCKLIBS_PATH");
         QString fullpath = rootpath+"/"+subpath;
-        Block* block = new Block(fullpath);
-        this->addItem(block);
-        block->setPos(event->scenePos());
+        addBlock(fullpath,event->scenePos());
     }
+}
+
+void ProgramScene::addBlock(QString template_path)
+{
+    this->addBlock(template_path,QPointF(0,0));
+}
+
+void ProgramScene::addBlock(QString template_path, QPointF scene_pos)
+{
+    Block* block = new Block(template_path);
+
+    if(block->block_id == ""){
+        if(this->block_totn_hashtable.contains(block->lib_path)){
+
+            int n = this->block_totn_hashtable.value(block->lib_path);
+            block->block_id = block->block_type+QString::fromStdString(std::to_string(n));
+            this->block_totn_hashtable.insert(block->lib_path,++n);
+        }
+        else{
+
+            int n = 0;
+            block->block_id = QString::fromStdString(std::to_string(n));
+            this->block_totn_hashtable.insert(block->lib_path,++n);
+
+        }
+    }
+
+    this->addItem(block);
+    block->setPos(scene_pos);
+
 }

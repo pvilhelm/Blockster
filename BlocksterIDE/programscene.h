@@ -28,7 +28,12 @@ public:
     void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
     void dropEvent(QGraphicsSceneDragDropEvent *event);
 
+    void addBlock(QString template_path);
+    void addBlock(QString template_path, QPointF scene_pos);
 
+
+    QHash<QString,int> block_totn_hashtable;
+    QList<Block*> block_ptr_list;
 };
 
 #endif // PROGRAMSCENE_H

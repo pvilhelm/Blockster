@@ -8,18 +8,6 @@
 #include "inport.h"
 
 
-Block::Block(float w, float h): Block::Block(0,0,w,h)
-{
-}
-
-Block::Block(float x, float y, float w, float h) : w(w), h(h)
-{
-    setPos(x,y);
-    setFlags(ItemIsSelectable | ItemIsMovable |  ItemSendsGeometryChanges );
-    name_text_item.setTextInteractionFlags(Qt::TextEditable);
-    name_text_item.setParentItem(this);
-    this->setName("");
-}
 
 Block::Block(QString template_path)
 {
@@ -44,6 +32,7 @@ QRectF Block::boundingRect() const
 QPainterPath Block::shape() const
 {
     QPainterPath path;
+
     path.addRect(0, 0, w, h);
     return path;
 }
@@ -52,6 +41,8 @@ void Block::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 {
     Q_UNUSED(widget);
     Q_UNUSED(option);
+    painter->setBrush(QBrush(Qt::white,Qt::SolidPattern));
+
     painter->drawRect(QRectF(0, 0, w, h));
 
     return;
@@ -110,6 +101,10 @@ void Block::ProcessXMLtemplate(QString template_path)
     file.close();
 
     QDomElement root_el = xml_root.documentElement();
+
+    //Parse id
+
+    this->block_id = root_el.attribute("id");
 
     //Parse Node_visualisation
     QDomElement vis_el = root_el.firstChildElement("Node_visualisation");
@@ -335,11 +330,54 @@ void Block::setName(QString name)
     name_text_item.setPos(this->w/2-name_text_item.textWidth()/2,h+10);
 }
 
-QMimeData *Block::getMime()
+QMimeData* Block::getMime()
 {
     QMimeData* mime = new QMimeData();
     mime->setText(this->lib_path);
     return mime;
+}
+
+QString Block::getAsXMLDom()
+{
+    QString out;
+    QXmlStreamWriter ss(&out);
+    ss.setAutoFormatting(true);
+    ss.writeStartDocument();
+
+    ss.writeStartElement("Node");
+    ss.writeAttribute("id",this->block_id);
+    {
+        ss.writeStartElement("Node_name");
+        {
+            ss.writeCharacters(this->block_name);
+        }
+        ss.writeEndElement();
+
+        ss.writeStartElement("Nonde_type");
+        ss.writeAttribute("type","cpp");
+        {
+            ss.writeStartElement("Lib_path");
+            {
+                ss.writeCharacters(this->lib_path);
+            }
+            ss.writeEndElement();
+        }
+        ss.writeEndElement();
+
+        ss.writeStartElement("Node_init");
+        {
+            ss.writeStartElement("Members");
+            {
+                for(auto m: this->member_list){
+                    ss.writeTextElement("Member_value",m.member_value);
+                    ss.writeTextElement("Member_name",m.member_name);
+                    ss.writeTextElement("Member_type",m.member_type);
+                    ss.writeTextElement("Member_tunable",m.member_tunable);
+                }
+            }
+            ss.writeEndElement();
+        }
+    }
 }
 
 
