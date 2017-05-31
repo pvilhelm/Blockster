@@ -50,11 +50,28 @@ void Block::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 
 void Block::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+
     qDebug() << "User clicked block" << "id" << this->block_id << "name" << this->block_name << __LINE__ << __FILE__;
     if(event->button()==Qt::RightButton){
         QMenu* menu = new QMenu();
         menu->addAction("Execute this first");
-        this->scene()->addWidget(menu);
+        QGraphicsProxyWidget* pw = this->scene()->addWidget(menu);
+        pw->setPos(event->scenePos());
+    }
+    else
+        QGraphicsItem::mousePressEvent(event);
+
+}
+
+void Block::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+{
+    if(event->button()==Qt::LeftButton){
+        //TODO remove
+        QString tmp = this->getAsXML();
+        QTextStream s(&tmp);
+
+        while(!s.atEnd())
+            qDebug() << s.readLine();
     }
     else
         QGraphicsItem::mousePressEvent(event);
@@ -118,6 +135,7 @@ void Block::ProcessXMLtemplate(QString template_path)
 
     this->block_id = root_el.attribute("id");
 
+
     //Parse Node_visualisation
     QDomElement vis_el = root_el.firstChildElement("Node_visualisation");
     EXISTS_OR_THROW(vis_el,"Node_visualisation")
@@ -177,6 +195,7 @@ void Block::ProcessXMLtemplate(QString template_path)
         qWarning() << "XML parsing error Lib_path length < 1: "<< template_path << __LINE__<<__FILE__;
         throw std::runtime_error("XML parsing error");
     }
+    this->block_type = lib_path.split("/").last();
 
     //Parse node members
     QDomElement node_init_el = root_el.firstChildElement("Node_init");

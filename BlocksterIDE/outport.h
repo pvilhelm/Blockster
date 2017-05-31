@@ -6,6 +6,7 @@
 #include <QtWidgets>
 
 #include "signalline.h"
+#include "programscene.h"
 
 class Outport : public QGraphicsItem
 {

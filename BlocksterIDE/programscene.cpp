@@ -10,6 +10,7 @@ ProgramScene::ProgramScene(QObject *parent)
     : QGraphicsScene(parent)
 {
     this->setSceneRect(QRectF(0,0,500,500));
+
 }
 
 void ProgramScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
@@ -29,7 +30,7 @@ void ProgramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if(!i){//check so no items are at mouse pointer
         //TODO: make so that items that shouldnt disrupt InsertLine are ignored
         //instead of propagated to .
-
+        clearSelection();
 
         if(this->mode == ProgramScene::InsertLine){
             if(lastSignalSegment == 0){
@@ -86,15 +87,13 @@ void ProgramScene::addBlock(QString template_path, QPointF scene_pos)
 
     if(block->block_id == ""){
         if(this->block_totn_hashtable.contains(block->lib_path)){
-
             int n = this->block_totn_hashtable.value(block->lib_path);
-            block->block_id = block->block_type+QString::fromStdString(std::to_string(n));
+            block->block_id = block->block_type+"_"+QString::fromStdString(std::to_string(n));
             this->block_totn_hashtable.insert(block->lib_path,++n);
         }
         else{
-
             int n = 0;
-            block->block_id = QString::fromStdString(std::to_string(n));
+            block->block_id = block->block_type+"_"+QString::fromStdString(std::to_string(n));
             this->block_totn_hashtable.insert(block->lib_path,++n);
 
         }
@@ -103,10 +102,5 @@ void ProgramScene::addBlock(QString template_path, QPointF scene_pos)
     this->addItem(block);
     block->setPos(scene_pos);
 
-    //TODO remove
-    QString tmp = block->getAsXML();
-    QTextStream s(&tmp);
 
-    while(!s.atEnd())
-        qDebug() << s.readLine();
 }

@@ -1,7 +1,7 @@
 #include "inport.h"
 #include "programscene.h"
 
-Inport::Inport(float x, float y) : x(x), y(y)
+Inport::Inport(float x, float y)
 {
     setFlags(ItemIsSelectable);
     setPos(x,y);
@@ -47,11 +47,11 @@ void Inport::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
             prg_scene->lastSignalSegment = 0;
 
-            SignalLine* sl = dynamic_cast<SignalLine*>ss->parentItem();
+            SignalLine* sl = dynamic_cast<SignalLine*>(ss->parentItem());
             if(!sl)
                 throw std::runtime_error("ss parent not SignalLine*");
 
-            sl->addSegment(ss->scenePos()+ss->end, scenePos, SegmentType::END_SEGMENT);
+            sl->addEndSegment(ss->scenePos()+ss->end, scenePos,this);
 
             this->inSignalLine = sl;
         }

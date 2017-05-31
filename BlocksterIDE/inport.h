@@ -5,7 +5,8 @@
 #include <QtXml>
 #include <QtWidgets>
 
-#include "signalline.h"
+
+class SignalLine;
 
 class Inport : public QGraphicsItem
 {
@@ -19,8 +20,6 @@ public:
 
     SignalLine* inSignalLine = 0;
     QColor color = Qt::black;
-    float x = 0;
-    float y = 0;
 
     QString port_id = "";
     QString signal_type = "";

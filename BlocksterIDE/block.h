@@ -6,8 +6,8 @@
 #include <QtWidgets>
 #include <QDomDocument>
 
-#include "inport.h"
-#include "outport.h"
+class Inport;
+class Outport;
 
 class Block : public QGraphicsItem
 {
@@ -37,6 +37,7 @@ public:
     QPainterPath shape() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
     void ProcessXMLtemplate(QString template_path);
