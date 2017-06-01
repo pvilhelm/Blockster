@@ -4,3 +4,8 @@ bster::b_block::b_block()
 {
 
 }
+
+bster::b_block::~b_block()
+{
+
+}

@@ -6,13 +6,25 @@
 
 namespace bster{
 
+struct member{
+    std::string name ="";
+    std::string value = "";
+    SIGNAL_TYPES type = SIGNAL_TYPES::INVALID_TYPE;
+    SIGNAL_TYPES effective_type = SIGNAL_TYPES::INVALID_TYPE;
+    std::vector<SIGNAL_TYPES> v_allowed_types;
+    std::string inherit_type_from = "";
+};
+
 class b_block : public b_node
 {
 public:
+
+
     b_block();
     virtual ~b_block();
 
-    std::vector<PORT_SIGNAL_TYPES> v_porttypes;
+    std::vector<member> v_members;
+
 
 };
 
