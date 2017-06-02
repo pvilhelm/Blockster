@@ -6,12 +6,14 @@
 #include <QtWidgets>
 
 
+
 class SignalLine;
 
 class Inport : public QGraphicsItem
 {
 public:
     Inport(float x,float y);
+    ~Inport();
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;

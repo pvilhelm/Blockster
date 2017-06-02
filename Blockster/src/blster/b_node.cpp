@@ -1,6 +1,7 @@
 #include "b_node.h"
 
-
+#include <unordered_map>
+#include <string>
 
 bster::b_node::b_node()
 {
@@ -16,17 +17,17 @@ bster::b_node::~b_node()
 
 int bster::b_node::getNOutports()
 {
-    return this->v_out_ports.size();
+    return this->v_children.size();
 }
 
 int bster::b_node::getNInports()
 {
-    return this->v_in_ports.size();
+    return this->v_parents.size();
 }
 
 bool bster::b_node::hasPorts()
 {
-    return (this->v_in_ports.size()+this->v_out_ports.size()) != 0;
+    return (this->v_parents.size()+this->v_children.size()) != 0;
 }
 
 
@@ -79,49 +80,29 @@ std::string bster::b_node::enumSignalTypeToBsterString(bster::SIGNAL_TYPES type)
 
 bster::SIGNAL_TYPES bster::b_node::bsterSignalTypeStringToEnum(std::string type)
 {
-    if(type.front()!='u')
-        goto A;
 
-    if(type=="uint8")
-        return SIGNAL_TYPES::UINT8;
-    if(type=="uint16")
-        return SIGNAL_TYPES::UINT16;
-    if(type=="uint32")
-        return SIGNAL_TYPES::UINT32;
-    if(type=="uint64")
-        return SIGNAL_TYPES::UINT64;
-    if(type=="uint128")
-        return SIGNAL_TYPES::UINT128;
-    A:
-    if(type.front()!='i')
-        goto B;
-    if(type=="int8")
-        return SIGNAL_TYPES::INT8;
-    if(type=="int16")
-        return SIGNAL_TYPES::INT16;
-    if(type=="int32")
-        return SIGNAL_TYPES::INT32;
-    if(type=="int64")
-        return SIGNAL_TYPES::INT64;
-    if(type=="int128")
-        return SIGNAL_TYPES::INT128;
-    B:
-    if(type=="single")
-        return SIGNAL_TYPES::SINGLE;
-    if(type=="double")
-        return SIGNAL_TYPES::DOUBLE;
-    if(type=="quad")
-        return SIGNAL_TYPES::QUAD;
-    if(type=="bool")
-        return SIGNAL_TYPES::BOOL;
-    if(type=="inherit")
-        return SIGNAL_TYPES::INHERIT;
-    if(type=="vector")
-        return SIGNAL_TYPES::VECTOR;
-    if(type=="matrix")
-        return SIGNAL_TYPES::MATRIX;
-    if(type=="")
-        return SIGNAL_TYPES::INVALID_TYPE;
+    const std::unordered_map<std::string,SIGNAL_TYPES> str_to_enum_map =
+    {
+        {"uint8",SIGNAL_TYPES::UINT8},
+        {"uint16",SIGNAL_TYPES::UINT16},
+        {"uint32",SIGNAL_TYPES::UINT32},
+        {"uint64",SIGNAL_TYPES::UINT64},
+        {"uint128",SIGNAL_TYPES::UINT128},
+        {"inherit",SIGNAL_TYPES::INHERIT},
+        {"int8",SIGNAL_TYPES::INT8},
+        {"int16",SIGNAL_TYPES::INT16},
+        {"int32",SIGNAL_TYPES::INT32},
+        {"int64",SIGNAL_TYPES::INT64},
+        {"int128",SIGNAL_TYPES::INT128},
+        {"single",SIGNAL_TYPES::SINGLE},
+        {"double",SIGNAL_TYPES::DOUBLE},
+        {"quad",SIGNAL_TYPES::QUAD},
+        {"bool",SIGNAL_TYPES::BOOL},
+        {"vector",SIGNAL_TYPES::VECTOR},
+        {"matrix",SIGNAL_TYPES::MATRIX},
+        {"",SIGNAL_TYPES::INVALID_TYPE}
+    };
 
-    return SIGNAL_TYPES::INVALID_TYPE;
+    return str_to_enum_map.at(type);
+
 }

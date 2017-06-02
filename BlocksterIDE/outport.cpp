@@ -1,9 +1,24 @@
 #include "outport.h"
+#include "signalsegment.h"
+
+#include <QDebug>
 
 Outport::Outport(float x, float y) : x(x), y(y)
 {
     setFlags(ItemIsSelectable);
     setPos(x,y);
+}
+
+Outport::~Outport()
+{
+    qDebug() << "Outport destructor";
+    if(outSignalLine){
+        outSignalLine->start_port = 0;
+        for(SignalSegment* ss : outSignalLine->vec_signalnodes){
+            if(ss->start_port == this)
+                ss->start_port = 0;
+        }
+    }
 }
 
 QRectF Outport::boundingRect() const

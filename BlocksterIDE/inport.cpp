@@ -1,10 +1,26 @@
 #include "inport.h"
 #include "programscene.h"
+#include "signalsegment.h"
+
+#include <QDebug>
 
 Inport::Inport(float x, float y)
 {
     setFlags(ItemIsSelectable);
     setPos(x,y);
+}
+
+Inport::~Inport()
+{
+    qDebug() << "Inport destructor";
+    if(inSignalLine){
+        inSignalLine->end_port_list.removeAll(this);
+        for(SignalSegment* ss : inSignalLine->vec_signalnodes){
+            if(ss->end_port == this){
+                ss->end_port = 0;
+            }
+        }
+    }
 }
 
 QRectF Inport::boundingRect() const

@@ -1,4 +1,5 @@
 #include "signalline.h"
+#include <QDebug>
 
 SignalSegment::SignalSegment(QGraphicsItem* parent, float x0, float y0, float x1, float y1)
 {
@@ -7,6 +8,11 @@ SignalSegment::SignalSegment(QGraphicsItem* parent, float x0, float y0, float x1
     setPos(QPointF(x0,y0)-sl->scenePos());
     start = QPointF(0,0);
     end = QPointF(x1,y1)-sl->scenePos()-QPointF(x0,y0);
+}
+
+SignalSegment::~SignalSegment()
+{
+    qDebug() << "SignalSegment destructor";
 }
 
 QRectF SignalSegment::boundingRect() const

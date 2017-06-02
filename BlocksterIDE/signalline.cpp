@@ -1,6 +1,6 @@
 #include "signalline.h"
 
-
+#include <QDebug>
 
 #define WIDTH 1
 
@@ -11,6 +11,8 @@ SignalLine::SignalLine(QPointF start,Outport* op)
 
 SignalLine::~SignalLine()
 {
+    qDebug() << "SignalLine destructor";
+
     for(SignalSegment* s: vec_signalnodes){
         if(s->type & END_SEGMENT){
             Inport* ip = s->end_port;

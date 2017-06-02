@@ -38,9 +38,7 @@ SOURCES += main.cpp\
     signalline.cpp \
     signalsegment.cpp \
     libscene.cpp \
-    config.cpp \
-    b_node.cpp \
-    b_block.cpp
+    config.cpp
 
 HEADERS  += mainwindow.h \
     programcontainer.h \
@@ -54,9 +52,7 @@ HEADERS  += mainwindow.h \
     signalline.h \
     signalsegment.h \
     libscene.h \
-    config.h \
-    b_node.h \
-    b_block.h
+    config.h
 
 FORMS    += mainwindow.ui \
     programcontainer.ui \

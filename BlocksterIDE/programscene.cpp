@@ -17,7 +17,7 @@ void ProgramScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 {
     if (event->mimeData()->hasFormat("text/plain"))
             event->acceptProposedAction();
-    //event->setAccepted(true);
+
 
 }
 

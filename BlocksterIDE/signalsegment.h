@@ -24,6 +24,7 @@ class SignalSegment : public QGraphicsItem
 {
 public:
     SignalSegment(QGraphicsItem* parent, float x0, float y0, float x1, float y1);
+    ~SignalSegment();
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;

@@ -61,13 +61,38 @@ namespace bster{
         PORT_DIRS dir = PORT_DIRS::INVALID;
         SIGNAL_TYPES signal_type = SIGNAL_TYPES::INVALID_TYPE;
         short port_nr = -1;
+
+		port() : port(PORT_DIRS::INVALID,-1,SIGNAL_TYPES::INVALID_TYPE){}
+
+        port(PORT_DIRS dir, short port_nr) : port(dir, port_nr, SIGNAL_TYPES::INVALID_TYPE){}
+
+        port(PORT_DIRS dir, short port_nr, SIGNAL_TYPES signal_type){
+            this->dir = dir;
+            this->port_nr = port_nr;
+            this->signal_type = signal_type;
+        }
+
     } t_port;
 
     class b_node;
 
     typedef struct node_port_ptr{
-        b_node* node;
-        t_port port;
+        b_node* remote_node = 0;
+        t_port local_port; //the port belongs to remote_node
+        short remote_port_nr = -1;
+
+        node_port_ptr(t_port local_port) : node_port_ptr(local_port,-1,0){}
+
+        node_port_ptr(t_port local_port, short remote_port_nr) : node_port_ptr(local_port,remote_port_nr,0){}
+
+        node_port_ptr(t_port local_port, short remote_port_nr, b_node* remote_node){
+            this->remote_node = remote_node;
+            this->local_port = local_port;
+            this->remote_port_nr = remote_port_nr;
+        }
+
+
+
     } t_node_port_ptr;
 
     class b_node
@@ -78,13 +103,15 @@ namespace bster{
 
         std::string node_name = "";
         std::string node_id = "";
+        std::string node_type = "";
         t_pos node_pos = {0,0,0};
 
-        std::vector<t_node_port_ptr> v_out_ports;
-        std::vector<t_node_port_ptr> v_in_ports;
+        std::vector<t_node_port_ptr> v_children;
+        std::vector<t_node_port_ptr> v_parents;
 
-        std::string enumSignalTypeToBsterString(SIGNAL_TYPES type);
-        SIGNAL_TYPES bsterSignalTypeStringToEnum(std::string type);
+        static std::string enumSignalTypeToBsterString(SIGNAL_TYPES type);
+        static SIGNAL_TYPES bsterSignalTypeStringToEnum(std::string type);
+
         int getNOutports();
         int getNInports();
         bool hasPorts();

@@ -12,6 +12,7 @@ class Outport : public QGraphicsItem
 {
 public:
     Outport(float x,float y);
+    ~Outport();
 
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
