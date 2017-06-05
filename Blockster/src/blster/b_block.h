@@ -14,6 +14,7 @@ struct member{
     SIGNAL_TYPES effective_type = SIGNAL_TYPES::INVALID_TYPE;
     std::vector<SIGNAL_TYPES> v_allowed_types;
     std::string inherit_type_from = "";
+
 };
 
 class b_block : public b_node
@@ -25,8 +26,6 @@ public:
     virtual ~b_block();
 
     std::vector<member> v_members;
-
-
 };
 
 }

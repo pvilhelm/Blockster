@@ -2,10 +2,12 @@
 
 #include <unordered_map>
 #include <string>
+#include <algorithm>
+#include <exception>
 
 bster::b_node::b_node()
 {
-
+		 
 }
 
 bster::b_node::~b_node()
@@ -28,6 +30,42 @@ int bster::b_node::getNInports()
 bool bster::b_node::hasPorts()
 {
     return (this->v_parents.size()+this->v_children.size()) != 0;
+}
+
+void bster::b_node::addPort(t_port port)
+{
+	if (port.port_nr < 0) {
+		throw new std::runtime_error("Port with negative number added to node "+this->node_id + 
+			" with port nr:"+std::to_string(port.port_nr) +" "+ std::to_string(__LINE__) + ":" + __FILE__);
+	}
+
+	if (port.dir == PORT_DIRS::OUT) {
+		node_port_ptr npp(port); // create a port node ptr struct pointing nowhere
+
+		v_children.push_back(npp);
+		sortPortPtrVectors();
+	}
+	else if (port.dir == PORT_DIRS::IN) {
+		node_port_ptr npp(port); // create a port node ptr struct pointing nowhere
+
+		v_parents.push_back(npp);
+		sortPortPtrVectors();
+	}//TODO add "uni" port 
+	else{
+		throw new std::runtime_error("Port added with invalid direction " + std::to_string(__LINE__) + ":" + __FILE__);
+	}
+}
+
+
+
+void bster::b_node::sortPortPtrVectors()
+{
+	std::sort(v_children.begin(), v_children.end(), [](const node_port_ptr& lhs, const node_port_ptr& rhs) {
+		return lhs.local_port.port_nr < rhs.local_port.port_nr;
+	});
+	std::sort(v_parents.begin(), v_parents.end(), [](const node_port_ptr& lhs, const node_port_ptr& rhs) {
+		return lhs.local_port.port_nr < rhs.local_port.port_nr;
+	});
 }
 
 
@@ -72,7 +110,8 @@ std::string bster::b_node::enumSignalTypeToBsterString(bster::SIGNAL_TYPES type)
             return "matrix";
         default:
             //TODO not implementet
-            return "";//enumTypeToBlocksterString(INVALID_TYPE);
+            //return "";//enumTypeToBlocksterString(INVALID_TYPE);
+			throw new std::runtime_error("Non existing SignalType in node "+std::to_string(__LINE__)+":"+__FILE__);
     }
 }
 
@@ -105,4 +144,19 @@ bster::SIGNAL_TYPES bster::b_node::bsterSignalTypeStringToEnum(std::string type)
 
     return str_to_enum_map.at(type);
 
+}
+
+bster::port::port()
+{
+}
+
+bster::port::port(PORT_DIRS dir, short port_nr) : port(dir, port_nr, SIGNAL_TYPES::INVALID_TYPE)
+{
+}
+
+bster::port::port(PORT_DIRS dir, short port_nr, SIGNAL_TYPES signal_type)
+{
+	this->dir = dir;
+	this->port_nr = port_nr;
+	this->signal_type = signal_type;
 }

@@ -30,6 +30,12 @@
     <ClCompile Include="test_b_node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="test_b_node_stash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="b_program_tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\b_block.h">
@@ -42,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\catch.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="b_program_tree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

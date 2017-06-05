@@ -3,52 +3,49 @@
 
 #include <vector>
 #include <string>
-
+//#include <cfloat>
 
 
 namespace bster{
 
     enum class SIGNAL_TYPES {
         INVALID_TYPE = 0,
-        UINT = 1,
-        UINT8 = UINT+(1<<1),
-        UINT16 = UINT+(2<<1),
-        UINT32 = UINT+(3<<1),
-        UINT64 = UINT+(4<<1),
-        UINT128 = UINT+(5<<1),
-        UINT_N = UINT+(6<<1),
-        INT = 16,
-        INT8 = INT+(1<<5),
-        INT16 = INT+(2<<5),
-        INT32 = INT+(3<<5),
-        INT64 = INT+(4<<5),
-        INT128 = INT+(5<<5),
-        INT_N = INT+(6<<5),
-        FLOAT = 256,//as in floating point not c-float
-        HALF = 256+(1<<9),
-        SINGLE = 256+(2<<9),//as in c-float
-        DOUBLE = 256+(3<<9),
-        QUAD = 256+(4<<9),
-        OCTUPLE = 256+(5<<9),
-        BOOL = 4096,
-        VECTOR = 8192,
-        MATRIX = 1<<14,
-        INHERIT = 1<<15
+        UINT8,
+        UINT16,
+        UINT32,
+        UINT64,
+        UINT128,
+        INT8,
+        INT16,
+        INT32,
+        INT64,
+        INT128,
+        HALF,//reserved
+        SINGLE,//as in c-float
+        DOUBLE,
+        QUAD,
+        OCTUPLE,//reserved 
+        BOOL,
+        VECTOR,
+        MATRIX,
+        INHERIT
     };
 
+	
     enum class PORT_DIRS{
         INVALID = 0,
-        IN = 1,
-        OUT = 2,
-        UNI = IN+OUT,
+        IN,
+        OUT,
+        UNI,
     } ;
 
+	
     enum class PORT_TYPES{
         INVALID = 0,
-        SIGNALS = 1,
-        CONTROL = 2,//triggers etc
-        EXECUTION_FLOW = 4,//declares which block executes after which etc
-        RELATION = 8//just meta or config character for the connection
+        SIGNALS,
+        CONTROL,//triggers etc
+        EXECUTION_FLOW,//declares which block executes after which etc
+        RELATION //just meta or config character for the connection
     };
 
     typedef struct pos{
@@ -62,15 +59,9 @@ namespace bster{
         SIGNAL_TYPES signal_type = SIGNAL_TYPES::INVALID_TYPE;
         short port_nr = -1;
 
-		port() : port(PORT_DIRS::INVALID,-1,SIGNAL_TYPES::INVALID_TYPE){}
-
-        port(PORT_DIRS dir, short port_nr) : port(dir, port_nr, SIGNAL_TYPES::INVALID_TYPE){}
-
-        port(PORT_DIRS dir, short port_nr, SIGNAL_TYPES signal_type){
-            this->dir = dir;
-            this->port_nr = port_nr;
-            this->signal_type = signal_type;
-        }
+		port();
+		port(PORT_DIRS dir, short port_nr);
+		port(PORT_DIRS dir, short port_nr, SIGNAL_TYPES signal_type);
 
     } t_port;
 
@@ -101,10 +92,15 @@ namespace bster{
         b_node();
         virtual ~b_node();
 
-        std::string node_name = "";
-        std::string node_id = "";
-        std::string node_type = "";
-        t_pos node_pos = {0,0,0};
+        std::string node_name = "";//optional pretty name for the node
+        std::string node_id = ""; //global id for the node
+        std::string node_type = ""; //ie. the path to the nodes lib folder
+		std::string node_task_id = "";
+		int node_exec_order = -1;
+
+        t_pos node_pos = {	std::numeric_limits<double>::quiet_NaN(),
+							std::numeric_limits<double>::quiet_NaN(),
+							std::numeric_limits<double>::quiet_NaN()};
 
         std::vector<t_node_port_ptr> v_children;
         std::vector<t_node_port_ptr> v_parents;
@@ -115,8 +111,13 @@ namespace bster{
         int getNOutports();
         int getNInports();
         bool hasPorts();
+		void addPort(t_port port);
+		
 
     private:
+		void sortPortPtrVectors();
     };
 }
+
+
 #endif // B_NODE_H
