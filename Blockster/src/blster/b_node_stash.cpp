@@ -3,6 +3,7 @@
 #include <exception>
 #include <iterator>
 
+
 bster::b_node_stash::b_node_stash()
 {
 
@@ -11,7 +12,7 @@ bster::b_node_stash::b_node_stash()
 void bster::b_node_stash::addNode(bster::b_node node)
 {
     //add node to vector of all nodes
-    v_nodes.push_back(node);
+    v_nodes.push_back(std::make_unique<b_node>(node));
 
     //check how many nodes of this type that has been added
     //
@@ -37,7 +38,7 @@ int bster::b_node_stash::getCountByNodeType(std::string type)
 
 bool bster::b_node_stash::verifyNodes()
 {
-	for (auto node : v_nodes) {
+	for (auto&& node : v_nodes) {
 		if (!verify(node)) {
 			return false; 
 		}
@@ -45,20 +46,20 @@ bool bster::b_node_stash::verifyNodes()
 	return true;
 }
 
-bool bster::b_node_stash::verify(b_node node)
+bool bster::b_node_stash::verify(std::unique_ptr<b_node>& node)
 {
 	
-	if (node.node_id == "")
+	if (node->node_id == "")
 		return false;
-	if (node.node_type == "")
+	if (node->node_type == "")
 		return false;
-	if (std::isnan(node.node_pos.x))
+	if (std::isnan(node->node_pos.x))
 		return false;
-	if (std::isnan(node.node_pos.y))
+	if (std::isnan(node->node_pos.y))
 		return false;
-	if (std::isnan(node.node_pos.z))
+	if (std::isnan(node->node_pos.z))
 		return false;
-	if (node.node_task_id == "")
+	if (node->node_task_id == "")
 		return false; 
 	return true;
 }

@@ -3,12 +3,16 @@
 #include <string>
 #include <iostream>
 #include <limits>
+//#include <exception>
+#include <stdexcept>
 
 #include "b_node_stash.h"
 #include "b_node.h"
 #include "b_program_tree.h"
 
 using namespace bster;
+
+
 
 TEST_CASE("Test b_program_tree", "[std]") {
 	SECTION("Constructor") {
@@ -26,14 +30,17 @@ TEST_CASE("Test b_program_tree", "[std]") {
 			n0.node_type = "test/type";
 			n0.node_id = "type_" + std::to_string(i);
 			n0.node_task_id = "0";
+			n0.node_exec_order = i;
 			b_node n1;
 			n1.node_type = "is/another/typety";
 			n1.node_id = "typety_" + std::to_string(i);
 			n1.node_task_id = "1";
+			n1.node_exec_order = i;
 			b_node n2;
 			n2.node_type = "is/yet/another/typety";
 			n2.node_id = "yettypety_" + std::to_string(i);
 			n2.node_task_id = "2";
+			n2.node_exec_order = i;
 			bns0.addNode(n0);
 			bns0.addNode(n1);
 			bns0.addNode(n2);
@@ -66,6 +73,9 @@ TEST_CASE("Test b_program_tree", "[std]") {
 			n2.node_type = "is/yet/another/typety"; 
 			n2.node_id = "yettypety_" + std::to_string(i); 
 			n2.node_task_id = "2"; 
+			n0.node_exec_order = i;
+			n1.node_exec_order = i;
+			n2.node_exec_order = i;
 			bns0.addNode(n0); 
 			bns0.addNode(n1); 
 			bns0.addNode(n2); 
@@ -79,7 +89,7 @@ TEST_CASE("Test b_program_tree", "[std]") {
 		for (int i = 0; i < bpt.v_tasks.size(); i++) {
 			//ensure the task or stored in order by task id
 			if (i != bpt.v_tasks.size() - 1)
-				REQUIRE(bpt.v_tasks[i].task_id < bpt.v_tasks[i + 1].task_id);
+				REQUIRE(bpt.v_tasks[i]->task_id < bpt.v_tasks[i + 1]->task_id);
 		}
 		//assure that the temporary v_nodes is acctually cleared
 		REQUIRE(bpt.v_nodes.size() == 0);
@@ -101,6 +111,9 @@ TEST_CASE("Test b_program_tree", "[std]") {
 					n2.node_type = "is/yet/another/typety"; 
 					n2.node_id = "yettypety_" + std::to_string(i); 
 					n2.node_task_id = "3"; 
+					n0.node_exec_order = i;
+					n1.node_exec_order = i;
+					n2.node_exec_order = i;
 					bns1.addNode(n0);
 					bns1.addNode(n1); 
 					bns1.addNode(n2); 
@@ -126,6 +139,9 @@ TEST_CASE("Test b_program_tree", "[std]") {
 				n2.node_type = "is/yet/another/typety";
 				n2.node_id = "yettypety_" + std::to_string(i);
 				n2.node_task_id = "-1";
+				n0.node_exec_order = i;
+				n1.node_exec_order = i;
+				n2.node_exec_order = i;
 				bns1.addNode(n0);
 				bns1.addNode(n1);
 				bns1.addNode(n2);

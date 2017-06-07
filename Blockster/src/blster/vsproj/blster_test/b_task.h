@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <memory>
+
 
 #include "b_node.h"
 
@@ -11,10 +13,10 @@ namespace bster {
 		b_task(int task_id);
 		~b_task();
 
-		std::vector<b_node> v_nodes;
+		std::vector<std::shared_ptr<b_node>> v_nodes;
 		int task_id = -1;
 
-		void addNode(b_node node);
+		void addNode(std::unique_ptr<b_node> node);
 		void processAllNodes();
 
 	};

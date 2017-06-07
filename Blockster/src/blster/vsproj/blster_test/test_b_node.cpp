@@ -1,8 +1,8 @@
-#include "catch.hpp"
-
-#include "b_node.h"
-
 #include <numeric>
+#include <memory>
+
+#include "catch.hpp"
+#include "b_node.h"
 
 using namespace bster;
 
@@ -56,17 +56,17 @@ TEST_CASE("Test b_node fundamental", "[std]") {
 			REQUIRE(p.local_port.dir == PORT_DIRS::INVALID);
 			REQUIRE(p.local_port.port_nr == -1);
 			REQUIRE(p.local_port.signal_type == SIGNAL_TYPES::INVALID_TYPE);
-			REQUIRE(p.remote_node == 0);
+			REQUIRE(p.remote_node == nullptr);
 			REQUIRE(p.remote_port_nr == -1);
-
+			
 			tp.port_nr = 2000;
-			t_node_port_ptr p1(tp,10,(b_node*)100);
+			t_node_port_ptr p1(tp,10,std::make_unique<b_node>());
 			REQUIRE(p1.local_port.dir == PORT_DIRS::INVALID);
 			REQUIRE(p1.local_port.port_nr == 2000);
 			REQUIRE(p1.local_port.signal_type == SIGNAL_TYPES::INVALID_TYPE);
-			REQUIRE(p1.remote_node == (b_node*)100);
+			REQUIRE(p1.remote_node.get() != nullptr);
 			REQUIRE(p1.remote_port_nr == 10);
-
+			
 		}
 	}
 

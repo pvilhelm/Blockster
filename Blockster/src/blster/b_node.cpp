@@ -35,7 +35,7 @@ bool bster::b_node::hasPorts()
 void bster::b_node::addPort(t_port port)
 {
 	if (port.port_nr < 0) {
-		throw new std::runtime_error("Port with negative number added to node "+this->node_id + 
+		throw std::runtime_error("Port with negative number added to node "+this->node_id + 
 			" with port nr:"+std::to_string(port.port_nr) +" "+ std::to_string(__LINE__) + ":" + __FILE__);
 	}
 
@@ -52,7 +52,7 @@ void bster::b_node::addPort(t_port port)
 		sortPortPtrVectors();
 	}//TODO add "uni" port 
 	else{
-		throw new std::runtime_error("Port added with invalid direction " + std::to_string(__LINE__) + ":" + __FILE__);
+		throw std::runtime_error("Port added with invalid direction " + std::to_string(__LINE__) + ":" + __FILE__);
 	}
 }
 
@@ -111,7 +111,7 @@ std::string bster::b_node::enumSignalTypeToBsterString(bster::SIGNAL_TYPES type)
         default:
             //TODO not implementet
             //return "";//enumTypeToBlocksterString(INVALID_TYPE);
-			throw new std::runtime_error("Non existing SignalType in node "+std::to_string(__LINE__)+":"+__FILE__);
+			throw std::runtime_error("Non existing SignalType in node "+std::to_string(__LINE__)+":"+__FILE__);
     }
 }
 

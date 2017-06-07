@@ -1,3 +1,5 @@
+#include <memory>
+
 #include "catch.hpp"
 
 #include "b_node_stash.h"
@@ -37,15 +39,15 @@ TEST_CASE("Test b_node_stash", "[std]") {
 			REQUIRE(bns0.v_nodes.size() == n * 2);
 		}
 		{
-			b_node n0;
+			std::unique_ptr<b_node> n0 = std::make_unique<b_node>();
 			REQUIRE_FALSE(b_node_stash::verify(n0));
-			n0.node_id = "constant_0000";
+			n0->node_id = "constant_0000";
 			REQUIRE_FALSE(b_node_stash::verify(n0));
-			n0.node_type = "is/a/valid/type";
+			n0->node_type = "is/a/valid/type";
 			REQUIRE_FALSE(b_node_stash::verify(n0));
-			n0.node_task_id = "1";
+			n0->node_task_id = "1";
 			REQUIRE_FALSE(b_node_stash::verify(n0));
-			n0.node_pos = pos{ 1., 2., 4. };
+			n0->node_pos = pos{ 1., 2., 4. };
 			REQUIRE(b_node_stash::verify(n0));
 		}
 		{

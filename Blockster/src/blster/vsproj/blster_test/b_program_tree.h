@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 #include "b_node.h"
 #include "b_task.h"
@@ -13,10 +14,10 @@ namespace bster{
 		b_program_tree();
 		~b_program_tree();
 
-		std::vector<b_node> v_nodes;//initial vector of all nodes
-		std::vector<b_task> v_tasks;//vector of all tasks sorted by task id. INF = int32max
+		std::vector<std::unique_ptr<b_node>> v_nodes;//initial vector of all nodes
+		std::vector<std::unique_ptr<b_task>> v_tasks;//vector of all tasks sorted by task id. INF = int32max
 
-		void setVectorOfNodes(std::vector<b_node> v_nodes);//Move 
+		void setVectorOfNodes(std::vector<std::unique_ptr<b_node>> v_nodes);//Move 
 		void makeTaskVectors();
 
 	private:

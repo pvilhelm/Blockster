@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 //#include <cfloat>
 
 
@@ -68,22 +69,19 @@ namespace bster{
     class b_node;
 
     typedef struct node_port_ptr{
-        b_node* remote_node = 0;
+        std::shared_ptr<b_node> remote_node;
         t_port local_port; //the port belongs to remote_node
         short remote_port_nr = -1;
 
-        node_port_ptr(t_port local_port) : node_port_ptr(local_port,-1,0){}
+        node_port_ptr(t_port local_port) : node_port_ptr(local_port, -1, nullptr){}
 
-        node_port_ptr(t_port local_port, short remote_port_nr) : node_port_ptr(local_port,remote_port_nr,0){}
+        node_port_ptr(t_port local_port, short remote_port_nr) : node_port_ptr(local_port,remote_port_nr,nullptr){}
 
-        node_port_ptr(t_port local_port, short remote_port_nr, b_node* remote_node){
+        node_port_ptr(t_port local_port, short remote_port_nr, std::shared_ptr<b_node> remote_node){
             this->remote_node = remote_node;
             this->local_port = local_port;
             this->remote_port_nr = remote_port_nr;
         }
-
-
-
     } t_node_port_ptr;
 
     class b_node

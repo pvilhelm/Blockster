@@ -8,6 +8,7 @@
 #include <string>
 #include <list>
 #include <vector>
+#include <memory>
 
 namespace bster{
 
@@ -21,9 +22,9 @@ public:
 	bool verifyNodes();
     //b_node* getNodePtrById(std::string id);
     //std::list<b_node*> getNodePtrListByType(std::string type);
-	std::vector<b_node> v_nodes; //vector of all nodes
+	std::vector<std::unique_ptr<b_node>> v_nodes; //vector of all nodes
 
-	static bool verify(b_node node);//check that node is complete for next step
+	static bool verify(std::unique_ptr<b_node>& node);//check that node is complete for next step
 	
 
 private:

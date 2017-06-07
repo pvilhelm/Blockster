@@ -1,5 +1,6 @@
-#include "catch.hpp"
+#include <memory>
 
+#include "catch.hpp"
 #include "b_task.h"
 
 using namespace bster;
@@ -18,7 +19,7 @@ TEST_CASE("Test b_task", "[std]") {
 		b_node n0;
 		const int n = 4;
 		for (int i = 0; i < 4; i++) {
-			t0.addNode(n0);
+			t0.addNode(std::make_unique<b_node>(n0));
 		}
 		REQUIRE(t0.v_nodes.size() == n);
 	}
