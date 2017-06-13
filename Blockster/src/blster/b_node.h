@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include <memory>
-//#include <cfloat>
+#include <tuple>
 
 
 namespace bster{
@@ -55,35 +55,24 @@ namespace bster{
         double z;
     } t_pos;
 
+	class b_node;//gotta love C++ ...
+	typedef struct port t_port;
+
     typedef struct port{
         PORT_DIRS dir = PORT_DIRS::INVALID;
         SIGNAL_TYPES signal_type = SIGNAL_TYPES::INVALID_TYPE;
-        short port_nr = -1;
+        short local_port_nr = -1;
 
+		std::vector<std::string> v_remote_node_id;
+		std::vector<std::pair<std::shared_ptr<b_node>,short>> v_pair_remote_node_portnr;
+		
 		port();
 		port(PORT_DIRS dir, short port_nr);
 		port(PORT_DIRS dir, short port_nr, SIGNAL_TYPES signal_type);
-
+		
     } t_port;
 
-    class b_node;
-
-    typedef struct node_port_ptr{
-        std::shared_ptr<b_node> remote_node;
-        t_port local_port; //the port belongs to remote_node
-        short remote_port_nr = -1;
-
-        node_port_ptr(t_port local_port) : node_port_ptr(local_port, -1, nullptr){}
-
-        node_port_ptr(t_port local_port, short remote_port_nr) : node_port_ptr(local_port,remote_port_nr,nullptr){}
-
-        node_port_ptr(t_port local_port, short remote_port_nr, std::shared_ptr<b_node> remote_node){
-            this->remote_node = remote_node;
-            this->local_port = local_port;
-            this->remote_port_nr = remote_port_nr;
-        }
-    } t_node_port_ptr;
-
+	 
     class b_node
     {
     public:
@@ -100,8 +89,10 @@ namespace bster{
 							std::numeric_limits<double>::quiet_NaN(),
 							std::numeric_limits<double>::quiet_NaN()};
 
-        std::vector<t_node_port_ptr> v_children;
-        std::vector<t_node_port_ptr> v_parents;
+        
+
+		std::vector<t_port> v_inports;
+		std::vector<t_port> v_outports;
 
         static std::string enumSignalTypeToBsterString(SIGNAL_TYPES type);
         static SIGNAL_TYPES bsterSignalTypeStringToEnum(std::string type);

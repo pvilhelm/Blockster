@@ -35,46 +35,28 @@ TEST_CASE("Test b_node fundamental", "[std]") {
 			t_port p;
 			REQUIRE(p.dir == bster::PORT_DIRS::INVALID);
 			REQUIRE(p.signal_type == bster::SIGNAL_TYPES::INVALID_TYPE);
-			REQUIRE(p.port_nr == -1);
+			REQUIRE(p.local_port_nr == -1);
 		}
 		{
 			t_port p(PORT_DIRS::IN, 3000);
 			REQUIRE(p.dir == PORT_DIRS::IN);
-			REQUIRE(p.port_nr == 3000);
+			REQUIRE(p.local_port_nr == 3000);
 			REQUIRE(p.signal_type == SIGNAL_TYPES::INVALID_TYPE);
 		}
 		{
 			t_port p(PORT_DIRS::IN, -1,SIGNAL_TYPES::DOUBLE);
 			REQUIRE(p.dir == PORT_DIRS::IN);
-			REQUIRE(p.port_nr == -1);
+			REQUIRE(p.local_port_nr == -1);
 			REQUIRE(p.signal_type == SIGNAL_TYPES::DOUBLE);
 		}
-		//node_port_ptr
-		{
-			t_port tp;
-			t_node_port_ptr p(tp);
-			REQUIRE(p.local_port.dir == PORT_DIRS::INVALID);
-			REQUIRE(p.local_port.port_nr == -1);
-			REQUIRE(p.local_port.signal_type == SIGNAL_TYPES::INVALID_TYPE);
-			REQUIRE(p.remote_node == nullptr);
-			REQUIRE(p.remote_port_nr == -1);
-			
-			tp.port_nr = 2000;
-			t_node_port_ptr p1(tp,10,std::make_unique<b_node>());
-			REQUIRE(p1.local_port.dir == PORT_DIRS::INVALID);
-			REQUIRE(p1.local_port.port_nr == 2000);
-			REQUIRE(p1.local_port.signal_type == SIGNAL_TYPES::INVALID_TYPE);
-			REQUIRE(p1.remote_node.get() != nullptr);
-			REQUIRE(p1.remote_port_nr == 10);
-			
-		}
+		
 	}
 
 	SECTION("addPort()")
 	{
 		{//check that ports inserted in "wrong" order are sorted properly
 			b_node b0;
-			t_port p0(PORT_DIRS::IN,0,	SIGNAL_TYPES::SINGLE);
+			t_port p0(PORT_DIRS::IN, 0,	SIGNAL_TYPES::SINGLE);
 			t_port p1(PORT_DIRS::IN, 1, SIGNAL_TYPES::SINGLE);
 			t_port p2(PORT_DIRS::IN, 2, SIGNAL_TYPES::SINGLE);
 			t_port p3(PORT_DIRS::IN, 3, SIGNAL_TYPES::SINGLE);
@@ -103,15 +85,15 @@ TEST_CASE("Test b_node fundamental", "[std]") {
 			//port nr is the key for the sort
 			//also check that out ports end up in v_parents and in in children 
 			short i = 0;
-			for (auto pnptr : b0.v_children) {
-				REQUIRE(pnptr.local_port.port_nr == i);
-				REQUIRE(pnptr.local_port.dir == PORT_DIRS::OUT);
+			for (auto pnptr : b0.v_inports) {
+				REQUIRE(pnptr.local_port_nr == i);
+				REQUIRE(pnptr.dir == PORT_DIRS::IN);
 				i++;
 			}
 			i = 0;
-			for (auto pnptr : b0.v_parents) {
-				REQUIRE(pnptr.local_port.port_nr == i);
-				REQUIRE(pnptr.local_port.dir == PORT_DIRS::IN);
+			for (auto pnptr : b0.v_outports) {
+				REQUIRE(pnptr.local_port_nr == i);
+				REQUIRE(pnptr.dir == PORT_DIRS::OUT);
 				i++;
 			}
 		}

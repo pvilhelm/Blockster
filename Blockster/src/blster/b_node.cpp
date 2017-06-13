@@ -19,36 +19,33 @@ bster::b_node::~b_node()
 
 int bster::b_node::getNOutports()
 {
-    return this->v_children.size();
+    return this->v_outports.size();
 }
 
 int bster::b_node::getNInports()
 {
-    return this->v_parents.size();
+    return this->v_inports.size();
 }
 
 bool bster::b_node::hasPorts()
 {
-    return (this->v_parents.size()+this->v_children.size()) != 0;
+    return (this->v_outports.size()+this->v_inports.size()) != 0;
 }
 
 void bster::b_node::addPort(t_port port)
 {
-	if (port.port_nr < 0) {
+	if (port.local_port_nr < 0) {
 		throw std::runtime_error("Port with negative number added to node "+this->node_id + 
-			" with port nr:"+std::to_string(port.port_nr) +" "+ std::to_string(__LINE__) + ":" + __FILE__);
+			" with port nr:"+std::to_string(port.local_port_nr) +" "+ std::to_string(__LINE__) + ":" + __FILE__);
 	}
 
 	if (port.dir == PORT_DIRS::OUT) {
-		node_port_ptr npp(port); // create a port node ptr struct pointing nowhere
-
-		v_children.push_back(npp);
+		
+		v_outports.push_back(port);
 		sortPortPtrVectors();
 	}
 	else if (port.dir == PORT_DIRS::IN) {
-		node_port_ptr npp(port); // create a port node ptr struct pointing nowhere
-
-		v_parents.push_back(npp);
+		v_inports.push_back(port);
 		sortPortPtrVectors();
 	}//TODO add "uni" port 
 	else{
@@ -60,11 +57,11 @@ void bster::b_node::addPort(t_port port)
 
 void bster::b_node::sortPortPtrVectors()
 {
-	std::sort(v_children.begin(), v_children.end(), [](const node_port_ptr& lhs, const node_port_ptr& rhs) {
-		return lhs.local_port.port_nr < rhs.local_port.port_nr;
+	std::sort(v_outports.begin(), v_outports.end(), [](const t_port& lhs, const t_port& rhs) {
+		return lhs.local_port_nr < rhs.local_port_nr;
 	});
-	std::sort(v_parents.begin(), v_parents.end(), [](const node_port_ptr& lhs, const node_port_ptr& rhs) {
-		return lhs.local_port.port_nr < rhs.local_port.port_nr;
+	std::sort(v_inports.begin(), v_inports.end(), [](const t_port& lhs, const t_port& rhs) {
+		return lhs.local_port_nr < rhs.local_port_nr;
 	});
 }
 
@@ -146,7 +143,7 @@ bster::SIGNAL_TYPES bster::b_node::bsterSignalTypeStringToEnum(std::string type)
 
 }
 
-bster::port::port()
+bster::port::port() : port(PORT_DIRS::INVALID, -1, SIGNAL_TYPES::INVALID_TYPE)
 {
 }
 
@@ -156,7 +153,8 @@ bster::port::port(PORT_DIRS dir, short port_nr) : port(dir, port_nr, SIGNAL_TYPE
 
 bster::port::port(PORT_DIRS dir, short port_nr, SIGNAL_TYPES signal_type)
 {
+	
 	this->dir = dir;
-	this->port_nr = port_nr;
+	this->local_port_nr = port_nr;
 	this->signal_type = signal_type;
 }
