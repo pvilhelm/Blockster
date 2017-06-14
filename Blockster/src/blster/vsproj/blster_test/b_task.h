@@ -18,7 +18,7 @@ namespace bster {
 
 		void addNode(std::unique_ptr<b_node> node);
 		void processAllNodes();
-		void linkNodesPorts(std::shared_ptr<b_node> node);
+		void linkNodesPorts(std::shared_ptr<b_node> node, bool is_root = false);
 	};
 }
 
