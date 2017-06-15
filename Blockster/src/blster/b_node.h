@@ -85,6 +85,7 @@ namespace bster{
         std::string node_type = ""; //ie. the path to the nodes lib folder
 		std::string node_task_id = "";
 		int node_exec_order = -1;
+		
 
         t_pos node_pos = {	std::numeric_limits<double>::quiet_NaN(),
 							std::numeric_limits<double>::quiet_NaN(),
