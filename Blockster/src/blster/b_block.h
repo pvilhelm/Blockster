@@ -7,7 +7,7 @@
 
 namespace bster{
 
-struct member{
+/*struct member{
     std::string name ="";
     std::string value = "";
     SIGNAL_TYPES type = SIGNAL_TYPES::INVALID_TYPE;
@@ -15,7 +15,7 @@ struct member{
     std::vector<SIGNAL_TYPES> v_allowed_types;
     std::string inherit_type_from = "";
 
-};
+};*/
 
 class b_block : public b_node
 {
@@ -25,7 +25,7 @@ public:
     b_block();
     virtual ~b_block();
 
-    std::vector<member> v_members;
+    //std::vector<t_member> v_members;
 };
 
 }

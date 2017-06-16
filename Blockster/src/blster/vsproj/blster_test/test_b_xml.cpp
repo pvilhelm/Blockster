@@ -42,6 +42,6 @@ TEST_CASE("Test b_xml", "[std]") {
 </Node>)asd";
 
 		b_node node = b_xml::getNodeFromXml(str_node_xml);
-		int a = 1 + 1;
+		
 	}
 }

@@ -66,7 +66,7 @@ void bster::b_node::sortPortPtrVectors()
 }
 
 
-std::string bster::b_node::enumSignalTypeToBsterString(bster::SIGNAL_TYPES type)
+std::string bster::enumSignalTypeToBsterString(SIGNAL_TYPES type)
 {
     switch(type){
         case SIGNAL_TYPES::INVALID_TYPE:
@@ -114,7 +114,7 @@ std::string bster::b_node::enumSignalTypeToBsterString(bster::SIGNAL_TYPES type)
 
 
 
-bster::SIGNAL_TYPES bster::b_node::bsterSignalTypeStringToEnum(std::string type)
+bster::SIGNAL_TYPES bster::bsterSignalTypeStringToEnum(std::string type)
 {
 
     const std::unordered_map<std::string,SIGNAL_TYPES> str_to_enum_map =
@@ -138,8 +138,12 @@ bster::SIGNAL_TYPES bster::b_node::bsterSignalTypeStringToEnum(std::string type)
         {"matrix",SIGNAL_TYPES::MATRIX},
         {"",SIGNAL_TYPES::INVALID_TYPE}
     };
-
-    return str_to_enum_map.at(type);
+	if (str_to_enum_map.find(type) != str_to_enum_map.end())
+		return str_to_enum_map.at(type);
+	else if (type.substr(0, 7) == "inherit")
+		return SIGNAL_TYPES::INHERIT;//todo: @members@nameofmember etc need to be handlded somewhere
+	else
+		throw std::runtime_error("No SIGNAL_TYPES for " + type);
 
 }
 

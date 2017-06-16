@@ -153,51 +153,52 @@ TEST_CASE("Test b_node fundamental", "[std]") {
 	}
 
 	SECTION("bsterSignalTypeStringToEnum()") {
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("int8") == SIGNAL_TYPES::INT8);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("int16") == SIGNAL_TYPES::INT16);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("int32") == SIGNAL_TYPES::INT32);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("int64") == SIGNAL_TYPES::INT64);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("int128") == SIGNAL_TYPES::INT128);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("uint8") == SIGNAL_TYPES::UINT8);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("uint16") == SIGNAL_TYPES::UINT16);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("uint32") == SIGNAL_TYPES::UINT32);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("uint64") == SIGNAL_TYPES::UINT64);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("uint128") == SIGNAL_TYPES::UINT128);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("single") == SIGNAL_TYPES::SINGLE);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("double") == SIGNAL_TYPES::DOUBLE);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("quad") == SIGNAL_TYPES::QUAD);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("bool") == SIGNAL_TYPES::BOOL);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("inherit") == SIGNAL_TYPES::INHERIT);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("vector") == SIGNAL_TYPES::VECTOR);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("matrix") == SIGNAL_TYPES::MATRIX);
-		REQUIRE(b_node::bsterSignalTypeStringToEnum("") == SIGNAL_TYPES::INVALID_TYPE);
-		REQUIRE_THROWS(b_node::bsterSignalTypeStringToEnum(" uint8"));
-		REQUIRE_THROWS(b_node::bsterSignalTypeStringToEnum(" "));
-		REQUIRE_THROWS(b_node::bsterSignalTypeStringToEnum("Double"));
-		REQUIRE_THROWS(b_node::bsterSignalTypeStringToEnum("DOUBLE"));
-		REQUIRE_THROWS(b_node::bsterSignalTypeStringToEnum("int 8"));
+		using namespace bster;
+		REQUIRE(bsterSignalTypeStringToEnum("int8") == SIGNAL_TYPES::INT8);
+		REQUIRE(bsterSignalTypeStringToEnum("int16") == SIGNAL_TYPES::INT16);
+		REQUIRE(bsterSignalTypeStringToEnum("int32") == SIGNAL_TYPES::INT32);
+		REQUIRE(bsterSignalTypeStringToEnum("int64") == SIGNAL_TYPES::INT64);
+		REQUIRE(bsterSignalTypeStringToEnum("int128") == SIGNAL_TYPES::INT128);
+		REQUIRE(bsterSignalTypeStringToEnum("uint8") == SIGNAL_TYPES::UINT8);
+		REQUIRE(bsterSignalTypeStringToEnum("uint16") == SIGNAL_TYPES::UINT16);
+		REQUIRE(bsterSignalTypeStringToEnum("uint32") == SIGNAL_TYPES::UINT32);
+		REQUIRE(bsterSignalTypeStringToEnum("uint64") == SIGNAL_TYPES::UINT64);
+		REQUIRE(bsterSignalTypeStringToEnum("uint128") == SIGNAL_TYPES::UINT128);
+		REQUIRE(bsterSignalTypeStringToEnum("single") == SIGNAL_TYPES::SINGLE);
+		REQUIRE(bsterSignalTypeStringToEnum("double") == SIGNAL_TYPES::DOUBLE);
+		REQUIRE(bsterSignalTypeStringToEnum("quad") == SIGNAL_TYPES::QUAD);
+		REQUIRE(bsterSignalTypeStringToEnum("bool") == SIGNAL_TYPES::BOOL);
+		REQUIRE(bsterSignalTypeStringToEnum("inherit") == SIGNAL_TYPES::INHERIT);
+		REQUIRE(bsterSignalTypeStringToEnum("vector") == SIGNAL_TYPES::VECTOR);
+		REQUIRE(bsterSignalTypeStringToEnum("matrix") == SIGNAL_TYPES::MATRIX);
+		REQUIRE(bsterSignalTypeStringToEnum("") == SIGNAL_TYPES::INVALID_TYPE);
+		REQUIRE_THROWS(bsterSignalTypeStringToEnum(" uint8"));
+		REQUIRE_THROWS(bsterSignalTypeStringToEnum(" "));
+		REQUIRE_THROWS(bsterSignalTypeStringToEnum("Double"));
+		REQUIRE_THROWS(bsterSignalTypeStringToEnum("DOUBLE"));
+		REQUIRE_THROWS(bsterSignalTypeStringToEnum("int 8"));
 	}
 
 	SECTION("enumSignalTypeToBsterString()") {
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::INT8) == "int8");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::INT16) == "int16");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::INT32) == "int32");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::INT64) == "int64");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::INT128) == "int128");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::UINT8) == "uint8");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::UINT16) == "uint16");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::UINT32) == "uint32");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::UINT64) == "uint64");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::UINT128) == "uint128");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::SINGLE) == "single");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::DOUBLE) == "double");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::QUAD) == "quad");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::BOOL) == "bool");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::INHERIT) == "inherit");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::VECTOR) == "vector");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::MATRIX) == "matrix");
-		REQUIRE(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::INVALID_TYPE) == "");
-		REQUIRE_THROWS(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::HALF));
-		REQUIRE_THROWS(b_node::enumSignalTypeToBsterString(SIGNAL_TYPES::OCTUPLE));
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::INT8) == "int8");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::INT16) == "int16");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::INT32) == "int32");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::INT64) == "int64");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::INT128) == "int128");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::UINT8) == "uint8");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::UINT16) == "uint16");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::UINT32) == "uint32");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::UINT64) == "uint64");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::UINT128) == "uint128");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::SINGLE) == "single");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::DOUBLE) == "double");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::QUAD) == "quad");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::BOOL) == "bool");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::INHERIT) == "inherit");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::VECTOR) == "vector");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::MATRIX) == "matrix");
+		REQUIRE(enumSignalTypeToBsterString(SIGNAL_TYPES::INVALID_TYPE) == "");
+		REQUIRE_THROWS(enumSignalTypeToBsterString(SIGNAL_TYPES::HALF));
+		REQUIRE_THROWS(enumSignalTypeToBsterString(SIGNAL_TYPES::OCTUPLE));
 	}
 }
