@@ -56,10 +56,10 @@ void bster::b_program_tree::makeTaskVectors()
 	//asure all tasks ids are: n_(k+1) = n_k+1 except inf
 	for (unsigned i = 0; i < v_tasks.size(); i++) {
 		auto& t = v_tasks[i];
-		//this is is not "inf" ie. int32 max
+		
 		
 		if (i != v_tasks.size() - 1){
-			//if following id is not inf and this id is not one smaller then the following id
+			//if id is not one smaller then the following id
 			if (t->task_id+1 != v_tasks[i + 1]->task_id) {
 				throw std::runtime_error("Task ids not in n_(k+1) = n_k+1" + 
 					std::to_string(__LINE__) + ":" + __FILE__);

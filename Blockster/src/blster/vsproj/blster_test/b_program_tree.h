@@ -14,7 +14,7 @@ namespace bster{
 		b_program_tree();
 		~b_program_tree();
 
-		std::vector<std::unique_ptr<b_node>> v_nodes;//initial vector of all nodes
+		std::vector<std::unique_ptr<b_node>> v_nodes;//initial vector of all nodes (gets cleared) TODO: make private?
 		std::vector<std::unique_ptr<b_task>> v_tasks;//vector of all tasks sorted by task id. INF = int32max
 
 		void setVectorOfNodes(std::vector<std::unique_ptr<b_node>> v_nodes);//Move 

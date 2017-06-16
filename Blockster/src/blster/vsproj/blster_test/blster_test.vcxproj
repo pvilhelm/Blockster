@@ -104,7 +104,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Repos\Blockster\Blockster\src\blster;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Repos\Blockster\Blockster\src\blster;C:\Repos\Blockster\libs\pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,7 +123,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../../</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../;../../../../../libs/pugixml/src;</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
@@ -169,6 +169,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\libs\pugixml\src\pugixml.cpp" />
     <ClCompile Include="..\..\b_block.cpp" />
     <ClCompile Include="..\..\b_node.cpp" />
     <ClCompile Include="..\..\b_node_stash.cpp">
@@ -176,10 +177,12 @@
     </ClCompile>
     <ClCompile Include="b_program_tree.cpp" />
     <ClCompile Include="b_task.cpp" />
+    <ClCompile Include="b_xml.cpp" />
     <ClCompile Include="test_b_node.cpp" />
     <ClCompile Include="test_b_node_stash.cpp" />
     <ClCompile Include="test_b_program_tree.cpp" />
     <ClCompile Include="test_b_task.cpp" />
+    <ClCompile Include="test_b_xml.cpp" />
     <ClCompile Include="test_main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +192,7 @@
     <ClInclude Include="..\..\catch.hpp" />
     <ClInclude Include="b_program_tree.h" />
     <ClInclude Include="b_task.h" />
+    <ClInclude Include="b_xml.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -84,6 +84,7 @@ namespace bster{
         std::string node_id = ""; //global id for the node
         std::string node_type = ""; //ie. the path to the nodes lib folder
 		std::string node_task_id = "";
+		std::string node_lib_path = "";
 		int node_exec_order = -1;
 		
 
