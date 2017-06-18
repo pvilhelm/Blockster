@@ -41,7 +41,7 @@ TEST_CASE("Test b_task", "[std]") {
 				auto n0 = std::make_unique<b_node>();
 				n0->node_id = node_ids[0];
 				n0->node_task_id = "0";
-				n0->node_type = "core/sources/constant";
+				n0->node_lib_path = "core/sources/constant";
 				n0->node_exec_order = 0;
 				t_port p0(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(node_ids[1], 0));
@@ -53,7 +53,7 @@ TEST_CASE("Test b_task", "[std]") {
 				auto n0 = std::make_unique<b_node>();
 				n0->node_id = node_ids[2];
 				n0->node_task_id = "0";
-				n0->node_type = "core/math/gain";
+				n0->node_lib_path = "core/math/gain";
 				n0->node_exec_order = 2;
 				t_port p0(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[3]), 0));
@@ -68,7 +68,7 @@ TEST_CASE("Test b_task", "[std]") {
 				auto n0 = std::make_unique<b_node>();
 				n0->node_id = node_ids[1];
 				n0->node_task_id = "0";
-				n0->node_type = "core/math/gain";
+				n0->node_lib_path = "core/math/gain";
 				n0->node_exec_order = 1;
 				t_port p0(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[2]), 0));
@@ -85,7 +85,7 @@ TEST_CASE("Test b_task", "[std]") {
 				auto n0 = std::make_unique<b_node>();
 				n0->node_id = node_ids[3];
 				n0->node_task_id = "0";
-				n0->node_type = "core/sinks/to_console";
+				n0->node_lib_path = "core/sinks/to_console";
 				n0->node_exec_order = 3;
 
 				t_port p1(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE);
@@ -156,7 +156,7 @@ TEST_CASE("Test b_task", "[std]") {
 				auto n0 = std::make_unique<b_node>();
 				n0->node_id = v_node_ids[i];
 				n0->node_task_id = "0";
-				n0->node_type = v_node_types[i];
+				n0->node_lib_path = v_node_types[i];
 				n0->node_exec_order = -1;
 				for (auto p : v_v_ports[i]) {
 					n0->addPort(p);
@@ -229,7 +229,7 @@ TEST_CASE("Test b_task", "[std]") {
 				auto n0 = std::make_unique<b_node>();
 				n0->node_id = node_ids[0];
 				n0->node_task_id = "0";
-				n0->node_type = "core/sources/constant";
+				n0->node_lib_path = "core/sources/constant";
 				n0->node_exec_order = 0;
 				t_port p0(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(node_ids[1], 0));
@@ -241,7 +241,7 @@ TEST_CASE("Test b_task", "[std]") {
 				auto n0 = std::make_unique<b_node>();
 				n0->node_id = "qweqwe"+node_ids[1];
 				n0->node_task_id = "0";
-				n0->node_type = "core/sinks/to_console";
+				n0->node_lib_path = "core/sinks/to_console";
 				n0->node_exec_order = 2;
 				t_port p0(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[0]), 0));
@@ -268,7 +268,7 @@ TEST_CASE("Test b_task", "[std]") {
 				auto n0 = std::make_unique<b_node>();
 				n0->node_id = node_ids[0];
 				n0->node_task_id = "0";
-				n0->node_type = "core/sources/constant";
+				n0->node_lib_path = "core/sources/constant";
 				n0->node_exec_order = 0;
 				t_port p0(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(node_ids[1], 0));
@@ -281,7 +281,7 @@ TEST_CASE("Test b_task", "[std]") {
 				auto n0 = std::make_unique<b_node>();
 				n0->node_id = node_ids[1];
 				n0->node_task_id = "0";
-				n0->node_type = "core/math/gain";
+				n0->node_lib_path = "core/math/gain";
 				n0->node_exec_order = 2;
 				t_port p0(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[0]), 0));
@@ -295,7 +295,7 @@ TEST_CASE("Test b_task", "[std]") {
 				auto n0 = std::make_unique<b_node>();
 				n0->node_id =  node_ids[2];
 				n0->node_task_id = "0";
-				n0->node_type = "core/math/gain";
+				n0->node_lib_path = "core/math/gain";
 				n0->node_exec_order = 2;
 				t_port p0(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[0]), 0));
@@ -310,7 +310,7 @@ TEST_CASE("Test b_task", "[std]") {
 				auto n0 = std::make_unique<b_node>();
 				n0->node_id = node_ids[3];
 				n0->node_task_id = "0";
-				n0->node_type = "core/sinks/to_console";
+				n0->node_lib_path = "core/sinks/to_console";
 				n0->node_exec_order = 2;
 				t_port p0(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[2]), 0));

@@ -96,6 +96,7 @@ namespace bster{
         double x;
         double y;
         double z;
+		double rot;
     } t_pos;
 
 	class b_node;//gotta love C++ ...
@@ -104,7 +105,7 @@ namespace bster{
     typedef struct port{
         PORT_DIRS dir = PORT_DIRS::INVALID;
         SIGNAL_TYPES signal_type = SIGNAL_TYPES::INVALID_TYPE;
-        short local_port_nr = -1;
+        int local_port_nr = -1;
 
 		std::vector<std::pair<std::string,short>> v_pair_remote_node_id_remote_port_nr;
 		std::vector<std::pair<std::shared_ptr<b_node>,short>> v_pair_remote_node_portnr;
@@ -132,16 +133,18 @@ namespace bster{
 
         std::string node_name = "";//optional pretty name for the node
         std::string node_id = ""; //global id for the node
-        std::string node_type = ""; //ie. the path to the nodes lib folder
+        std::string node_lib_path = ""; //ie. the path to the nodes lib folder
 		std::string node_task_id = "";
-		std::string node_lib_path = "";
+		std::string node_lib_type = ""; //attribute type of Node_type
+
 		int node_exec_order = -1;
 		NODE_CLASS node_class = NODE_CLASS::INVALID;
 		
 
         t_pos node_pos = {	std::numeric_limits<double>::quiet_NaN(),
 							std::numeric_limits<double>::quiet_NaN(),
-							std::numeric_limits<double>::quiet_NaN()};
+							std::numeric_limits<double>::quiet_NaN(),
+							0.};
 
         
 		std::map<std::string,std::shared_ptr<t_member>> map_membername_ptrmember; 

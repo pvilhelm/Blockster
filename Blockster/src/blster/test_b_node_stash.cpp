@@ -25,9 +25,9 @@ TEST_CASE("Test b_node_stash", "[std]") {
 			const int n = 512;
 			for (int i = 0; i < 512; i++) {
 				b_node n0;
-				n0.node_type = "test/type";
+				n0.node_lib_path = "test/type";
 				b_node n1;
-				n1.node_type = "is/another/type";
+				n1.node_lib_path = "is/another/type";
 				bns0.addNode(n0);
 				bns0.addNode(n1);
 			}
@@ -43,7 +43,7 @@ TEST_CASE("Test b_node_stash", "[std]") {
 			REQUIRE_FALSE(b_node_stash::verify(n0));
 			n0->node_id = "constant_0000";
 			REQUIRE_FALSE(b_node_stash::verify(n0));
-			n0->node_type = "is/a/valid/type";
+			n0->node_lib_path = "is/a/valid/type";
 			REQUIRE_FALSE(b_node_stash::verify(n0));
 			n0->node_task_id = "1";
 			REQUIRE_FALSE(b_node_stash::verify(n0));
@@ -53,7 +53,7 @@ TEST_CASE("Test b_node_stash", "[std]") {
 		{
 			b_node_stash bns0;
 			b_node n0;
-			n0.node_type = "is/a/valid/type";
+			n0.node_lib_path = "is/a/valid/type";
 			n0.node_id = "constant_0000";
 			n0.node_pos = pos{ 1., 2., 4. };
 			n0.node_task_id = "0";

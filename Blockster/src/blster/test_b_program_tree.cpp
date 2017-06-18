@@ -27,17 +27,17 @@ TEST_CASE("Test b_program_tree", "[std]") {
 		const int n_tasks = 3;
 		for (int i = 0; i < n; i++) {
 			b_node n0;
-			n0.node_type = "test/type";
+			n0.node_lib_path = "test/type";
 			n0.node_id = "type_" + std::to_string(i);
 			n0.node_task_id = "0";
 			n0.node_exec_order = i;
 			b_node n1;
-			n1.node_type = "is/another/typety";
+			n1.node_lib_path = "is/another/typety";
 			n1.node_id = "typety_" + std::to_string(i);
 			n1.node_task_id = "1";
 			n1.node_exec_order = i;
 			b_node n2;
-			n2.node_type = "is/yet/another/typety";
+			n2.node_lib_path = "is/yet/another/typety";
 			n2.node_id = "yettypety_" + std::to_string(i);
 			n2.node_task_id = "2";
 			n2.node_exec_order = i;
@@ -62,15 +62,15 @@ TEST_CASE("Test b_program_tree", "[std]") {
 		const int n_tasks = 3;
 		for (int i = 0; i < n; i++) {
 			b_node n0; 
-			n0.node_type = "test/type"; 
+			n0.node_lib_path = "test/type"; 
 			n0.node_id = "type_" + std::to_string(i); 
 			n0.node_task_id = "0"; 
 			b_node n1; 
-			n1.node_type = "is/another/typety"; 
+			n1.node_lib_path = "is/another/typety"; 
 			n1.node_id = "typety_" + std::to_string(i); 
 			n1.node_task_id = "1"; 
 			b_node n2; 
-			n2.node_type = "is/yet/another/typety"; 
+			n2.node_lib_path = "is/yet/another/typety"; 
 			n2.node_id = "yettypety_" + std::to_string(i); 
 			n2.node_task_id = "2"; 
 			n0.node_exec_order = i;
@@ -100,15 +100,15 @@ TEST_CASE("Test b_program_tree", "[std]") {
 			for (int i = 0; i < n; i++) {
 					
 					b_node n0; 
-					n0.node_type = "test/type"; 
+					n0.node_lib_path = "test/type"; 
 					n0.node_id = "type_" + std::to_string(i); 
 					n0.node_task_id = "0"; 
 					b_node n1; 
-					n1.node_type = "is/another/typety"; 
+					n1.node_lib_path = "is/another/typety"; 
 					n1.node_id = "typety_" + std::to_string(i); 
 					n1.node_task_id = "1"; 
 					b_node n2; 
-					n2.node_type = "is/yet/another/typety"; 
+					n2.node_lib_path = "is/yet/another/typety"; 
 					n2.node_id = "yettypety_" + std::to_string(i); 
 					n2.node_task_id = "3"; 
 					n0.node_exec_order = i;
@@ -128,15 +128,15 @@ TEST_CASE("Test b_program_tree", "[std]") {
 			for (int i = 0; i < n; i++) {
 
 				b_node n0;
-				n0.node_type = "test/type";
+				n0.node_lib_path = "test/type";
 				n0.node_id = "type_" + std::to_string(i);
 				n0.node_task_id = "0";
 				b_node n1;
-				n1.node_type = "is/another/typety";
+				n1.node_lib_path = "is/another/typety";
 				n1.node_id = "typety_" + std::to_string(i);
 				n1.node_task_id = "1";
 				b_node n2;
-				n2.node_type = "is/yet/another/typety";
+				n2.node_lib_path = "is/yet/another/typety";
 				n2.node_id = "yettypety_" + std::to_string(i);
 				n2.node_task_id = "-1";
 				n0.node_exec_order = i;

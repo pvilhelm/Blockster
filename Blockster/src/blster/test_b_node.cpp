@@ -22,7 +22,7 @@ TEST_CASE("Test b_node fundamental", "[std]") {
 			b_node b;
 			REQUIRE(b.node_id == "");
 			REQUIRE(b.node_name == "");
-			REQUIRE(b.node_type == "");
+			REQUIRE(b.node_lib_path == "");
 			REQUIRE(std::isnan<double>(b.node_pos.x));
 			REQUIRE(std::isnan<double>(b.node_pos.y));
 			REQUIRE(std::isnan<double>(b.node_pos.z));

@@ -16,15 +16,15 @@ void bster::b_node_stash::addNode(bster::b_node node)
 
     //check how many nodes of this type that has been added
     //
-    int n = map_nodetype_to_ncount.count(node.node_type);
+    int n = map_nodetype_to_ncount.count(node.node_lib_path);
 
     if(!n){
         //not added yet
-		map_nodetype_to_ncount.insert({ node.node_type,1 });
+		map_nodetype_to_ncount.insert({ node.node_lib_path,1 });
     }
     else{
         //increase count with 1
-        map_nodetype_to_ncount[node.node_type] = map_nodetype_to_ncount[node.node_type]+1;
+        map_nodetype_to_ncount[node.node_lib_path] = map_nodetype_to_ncount[node.node_lib_path]+1;
     }
 }
 
@@ -51,7 +51,7 @@ bool bster::b_node_stash::verify(std::unique_ptr<b_node>& node)
 	
 	if (node->node_id == "")
 		return false;
-	if (node->node_type == "")
+	if (node->node_lib_path == "")
 		return false;
 	if (std::isnan(node->node_pos.x))
 		return false;
