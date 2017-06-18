@@ -28,6 +28,10 @@
       <Outport id="0">
         <Outport_type>single</Outport_type>
         <Outport_allowed_types>single double int uint</Outport_allowed_types>
+		<Outport_target>
+			<Outport_target_node_id></Outport_target_node_id>
+			<Outport_target_node_Inport_id></Outport_target_node_Inport_id>
+		</Outport_target>
       </Outport>
     </Outports>
   </Ports>

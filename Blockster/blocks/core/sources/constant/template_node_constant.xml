@@ -21,6 +21,10 @@
       <Outport id="0">
         <Outport_type>inherit@members@value</Outport_type>
         <Outport_allowed_types>inherit@members@value</Outport_allowed_types>
+		<Outport_target>
+			<Outport_target_node_id></Outport_target_node_id>
+			<Outport_target_node_Inport_id></Outport_target_node_Inport_id>
+		</Outport_target>
       </Outport>
     </Outports>
   </Ports>

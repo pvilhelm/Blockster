@@ -127,7 +127,7 @@ void bster::b_task::linkNodesPorts()
 	for (auto node : this->v_ptr_nodes) {
 		for (auto& p : node->v_outports) {
 			//iterade over all node ptr and remote port nr pairs
-			for (auto& id : p.v_remote_node_id) {
+			for (auto& id : p.v_pair_remote_node_id_remote_port_nr) {
 				//find the node with that id
 				auto it = find_if(this->v_ptr_nodes.begin(), this->v_ptr_nodes.end(),
 					[&](auto& n) {return n->node_id == id.first; });
@@ -150,7 +150,7 @@ void bster::b_task::linkNodesPorts()
 		for (auto& p : node->v_inports) {
 
 			//iterade over all node ptr and remote port nr pairs
-			for (auto& id : p.v_remote_node_id) {
+			for (auto& id : p.v_pair_remote_node_id_remote_port_nr) {
 				//find the node with that id
 				auto it = find_if(this->v_ptr_nodes.begin(), this->v_ptr_nodes.end(),
 					[&](auto& n) {return n->node_id == id.first; });

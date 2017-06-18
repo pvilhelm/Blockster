@@ -106,7 +106,7 @@ namespace bster{
         SIGNAL_TYPES signal_type = SIGNAL_TYPES::INVALID_TYPE;
         short local_port_nr = -1;
 
-		std::vector<std::pair<std::string,short>> v_remote_node_id;
+		std::vector<std::pair<std::string,short>> v_pair_remote_node_id_remote_port_nr;
 		std::vector<std::pair<std::shared_ptr<b_node>,short>> v_pair_remote_node_portnr;
 		
 		
