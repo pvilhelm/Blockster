@@ -13,7 +13,7 @@ bster::b_program_tree::~b_program_tree()
 {
 }
 
-void bster::b_program_tree::setVectorOfNodes(std::vector<std::unique_ptr<b_node>> v_nodes)
+void bster::b_program_tree::setVectorOfNodes(std::vector<std::shared_ptr<b_node>> v_nodes)
 {
 	this->v_nodes = std::move(v_nodes);
 }

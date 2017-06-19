@@ -40,7 +40,6 @@ void bster::b_node::addPort(t_port port)
 	}
 
 	if (port.dir == PORT_DIRS::OUT) {
-		
 		v_outports.push_back(port);
 		sortPortPtrVectors();
 	}
@@ -66,7 +65,7 @@ void bster::b_node::sortPortPtrVectors()
 }
 
 
-std::string bster::enumSignalTypeToBsterString(SIGNAL_TYPES type)
+std::string bster::signal_type_enum_to_str(SIGNAL_TYPES type)
 {
     switch(type){
         case SIGNAL_TYPES::INVALID_TYPE:
@@ -114,7 +113,7 @@ std::string bster::enumSignalTypeToBsterString(SIGNAL_TYPES type)
 
 
 
-bster::SIGNAL_TYPES bster::bsterSignalTypeStringToEnum(std::string type)
+bster::SIGNAL_TYPES bster::signal_type_str_to_enum(std::string type)
 {
 
     const std::unordered_map<std::string,SIGNAL_TYPES> str_to_enum_map =
@@ -157,8 +156,13 @@ bster::port::port(PORT_DIRS dir, short port_nr) : port(dir, port_nr, SIGNAL_TYPE
 
 bster::port::port(PORT_DIRS dir, short port_nr, SIGNAL_TYPES signal_type)
 {
-	
 	this->dir = dir;
 	this->local_port_nr = port_nr;
 	this->signal_type = signal_type;
+}
+
+bster::port::port(PORT_DIRS dir, short port_nr, SIGNAL_TYPES signal_type, std::string target_node_id, int target_port_nr) :
+	port(dir, port_nr, signal_type)
+{
+	this->v_pair_remote_node_id_remote_port_nr.push_back(std::pair<std::string, int>(target_node_id, target_port_nr));
 }

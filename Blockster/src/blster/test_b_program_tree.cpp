@@ -151,6 +151,8 @@ TEST_CASE("Test b_program_tree", "[std]") {
 			REQUIRE_THROWS(pt0.makeTaskVectors());//missing one task id
 		}
 	}
+
+	
 }
 
 #undef MAKE_A_PROGRAM_TREE_0

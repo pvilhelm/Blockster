@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Node id="">
+  <Node_name>Constant</Node_name>
+  <Node_type type="cpp">
+    <Lib_path>core/sources/constant</Lib_path>
+  </Node_type>
+  <Node_init>
+    <Members>
+      <Member>
+        <Member_value>0</Member_value>
+        <Member_name>value</Member_name>
+        <Member_type>single</Member_type>
+        <Member_allowed_types>single double int uint</Member_allowed_types>
+        <Member_tunable>no</Member_tunable>
+      </Member>
+    </Members>
+  </Node_init>
+  <Ports>
+	<Inports></Inports>
+    <Outports>
+      <Outport id="0">
+        <Outport_type>inherit@members@value</Outport_type>
+        <Outport_allowed_types>inherit@members@value</Outport_allowed_types>
+		<Outport_target>
+			<Outport_target_node_id></Outport_target_node_id>
+			<Outport_target_node_Inport_id></Outport_target_node_Inport_id>
+		</Outport_target>
+      </Outport>
+    </Outports>
+  </Ports>
+  <Node_execution>
+    <Node_task></Node_task>
+    <Node_execution_order></Node_execution_order>
+  </Node_execution>
+  <Node_visualisation>
+	<Node_shape shape="rectangle">
+		<Node_width>50</Node_width>
+		<Node_height>50</Node_height>
+	</Node_shape>
+	<Node_position>
+		<X>0</X>
+		<Y>0</Y>
+		<Z>0</Z>
+		<Rotation_degrees>0</Rotation_degrees>
+	</Node_position>
+  </Node_visualisation>
+</Node>

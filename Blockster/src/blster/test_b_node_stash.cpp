@@ -39,7 +39,7 @@ TEST_CASE("Test b_node_stash", "[std]") {
 			REQUIRE(bns0.v_nodes.size() == n * 2);
 		}
 		{
-			std::unique_ptr<b_node> n0 = std::make_unique<b_node>();
+			std::shared_ptr<b_node> n0 = std::make_shared<b_node>();
 			REQUIRE_FALSE(b_node_stash::verify(n0));
 			n0->node_id = "constant_0000";
 			REQUIRE_FALSE(b_node_stash::verify(n0));

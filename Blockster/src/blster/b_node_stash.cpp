@@ -12,7 +12,7 @@ bster::b_node_stash::b_node_stash()
 void bster::b_node_stash::addNode(bster::b_node node)
 {
     //add node to vector of all nodes
-    v_nodes.push_back(std::make_unique<b_node>(node));
+    v_nodes.push_back(std::make_shared<b_node>(node));
 
     //check how many nodes of this type that has been added
     //
@@ -46,7 +46,7 @@ bool bster::b_node_stash::verifyNodes()
 	return true;
 }
 
-bool bster::b_node_stash::verify(std::unique_ptr<b_node>& node)
+bool bster::b_node_stash::verify(std::shared_ptr<b_node>& node)
 {
 	
 	if (node->node_id == "")

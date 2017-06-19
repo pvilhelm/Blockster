@@ -19,7 +19,7 @@ bster::b_task::~b_task()
 {
 }
 
-void bster::b_task::addNode(std::unique_ptr<b_node> node)
+void bster::b_task::addNode(std::shared_ptr<b_node> node)
 {
 	this->v_ptr_nodes.push_back(std::move(node));
 }
@@ -134,7 +134,7 @@ void bster::b_task::linkNodesPorts()
 				//check if we found the id in the tasks vector of nodes
 				if (it == this->v_ptr_nodes.end()) {
 					throw std::runtime_error("Missing node " + id.first + "in task " + std::to_string(this->task_id) +
-						"referenced by node id " + node->node_id + " " + std::to_string(__LINE__) + ":" + __FILE__);
+						" referenced by node id " + node->node_id + " " + std::to_string(__LINE__) + ":" + __FILE__);
 				}
 				//copy the ptr to the node
 				auto trgt_node = *it;

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Node id="">
+  <Node_name>To console</Node_name>
+  <Node_type type="cpp">
+    <Lib_path>core/sinks/to_console</Lib_path>
+  </Node_type>
+  <Ports>
+    <Inports>
+      <Inport id="0">
+        <Inport_type>single</Inport_type>
+        <Inport_allowed_types>inherit single double int uint</Inport_allowed_types>
+        <Inport_source_node_id></Inport_source_node_id>
+        <Inport_source_node_Outport_id></Inport_source_node_Outport_id>
+      </Inport>
+    </Inports>
+	<Outports/>
+  </Ports>
+  <Node_init>
+	<Members/> 
+  </Node_init>
+  <Node_execution>
+    <Node_task></Node_task>
+    <Node_execution_order></Node_execution_order>
+  </Node_execution>
+  <Mask>
+    <Tabs>
+      <Tab id="0">
+        <Block_description>The to console block outputs the insignal on the standard output (.e.g. a console). </Block_description>
+      </Tab>
+    </Tabs>
+  </Mask>
+  <Node_visualisation>
+	<Node_shape shape="rectangle">
+		<Node_width>50</Node_width>
+		<Node_height>50</Node_height>
+	</Node_shape>
+	<Node_position>
+		<X>0</X>
+		<Y>0</Y>
+		<Z>0</Z>
+		<Rotation_degrees>0</Rotation_degrees>
+	</Node_position>
+  </Node_visualisation>
+</Node>

@@ -2,7 +2,6 @@
 <Blockster version="0.0.1">
   <Meta>
     <Program_name>program1</Program_name>
-    <Is_complete>Yes</Is_complete>
   </Meta>
   <Tasks>
     <Task id="0">

@@ -19,8 +19,9 @@ namespace bster {
 		std::vector<std::shared_ptr<b_node>> v_ptr_nodes;
 		std::shared_ptr<b_node> ptr_root_node;
 		int task_id = -1;
+		double task_period = -1;
 
-		void addNode(std::unique_ptr<b_node> node);
+		void addNode(std::shared_ptr<b_node> node);
 		void processAllNodes();
 		
 		void calculateExecOrder(std::shared_ptr<b_node> node);

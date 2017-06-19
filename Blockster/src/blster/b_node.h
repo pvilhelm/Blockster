@@ -32,8 +32,8 @@ namespace bster{
         INHERIT
     };
 
-	std::string enumSignalTypeToBsterString(SIGNAL_TYPES type);
-	SIGNAL_TYPES bsterSignalTypeStringToEnum(std::string type);
+	std::string signal_type_enum_to_str(SIGNAL_TYPES type);
+	SIGNAL_TYPES signal_type_str_to_enum(std::string type);
 
 	/*SIGNAL_TYPES str2SIGNAL_TYPE(std::string str_signal_type) {
 		 
@@ -114,6 +114,8 @@ namespace bster{
 		port();
 		port(PORT_DIRS dir, short port_nr);
 		port(PORT_DIRS dir, short port_nr, SIGNAL_TYPES signal_type);
+		port(PORT_DIRS dir, short port_nr, SIGNAL_TYPES signal_type, std::string target_node_id, int target_port_nr);
+
 		
     } t_port;
 
@@ -147,7 +149,7 @@ namespace bster{
 							0.};
 
         
-		std::map<std::string,std::shared_ptr<t_member>> map_membername_ptrmember; 
+		std::map<std::string,t_member> map_membername_member; 
 		std::vector<t_port> v_inports;
 		std::vector<t_port> v_outports;
 
@@ -156,7 +158,7 @@ namespace bster{
         int getNOutports();
         int getNInports();
         bool hasPorts();
-		void addPort(t_port port);
+		void addPort(t_port port); 
 		
 
     private:

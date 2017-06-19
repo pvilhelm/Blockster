@@ -1,7 +1,10 @@
 #include "catch.hpp"
+#include <iostream>
+
 #include "b_node.h"
 #include "b_xml.h"
-#include <iostream>
+#include "b_node_stash.h"
+#include "b_program_tree.h"
 
 using namespace bster;
 
@@ -73,7 +76,7 @@ TEST_CASE("Test b_xml", "[std]") {
 	  </Node_visualisation>
 </Node>)asd";
 
-		b_node node = get_node_from_XML_str(str_node_xml);
+		b_node node = xml_str_to_node(str_node_xml);
 		REQUIRE(node.node_lib_type == "cpp");
 		REQUIRE(node.node_pos.x == 1);
 		REQUIRE(node.node_pos.y == 2);
@@ -84,15 +87,15 @@ TEST_CASE("Test b_xml", "[std]") {
 		REQUIRE(node.node_name == "Constant 0");
 		REQUIRE(node.node_task_id == "0");
 		REQUIRE(node.node_exec_order == 0);
-		REQUIRE(node.map_membername_ptrmember.size() == 2);
-		REQUIRE(node.map_membername_ptrmember.at("value")->member_name == "value");
-		REQUIRE(node.map_membername_ptrmember.at("value")->member_tunable == false);
-		REQUIRE(node.map_membername_ptrmember.at("value")->member_value == "11");
-		REQUIRE(node.map_membername_ptrmember.at("value")->signal_type == SIGNAL_TYPES::SINGLE);
-		REQUIRE(node.map_membername_ptrmember.at("value1")->member_name == "value1");
-		REQUIRE(node.map_membername_ptrmember.at("value1")->member_tunable == true);
-		REQUIRE(node.map_membername_ptrmember.at("value1")->member_value == "22");
-		REQUIRE(node.map_membername_ptrmember.at("value1")->signal_type == SIGNAL_TYPES::DOUBLE);
+		REQUIRE(node.map_membername_member.size() == 2);
+		REQUIRE(node.map_membername_member.at("value").member_name == "value");
+		REQUIRE(node.map_membername_member.at("value").member_tunable == false);
+		REQUIRE(node.map_membername_member.at("value").member_value == "11");
+		REQUIRE(node.map_membername_member.at("value").signal_type == SIGNAL_TYPES::SINGLE);
+		REQUIRE(node.map_membername_member.at("value1").member_name == "value1");
+		REQUIRE(node.map_membername_member.at("value1").member_tunable == true);
+		REQUIRE(node.map_membername_member.at("value1").member_value == "22");
+		REQUIRE(node.map_membername_member.at("value1").signal_type == SIGNAL_TYPES::DOUBLE);
 		REQUIRE(node.hasPorts());
 		REQUIRE(node.getNInports() == 1);
 		REQUIRE(node.getNOutports() == 1);
@@ -111,7 +114,7 @@ TEST_CASE("Test b_xml", "[std]") {
 	SECTION("get_node_from_XML_file()") {
 
 		b_node node;
-		REQUIRE_NOTHROW(node = get_node_from_XML_file(R"(aconstnode.xml)"));
+		REQUIRE_NOTHROW(node = xml_file_to_node(R"(aconstnode.xml)"));
 		REQUIRE(node.node_pos.x == 1);
 		REQUIRE(node.node_pos.y == 2);
 		REQUIRE(node.node_pos.z == 3.5);
@@ -121,15 +124,15 @@ TEST_CASE("Test b_xml", "[std]") {
 		REQUIRE(node.node_name == "Constant 0");
 		REQUIRE(node.node_task_id == "0");
 		REQUIRE(node.node_exec_order == 0);
-		REQUIRE(node.map_membername_ptrmember.size() == 2);
-		REQUIRE(node.map_membername_ptrmember.at("value")->member_name == "value");
-		REQUIRE(node.map_membername_ptrmember.at("value")->member_tunable == false);
-		REQUIRE(node.map_membername_ptrmember.at("value")->member_value == "11");
-		REQUIRE(node.map_membername_ptrmember.at("value")->signal_type == SIGNAL_TYPES::SINGLE);
-		REQUIRE(node.map_membername_ptrmember.at("value1")->member_name == "value1");
-		REQUIRE(node.map_membername_ptrmember.at("value1")->member_tunable == true);
-		REQUIRE(node.map_membername_ptrmember.at("value1")->member_value == "22");
-		REQUIRE(node.map_membername_ptrmember.at("value1")->signal_type == SIGNAL_TYPES::DOUBLE);
+		REQUIRE(node.map_membername_member.size() == 2);
+		REQUIRE(node.map_membername_member.at("value").member_name == "value");
+		REQUIRE(node.map_membername_member.at("value").member_tunable == false);
+		REQUIRE(node.map_membername_member.at("value").member_value == "11");
+		REQUIRE(node.map_membername_member.at("value").signal_type == SIGNAL_TYPES::SINGLE);
+		REQUIRE(node.map_membername_member.at("value1").member_name == "value1");
+		REQUIRE(node.map_membername_member.at("value1").member_tunable == true);
+		REQUIRE(node.map_membername_member.at("value1").member_value == "22");
+		REQUIRE(node.map_membername_member.at("value1").signal_type == SIGNAL_TYPES::DOUBLE);
 		REQUIRE(node.hasPorts());
 		REQUIRE(node.getNInports() == 1);
 		REQUIRE(node.getNOutports() == 1);
@@ -144,7 +147,7 @@ TEST_CASE("Test b_xml", "[std]") {
 		REQUIRE(node.v_inports[0].v_pair_remote_node_id_remote_port_nr[0].first == "mult_001");
 		REQUIRE(node.v_inports[0].v_pair_remote_node_id_remote_port_nr[0].second == 2);
 
-		REQUIRE_THROWS(get_node_from_XML_file(R"(bad_aconstnode.xml)"));
+		REQUIRE_THROWS(xml_file_to_node(R"(bad_aconstnode.xml)"));
 	}
 
 	SECTION("node_to_xml_str()") {
@@ -175,12 +178,27 @@ TEST_CASE("Test b_xml", "[std]") {
 		node.node_task_id = node_task_id;
 		node.node_exec_order = node_execution_order;
 		node.node_pos = node_pos;
+
+		t_member member;
+		member.member_name = "value";
+		member.member_tunable = false;
+		member.member_value = "123";
+		member.signal_type = SIGNAL_TYPES::SINGLE;
+
+		node.map_membername_member.insert({ "value",member });
+
+		//convert node to string and back again and check if values are still the same 
 		std::string answer = node_to_xml_str(node);
+		//std::cout << answer;
+		b_node ans_node = xml_str_to_node(answer);
 
-		std::cout << answer;
-
-		b_node ans_node = get_node_from_XML_str(answer);
-
+		t_member m_ans;
+		m_ans = ans_node.map_membername_member["value"];
+		 
+		REQUIRE(m_ans.member_name == "value");
+		REQUIRE(m_ans.member_tunable == false);
+		REQUIRE(m_ans.member_value == "123");
+		REQUIRE(m_ans.signal_type == SIGNAL_TYPES::SINGLE);
 		REQUIRE(ans_node.node_exec_order == node_execution_order);
 		REQUIRE(ans_node.node_id == node_id);
 		REQUIRE(ans_node.node_lib_path == node_lib_path);
@@ -215,6 +233,68 @@ TEST_CASE("Test b_xml", "[std]") {
 			== oport0.v_pair_remote_node_id_remote_port_nr[0].first);
 		REQUIRE(ans_node.v_outports[0].v_pair_remote_node_id_remote_port_nr[0].second
 			== oport0.v_pair_remote_node_id_remote_port_nr[0].second);
+	}
 
+	SECTION("program_tree_to_xml()") {
+
+		b_node_stash bns0;
+
+		b_node const_node = xml_file_to_node("valid_const.xml");
+		b_node to_console_node = xml_file_to_node("valid_to_console.xml");
+		b_node gain_node = xml_file_to_node("valid_gain.xml");
+
+		gain_node.node_task_id = "0";
+
+		const_node.node_id = "const_0";
+		const_node.v_outports[0] = (t_port(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE, "gain_0", 0));
+		const_node.node_task_id = "0";
+		const_node.node_exec_order = 0;
+		bns0.addNode(const_node);
+		b_node tmp_gain = gain_node;
+		tmp_gain.node_id = "gain_0";
+		tmp_gain.v_inports[0] = (t_port(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE, "const_0", 0));
+		tmp_gain.v_outports[0] = (t_port(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE, "gain_1", 0));
+		bns0.addNode(tmp_gain);
+		for (int i = 1; i < 10;i++) {
+			b_node tmp_gain = gain_node;
+			tmp_gain.node_id = "gain_" + std::to_string(i);
+			tmp_gain.map_membername_member["value"].member_value = std::to_string(i);
+			tmp_gain.v_inports[0] = (t_port(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE, "gain_" + std::to_string(i - 1), 0));
+			tmp_gain.v_outports[0] = (t_port(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE, "gain_" + std::to_string(i + 1), 0));
+			bns0.addNode(tmp_gain);
+		}
+		tmp_gain = gain_node;
+		tmp_gain.node_id = "gain_10";
+		tmp_gain.v_inports[0] = (t_port(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE, "gain_9", 0));
+		tmp_gain.v_outports[0] = (t_port(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE, "to_console_0", 0));
+		bns0.addNode(tmp_gain);
+		to_console_node.node_id = "to_console_0";
+		to_console_node.node_task_id = "0";
+		to_console_node.v_inports[0] = (t_port(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE, "gain_10", 0));
+		bns0.addNode(to_console_node);
+
+		b_program_tree bpt;
+		bpt.program_name = "A test =)";
+		bpt.setVectorOfNodes(std::move(bns0.v_nodes));
+		bpt.makeTaskVectors();
+		bpt.v_tasks[0]->task_period = 0.01;
+		//convert back and forth from xml
+		std::string str_xml_pt = program_tree_to_xml_str(bpt);
+		b_program_tree bpt_ans = xml_str_to_program_tree(str_xml_pt);
+
+		REQUIRE(bpt_ans.program_name == bpt.program_name);
+		REQUIRE(bpt_ans.program_name == "A test =)");
+		REQUIRE(bpt_ans.v_tasks.size() == 1);
+		REQUIRE(bpt_ans.v_tasks.size() == bpt.v_tasks.size());
+		REQUIRE(bpt_ans.v_tasks[0]->task_id == 0);
+		REQUIRE(bpt_ans.v_tasks[0]->task_id == bpt.v_tasks[0]->task_id);
+		REQUIRE(bpt_ans.v_tasks[0]->task_period == bpt.v_tasks[0]->task_period);
+		REQUIRE(bpt_ans.v_tasks[0]->task_period == 0.01);
+		REQUIRE(bpt_ans.v_tasks[0]->v_ptr_nodes.size() == bpt.v_tasks[0]->v_ptr_nodes.size());
+		for (auto k_v : bpt_ans.v_tasks[0]->map_nodeidstr_to_nodeptr) {
+			auto key = k_v.first;
+			//check that the program trees have all the same node ids
+			REQUIRE_NOTHROW(bpt_ans.v_tasks[0]->map_nodeidstr_to_nodeptr.at(key));
+		}
 	}
 }
