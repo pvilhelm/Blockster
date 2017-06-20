@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Blockster version="0.0.1">
+  <Meta>
+    <Program_name>program1</Program_name>
+  </Meta>
+  <Tasks>
+    <Task id="0">
+      <Task_period>0.01</Task_period>
+    </Task>
+  </Tasks>
+  <Nodes>
+    <Node id="constant_0000000">
+      <Node_name>Constant 0</Node_name>
+      <Node_type type="cpp">
+        <Lib_path>core/sources/constant</Lib_path>
+      </Node_type>
+      <Node_init>
+        <Members>
+          <Member>
+            <Member_value>11</Member_value>
+            <Member_name>value</Member_name>
+            <Member_type>single</Member_type>
+            <Member_tunable>no</Member_tunable>
+          </Member>
+        </Members>
+      </Node_init>
+      <Ports>
+         <Outports>
+          <Outport id="0">
+            <Outport_type>single</Outport_type>
+          </Outport>
+        </Outports>
+      </Ports>
+      <Node_settings>
+      </Node_settings>
+      <Node_execution>
+        <Node_task>0</Node_task>
+        <Node_execution_order>0</Node_execution_order>
+      </Node_execution>
+    </Node>
+    <Node id="gain_0000000">
+      <Node_name>Gain 0</Node_name>
+      <Node_type type="cpp">
+        <Lib_path>core/math/gain</Lib_path>
+      </Node_type>
+      <Node_init>
+        <Members>
+          <Member>
+            <Member_value>65</Member_value>
+            <Member_name>value</Member_name>
+            <Member_type>single</Member_type>
+            <Member_tunable>no</Member_tunable>
+          </Member> 
+        </Members>
+      </Node_init>
+      <Ports>
+        <Inports>
+          <Inport id="0">
+            <Inport_type>single</Inport_type>
+            <Inport_source_node_id>constant_0000000</Inport_source_node_id>
+            <Inport_source_node_Outport_id>0</Inport_source_node_Outport_id>
+          </Inport>
+        </Inports>
+        <Outports>
+          <Outport id="0">
+            <Outport_type>single</Outport_type>
+          </Outport>
+        </Outports>
+      </Ports>
+      <Node_settings>
+      </Node_settings>
+      <Node_execution>
+        <Node_task>0</Node_task>
+        <Node_execution_order>1</Node_execution_order>
+      </Node_execution>
+    </Node>
+    <Node id="to_console_0000000">
+      <Node_name>To console 0</Node_name>
+      <Node_type type="cpp">
+        <Lib_path>core/sinks/to_console</Lib_path>
+      </Node_type>
+      <Node_init>
+        <Members>
+        </Members>
+      </Node_init>
+      <Ports>
+        <Inports>
+          <Inport id="0">
+            <Inport_type>single</Inport_type>
+            <Inport_source_node_id>gain_0000000</Inport_source_node_id>
+            <Inport_source_node_Outport_id>0</Inport_source_node_Outport_id>
+          </Inport>
+        </Inports>
+        <Outports>
+        </Outports>
+      </Ports>
+      <Node_settings>
+      </Node_settings>
+      <Node_execution>
+        <Node_task>0</Node_task>
+        <Node_execution_order>2</Node_execution_order>
+      </Node_execution>
+    </Node>
+  </Nodes>
+</Blockster>

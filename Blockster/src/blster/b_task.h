@@ -22,6 +22,7 @@ namespace bster {
 		double task_period = -1;
 
 		void addNode(std::shared_ptr<b_node> node);
+		void addNode(b_node node);
 		void processAllNodes();
 		
 		void calculateExecOrder(std::shared_ptr<b_node> node);

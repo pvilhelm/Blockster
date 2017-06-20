@@ -1,17 +1,16 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2017-04-02T13:15:01
+# Project created by QtCreator 2017-06-20T11:05:10
 #
 #-------------------------------------------------
 
 QT       += core gui
-QT       += svg
-QT       += xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = BlocksterIDE
 TEMPLATE = app
+CONFIG += c++14
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked as deprecated (the exact warnings
@@ -27,42 +26,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    programcontainer.cpp \
-    blockstersession.cpp \
-    terminalwidget.cpp \
-    programscene.cpp \
-    block.cpp \
-    inport.cpp \
-    outport.cpp \
-    libbrowser.cpp \
-    signalline.cpp \
-    signalsegment.cpp \
-    libscene.cpp \
-    config.cpp
+    program_container.cpp \
+    program_scene.cpp \
+    ../Blockster/src/blster/b_block.cpp \
+    ../Blockster/src/blster/b_node.cpp \
+    ../Blockster/src/blster/b_program_tree.cpp \
+    ../Blockster/src/blster/b_task.cpp \
+    ../Blockster/src/blster/b_xml.cpp \
+    ../libs/pugixml/src/pugixml.cpp
 
 HEADERS  += mainwindow.h \
-    programcontainer.h \
-    blockstersession.h \
-    terminalwidget.h \
-    programscene.h \
-    block.h \
-    inport.h \
-    outport.h \
-    libbrowser.h \
-    signalline.h \
-    signalsegment.h \
-    libscene.h \
-    config.h
+    program_container.h \
+    program_scene.h \
+    ui_mainwindow.h
 
-FORMS    += mainwindow.ui \
-    programcontainer.ui \
-    terminalwidget.ui \
-    libbrowser.ui
+FORMS    += mainwindow.ui
 
-DISTFILES += \
-    vectors/blockster.svg
-
-RESOURCES += \
-    vectors/vector_graphics.qrc
-
-INCLUDEPATH += ..\Blockster\src\blster
+INCLUDEPATH += ../Blockster/src/blster/ \
+    ../libs/pugixml/src/

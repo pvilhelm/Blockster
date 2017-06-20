@@ -3,7 +3,6 @@
 
 #include "b_node.h"
 #include "b_xml.h"
-#include "b_node_stash.h"
 #include "b_program_tree.h"
 
 using namespace bster;
@@ -236,8 +235,7 @@ TEST_CASE("Test b_xml", "[std]") {
 	}
 
 	SECTION("program_tree_to_xml()") {
-
-		b_node_stash bns0;
+		std::vector<std::shared_ptr<b_node>> bns0;
 
 		b_node const_node = xml_file_to_node("valid_const.xml");
 		b_node to_console_node = xml_file_to_node("valid_to_console.xml");
@@ -249,33 +247,36 @@ TEST_CASE("Test b_xml", "[std]") {
 		const_node.v_outports[0] = (t_port(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE, "gain_0", 0));
 		const_node.node_task_id = "0";
 		const_node.node_exec_order = 0;
-		bns0.addNode(const_node);
+		bns0.push_back(std::make_shared<b_node>(const_node));
+
 		b_node tmp_gain = gain_node;
 		tmp_gain.node_id = "gain_0";
 		tmp_gain.v_inports[0] = (t_port(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE, "const_0", 0));
 		tmp_gain.v_outports[0] = (t_port(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE, "gain_1", 0));
-		bns0.addNode(tmp_gain);
+		bns0.push_back(std::make_shared<b_node>(tmp_gain));
+
 		for (int i = 1; i < 10;i++) {
 			b_node tmp_gain = gain_node;
 			tmp_gain.node_id = "gain_" + std::to_string(i);
 			tmp_gain.map_membername_member["value"].member_value = std::to_string(i);
 			tmp_gain.v_inports[0] = (t_port(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE, "gain_" + std::to_string(i - 1), 0));
 			tmp_gain.v_outports[0] = (t_port(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE, "gain_" + std::to_string(i + 1), 0));
-			bns0.addNode(tmp_gain);
+			bns0.push_back(std::make_shared<b_node>(tmp_gain));
 		}
 		tmp_gain = gain_node;
 		tmp_gain.node_id = "gain_10";
 		tmp_gain.v_inports[0] = (t_port(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE, "gain_9", 0));
 		tmp_gain.v_outports[0] = (t_port(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE, "to_console_0", 0));
-		bns0.addNode(tmp_gain);
+		bns0.push_back(std::make_shared<b_node>(tmp_gain));
+
 		to_console_node.node_id = "to_console_0";
 		to_console_node.node_task_id = "0";
 		to_console_node.v_inports[0] = (t_port(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE, "gain_10", 0));
-		bns0.addNode(to_console_node);
+		bns0.push_back(std::make_shared<b_node>(to_console_node));
 
 		b_program_tree bpt;
 		bpt.program_name = "A test =)";
-		bpt.setVectorOfNodes(std::move(bns0.v_nodes));
+		bpt.setVectorOfNodes(std::move(bns0));
 		bpt.makeTaskVectors();
 		bpt.v_tasks[0]->task_period = 0.01;
 		//convert back and forth from xml
@@ -296,5 +297,11 @@ TEST_CASE("Test b_xml", "[std]") {
 			//check that the program trees have all the same node ids
 			REQUIRE_NOTHROW(bpt_ans.v_tasks[0]->map_nodeidstr_to_nodeptr.at(key));
 		}
+	}
+
+	SECTION("xml_file_to_program_tree()") {
+		b_program_tree pt = xml_file_to_program_tree("small_pgrm.xml");
+		REQUIRE(pt.program_name == "program1");
+		REQUIRE_THROWS(xml_file_to_program_tree("hopeful2lydoesntexistwegseg2.asdas"));
 	}
 }

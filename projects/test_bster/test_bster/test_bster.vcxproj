@@ -140,12 +140,10 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\Blockster\src\blster\b_block.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\b_node.cpp" />
-    <ClCompile Include="..\..\..\Blockster\src\blster\b_node_stash.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\b_program_tree.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\b_task.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\b_xml.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\test_b_node.cpp" />
-    <ClCompile Include="..\..\..\Blockster\src\blster\test_b_node_stash.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\test_b_program_tree.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\test_b_task.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\test_b_xml.cpp" />

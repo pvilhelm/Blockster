@@ -7,6 +7,8 @@
 
 #include "programscene.h"
 
+#include "b_program_tree.h"
+
 namespace Ui {
 class ProgramContainer;
 }
@@ -22,6 +24,7 @@ public:
     ProgramScene* root_scene;
     QString prg_name;
 
+    bster::b_program_tree program_tree;
 
 
 

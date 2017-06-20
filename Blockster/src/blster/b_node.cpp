@@ -39,11 +39,11 @@ void bster::b_node::addPort(t_port port)
 			" with port nr:"+std::to_string(port.local_port_nr) +" "+ std::to_string(__LINE__) + ":" + __FILE__);
 	}
 
-	if (port.dir == PORT_DIRS::OUT) {
+	if (port.dir == PORT_DIRS::OUTW) {
 		v_outports.push_back(port);
 		sortPortPtrVectors();
 	}
-	else if (port.dir == PORT_DIRS::IN) {
+	else if (port.dir == PORT_DIRS::INW) {
 		v_inports.push_back(port);
 		sortPortPtrVectors();
 	}//TODO add "uni" port 

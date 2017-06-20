@@ -19,12 +19,15 @@ TEST_CASE("Test b_task", "[std]") {
 
 	SECTION("addNode()") {
 		b_task t0(0);
+		b_task t1(1);
 		b_node n0;
 		const int n = 4;
 		for (int i = 0; i < 4; i++) {
-			t0.addNode(std::make_unique<b_node>(n0));
+			t0.addNode(std::make_unique<b_node>(n0));//shared_ptr<b_node>
+			t1.addNode(n0);// b_node
 		}
 		REQUIRE(t0.v_ptr_nodes.size() == n);
+		REQUIRE(t1.v_ptr_nodes.size() == n);
 	}
 
 	SECTION("processAllNodes()") {
