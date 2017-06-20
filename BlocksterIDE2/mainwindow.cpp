@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 
 #include "program_container.h"
 
@@ -8,7 +7,6 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-
     this->setObjectName(QStringLiteral("Blockster"));
     this->resize(700, 600);
     menuBar = new QMenuBar(this);
@@ -24,8 +22,6 @@ MainWindow::MainWindow(QWidget *parent) :
     statusBar->setObjectName(QStringLiteral("statusBar"));
     this->setStatusBar(statusBar);
     QMetaObject::connectSlotsByName(this);
-
-
 
     ProgramContainer* pc = new ProgramContainer();
     this->setCentralWidget(pc);

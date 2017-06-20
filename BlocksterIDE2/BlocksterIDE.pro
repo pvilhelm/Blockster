@@ -33,14 +33,13 @@ SOURCES += main.cpp\
     ../Blockster/src/blster/b_program_tree.cpp \
     ../Blockster/src/blster/b_task.cpp \
     ../Blockster/src/blster/b_xml.cpp \
-    ../libs/pugixml/src/pugixml.cpp
+    ../libs/pugixml/src/pugixml.cpp \
+    block_item.cpp
 
 HEADERS  += mainwindow.h \
     program_container.h \
     program_scene.h \
-    ui_mainwindow.h
-
-FORMS    += mainwindow.ui
+    block_item.h
 
 INCLUDEPATH += ../Blockster/src/blster/ \
     ../libs/pugixml/src/

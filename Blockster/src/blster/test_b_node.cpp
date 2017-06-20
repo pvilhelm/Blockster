@@ -38,14 +38,14 @@ TEST_CASE("Test b_node fundamental", "[std]") {
 			REQUIRE(p.local_port_nr == -1);
 		}
 		{
-			t_port p(PORT_DIRS::IN, 3000);
-			REQUIRE(p.dir == PORT_DIRS::IN);
+			t_port p(PORT_DIRS::INW, 3000);
+			REQUIRE(p.dir == PORT_DIRS::INW);
 			REQUIRE(p.local_port_nr == 3000);
 			REQUIRE(p.signal_type == SIGNAL_TYPES::INVALID_TYPE);
 		}
 		{
-			t_port p(PORT_DIRS::IN, -1,SIGNAL_TYPES::DOUBLE);
-			REQUIRE(p.dir == PORT_DIRS::IN);
+			t_port p(PORT_DIRS::INW, -1,SIGNAL_TYPES::DOUBLE);
+			REQUIRE(p.dir == PORT_DIRS::INW);
 			REQUIRE(p.local_port_nr == -1);
 			REQUIRE(p.signal_type == SIGNAL_TYPES::DOUBLE);
 		}
@@ -56,18 +56,18 @@ TEST_CASE("Test b_node fundamental", "[std]") {
 	{
 		{//check that ports inserted in "wrong" order are sorted properly
 			b_node b0;
-			t_port p0(PORT_DIRS::IN, 0,	SIGNAL_TYPES::SINGLE);
-			t_port p1(PORT_DIRS::IN, 1, SIGNAL_TYPES::SINGLE);
-			t_port p2(PORT_DIRS::IN, 2, SIGNAL_TYPES::SINGLE);
-			t_port p3(PORT_DIRS::IN, 3, SIGNAL_TYPES::SINGLE);
-			t_port p4(PORT_DIRS::IN, 4, SIGNAL_TYPES::SINGLE);
-			t_port p5(PORT_DIRS::IN, 5, SIGNAL_TYPES::SINGLE);
-			t_port pp0(PORT_DIRS::OUT, 0, SIGNAL_TYPES::DOUBLE);
-			t_port pp1(PORT_DIRS::OUT, 1, SIGNAL_TYPES::DOUBLE);
-			t_port pp2(PORT_DIRS::OUT, 2, SIGNAL_TYPES::DOUBLE);
-			t_port pp3(PORT_DIRS::OUT, 3, SIGNAL_TYPES::DOUBLE);
-			t_port pp4(PORT_DIRS::OUT, 4, SIGNAL_TYPES::DOUBLE);
-			t_port pp5(PORT_DIRS::OUT, 5, SIGNAL_TYPES::DOUBLE);
+			t_port p0(PORT_DIRS::INW, 0,	SIGNAL_TYPES::SINGLE);
+			t_port p1(PORT_DIRS::INW, 1, SIGNAL_TYPES::SINGLE);
+			t_port p2(PORT_DIRS::INW, 2, SIGNAL_TYPES::SINGLE);
+			t_port p3(PORT_DIRS::INW, 3, SIGNAL_TYPES::SINGLE);
+			t_port p4(PORT_DIRS::INW, 4, SIGNAL_TYPES::SINGLE);
+			t_port p5(PORT_DIRS::INW, 5, SIGNAL_TYPES::SINGLE);
+			t_port pp0(PORT_DIRS::OUTW, 0, SIGNAL_TYPES::DOUBLE);
+			t_port pp1(PORT_DIRS::OUTW, 1, SIGNAL_TYPES::DOUBLE);
+			t_port pp2(PORT_DIRS::OUTW, 2, SIGNAL_TYPES::DOUBLE);
+			t_port pp3(PORT_DIRS::OUTW, 3, SIGNAL_TYPES::DOUBLE);
+			t_port pp4(PORT_DIRS::OUTW, 4, SIGNAL_TYPES::DOUBLE);
+			t_port pp5(PORT_DIRS::OUTW, 5, SIGNAL_TYPES::DOUBLE);
 			b0.addPort(p2);
 			b0.addPort(p3);
 			b0.addPort(p1);
@@ -87,13 +87,13 @@ TEST_CASE("Test b_node fundamental", "[std]") {
 			short i = 0;
 			for (auto pnptr : b0.v_inports) {
 				REQUIRE(pnptr.local_port_nr == i);
-				REQUIRE(pnptr.dir == PORT_DIRS::IN);
+				REQUIRE(pnptr.dir == PORT_DIRS::INW);
 				i++;
 			}
 			i = 0;
 			for (auto pnptr : b0.v_outports) {
 				REQUIRE(pnptr.local_port_nr == i);
-				REQUIRE(pnptr.dir == PORT_DIRS::OUT);
+				REQUIRE(pnptr.dir == PORT_DIRS::OUTW);
 				i++;
 			}
 		}
@@ -102,9 +102,9 @@ TEST_CASE("Test b_node fundamental", "[std]") {
 			b_node n0;
 			t_port p0;
 			REQUIRE_THROWS(n0.addPort(p0));
-			t_port p1(bster::PORT_DIRS::IN, -1);//invalid port nr
+			t_port p1(bster::PORT_DIRS::INW, -1);//invalid port nr
 			REQUIRE_THROWS(n0.addPort(p1));
-			t_port p2(bster::PORT_DIRS::IN, 0);//valid
+			t_port p2(bster::PORT_DIRS::INW, 0);//valid
 			REQUIRE_NOTHROW(n0.addPort(p2));
 			t_port p3(bster::PORT_DIRS::UNI, 0);//UNI not implemeted yet
 			REQUIRE_THROWS(n0.addPort(p3));
@@ -114,19 +114,19 @@ TEST_CASE("Test b_node fundamental", "[std]") {
 
 	SECTION("hasPorts()") {
 		b_node b0;
-		t_port p0(PORT_DIRS::IN, 0);
+		t_port p0(PORT_DIRS::INW, 0);
 		REQUIRE_FALSE(b0.hasPorts());
 		b0.addPort(p0);
 		REQUIRE(b0.hasPorts());
 		b_node b1;
-		t_port p1(PORT_DIRS::OUT, 0);
+		t_port p1(PORT_DIRS::OUTW, 0);
 		b1.addPort(p1);
 		REQUIRE(b1.hasPorts());
 		b_node b2;
 		t_port p2;
 		REQUIRE_THROWS(b2.addPort(p2));
 		REQUIRE_FALSE(b2.hasPorts());//no port added since threw
-		t_port p3(PORT_DIRS::OUT, 0);
+		t_port p3(PORT_DIRS::OUTW, 0);
 		b2.addPort(p3);
 		REQUIRE_THROWS(b2.addPort(p2));
 		REQUIRE(b2.hasPorts());
@@ -141,10 +141,10 @@ TEST_CASE("Test b_node fundamental", "[std]") {
 		REQUIRE(b0.getNOutports() == 0);
 
 		for (int i = 0; i < n_in; i++) {
-			b0.addPort(t_port(PORT_DIRS::IN, i));
+			b0.addPort(t_port(PORT_DIRS::INW, i));
 		}
 		for (int i = 0; i < n_out; i++) {
-			b0.addPort(t_port(PORT_DIRS::OUT, i));
+			b0.addPort(t_port(PORT_DIRS::OUTW, i));
 		}
 
 		REQUIRE(b0.getNInports() == n_in);

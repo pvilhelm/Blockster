@@ -2,7 +2,10 @@
 
 ProgramScene::ProgramScene(QObject *parent) : QGraphicsScene(parent)
 {
-    this->setSceneRect(QRectF(0,0,700,600));
-    //this->program_container = (ProgramContainer*)(parent->parent());
     this->addRect(QRectF(50,50,50,50));
+}
+
+void ProgramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
+{
+    emit nodeUpdateRequest();
 }

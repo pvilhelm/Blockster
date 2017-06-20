@@ -98,12 +98,12 @@ TEST_CASE("Test b_xml", "[std]") {
 		REQUIRE(node.hasPorts());
 		REQUIRE(node.getNInports() == 1);
 		REQUIRE(node.getNOutports() == 1);
-		REQUIRE(node.v_outports[0].dir == PORT_DIRS::OUT);
+		REQUIRE(node.v_outports[0].dir == PORT_DIRS::OUTW);
 		REQUIRE(node.v_outports[0].local_port_nr == 0);
 		REQUIRE(node.v_outports[0].signal_type == SIGNAL_TYPES::SINGLE);
 		REQUIRE(node.v_outports[0].v_pair_remote_node_id_remote_port_nr[0].first == "constant_001");
 		REQUIRE(node.v_outports[0].v_pair_remote_node_id_remote_port_nr[0].second == 1);
-		REQUIRE(node.v_inports[0].dir == PORT_DIRS::IN);
+		REQUIRE(node.v_inports[0].dir == PORT_DIRS::INW);
 		REQUIRE(node.v_inports[0].local_port_nr == 0);
 		REQUIRE(node.v_inports[0].signal_type == SIGNAL_TYPES::SINGLE);
 		REQUIRE(node.v_inports[0].v_pair_remote_node_id_remote_port_nr[0].first == "mult_001");
@@ -135,12 +135,12 @@ TEST_CASE("Test b_xml", "[std]") {
 		REQUIRE(node.hasPorts());
 		REQUIRE(node.getNInports() == 1);
 		REQUIRE(node.getNOutports() == 1);
-		REQUIRE(node.v_outports[0].dir == PORT_DIRS::OUT);
+		REQUIRE(node.v_outports[0].dir == PORT_DIRS::OUTW);
 		REQUIRE(node.v_outports[0].local_port_nr == 0);
 		REQUIRE(node.v_outports[0].signal_type == SIGNAL_TYPES::SINGLE);
 		REQUIRE(node.v_outports[0].v_pair_remote_node_id_remote_port_nr[0].first == "constant_001");
 		REQUIRE(node.v_outports[0].v_pair_remote_node_id_remote_port_nr[0].second == 1);
-		REQUIRE(node.v_inports[0].dir == PORT_DIRS::IN);
+		REQUIRE(node.v_inports[0].dir == PORT_DIRS::INW);
 		REQUIRE(node.v_inports[0].local_port_nr == 0);
 		REQUIRE(node.v_inports[0].signal_type == SIGNAL_TYPES::SINGLE);
 		REQUIRE(node.v_inports[0].v_pair_remote_node_id_remote_port_nr[0].first == "mult_001");
@@ -159,14 +159,14 @@ TEST_CASE("Test b_xml", "[std]") {
 		std::string node_name = "Multiply 0";
 		std::string node_lib_type = "cpp";
 
-		t_port iport0(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE);
+		t_port iport0(PORT_DIRS::INW, 0, SIGNAL_TYPES::SINGLE);
 		iport0.v_pair_remote_node_id_remote_port_nr.push_back(std::pair<std::string, short>({ "const_0",0 }));
 		node.addPort(iport0);
-		t_port iport1(PORT_DIRS::IN, 1, SIGNAL_TYPES::SINGLE);
+		t_port iport1(PORT_DIRS::INW, 1, SIGNAL_TYPES::SINGLE);
 		iport1.v_pair_remote_node_id_remote_port_nr.push_back(std::pair<std::string, short>({ "const_1",0 }));
 		node.addPort(iport1);
 
-		t_port oport0(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE);
+		t_port oport0(PORT_DIRS::OUTW, 0, SIGNAL_TYPES::SINGLE);
 		oport0.v_pair_remote_node_id_remote_port_nr.push_back(std::pair<std::string, short>({ "gain_0",0 }));
 		node.addPort(oport0);
 
@@ -244,34 +244,34 @@ TEST_CASE("Test b_xml", "[std]") {
 		gain_node.node_task_id = "0";
 
 		const_node.node_id = "const_0";
-		const_node.v_outports[0] = (t_port(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE, "gain_0", 0));
+		const_node.v_outports[0] = (t_port(PORT_DIRS::OUTW, 0, SIGNAL_TYPES::SINGLE, "gain_0", 0));
 		const_node.node_task_id = "0";
 		const_node.node_exec_order = 0;
 		bns0.push_back(std::make_shared<b_node>(const_node));
 
 		b_node tmp_gain = gain_node;
 		tmp_gain.node_id = "gain_0";
-		tmp_gain.v_inports[0] = (t_port(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE, "const_0", 0));
-		tmp_gain.v_outports[0] = (t_port(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE, "gain_1", 0));
+		tmp_gain.v_inports[0] = (t_port(PORT_DIRS::INW, 0, SIGNAL_TYPES::SINGLE, "const_0", 0));
+		tmp_gain.v_outports[0] = (t_port(PORT_DIRS::OUTW, 0, SIGNAL_TYPES::SINGLE, "gain_1", 0));
 		bns0.push_back(std::make_shared<b_node>(tmp_gain));
 
 		for (int i = 1; i < 10;i++) {
 			b_node tmp_gain = gain_node;
 			tmp_gain.node_id = "gain_" + std::to_string(i);
 			tmp_gain.map_membername_member["value"].member_value = std::to_string(i);
-			tmp_gain.v_inports[0] = (t_port(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE, "gain_" + std::to_string(i - 1), 0));
-			tmp_gain.v_outports[0] = (t_port(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE, "gain_" + std::to_string(i + 1), 0));
+			tmp_gain.v_inports[0] = (t_port(PORT_DIRS::INW, 0, SIGNAL_TYPES::SINGLE, "gain_" + std::to_string(i - 1), 0));
+			tmp_gain.v_outports[0] = (t_port(PORT_DIRS::OUTW, 0, SIGNAL_TYPES::SINGLE, "gain_" + std::to_string(i + 1), 0));
 			bns0.push_back(std::make_shared<b_node>(tmp_gain));
 		}
 		tmp_gain = gain_node;
 		tmp_gain.node_id = "gain_10";
-		tmp_gain.v_inports[0] = (t_port(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE, "gain_9", 0));
-		tmp_gain.v_outports[0] = (t_port(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE, "to_console_0", 0));
+		tmp_gain.v_inports[0] = (t_port(PORT_DIRS::INW, 0, SIGNAL_TYPES::SINGLE, "gain_9", 0));
+		tmp_gain.v_outports[0] = (t_port(PORT_DIRS::OUTW, 0, SIGNAL_TYPES::SINGLE, "to_console_0", 0));
 		bns0.push_back(std::make_shared<b_node>(tmp_gain));
 
 		to_console_node.node_id = "to_console_0";
 		to_console_node.node_task_id = "0";
-		to_console_node.v_inports[0] = (t_port(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE, "gain_10", 0));
+		to_console_node.v_inports[0] = (t_port(PORT_DIRS::INW, 0, SIGNAL_TYPES::SINGLE, "gain_10", 0));
 		bns0.push_back(std::make_shared<b_node>(to_console_node));
 
 		b_program_tree bpt;

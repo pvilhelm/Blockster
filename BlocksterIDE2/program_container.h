@@ -6,6 +6,8 @@
 #include <QGraphicsView>
 #include <QVector>
 
+#include <memory>
+
 #include "program_scene.h"
 #include "b_program_tree.h"
 
@@ -26,7 +28,10 @@ public:
 
 signals:
 
+
 public slots:
+    void nodeUpdateRequestSlot();
+
 };
 
 #endif // PROGRAM_CONTAINER_H

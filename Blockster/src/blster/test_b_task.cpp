@@ -46,7 +46,7 @@ TEST_CASE("Test b_task", "[std]") {
 				n0->node_task_id = "0";
 				n0->node_lib_path = "core/sources/constant";
 				n0->node_exec_order = 0;
-				t_port p0(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE);
+				t_port p0(PORT_DIRS::OUTW, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(node_ids[1], 0));
 				n0->addPort(p0);
 				t0.addNode(move(n0));
@@ -58,9 +58,9 @@ TEST_CASE("Test b_task", "[std]") {
 				n0->node_task_id = "0";
 				n0->node_lib_path = "core/math/gain";
 				n0->node_exec_order = 2;
-				t_port p0(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE);
+				t_port p0(PORT_DIRS::OUTW, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[3]), 0));
-				t_port p1(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE);
+				t_port p1(PORT_DIRS::INW, 0, SIGNAL_TYPES::SINGLE);
 				p1.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[1]), 0));
 				n0->addPort(p0);
 				n0->addPort(p1);
@@ -73,9 +73,9 @@ TEST_CASE("Test b_task", "[std]") {
 				n0->node_task_id = "0";
 				n0->node_lib_path = "core/math/gain";
 				n0->node_exec_order = 1;
-				t_port p0(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE);
+				t_port p0(PORT_DIRS::OUTW, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[2]), 0));
-				t_port p1(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE);
+				t_port p1(PORT_DIRS::INW, 0, SIGNAL_TYPES::SINGLE);
 				p1.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[0]), 0));
 				n0->addPort(p0);
 				n0->addPort(p1);
@@ -91,7 +91,7 @@ TEST_CASE("Test b_task", "[std]") {
 				n0->node_lib_path = "core/sinks/to_console";
 				n0->node_exec_order = 3;
 
-				t_port p1(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE);
+				t_port p1(PORT_DIRS::INW, 0, SIGNAL_TYPES::SINGLE);
 				p1.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[2]), 0));
 
 				n0->addPort(p1);
@@ -132,25 +132,25 @@ TEST_CASE("Test b_task", "[std]") {
 			auto l = [](t_port p, string trgt_n_id, short port_nr) {p.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short>(trgt_n_id, port_nr)); return p;};
 
 			std::vector<std::vector<t_port>> v_v_ports =
-			{	{l(t_port(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE),v_node_ids[1],0)},//const_0
+			{	{l(t_port(PORT_DIRS::OUTW, 0, SIGNAL_TYPES::SINGLE),v_node_ids[1],0)},//const_0
 				{
-					l(t_port(PORT_DIRS::IN,0,SIGNAL_TYPES::SINGLE),v_node_ids[0],0), //gain_0
-					l(t_port(PORT_DIRS::OUT,0,SIGNAL_TYPES::SINGLE),v_node_ids[2],0)
+					l(t_port(PORT_DIRS::INW,0,SIGNAL_TYPES::SINGLE),v_node_ids[0],0), //gain_0
+					l(t_port(PORT_DIRS::OUTW,0,SIGNAL_TYPES::SINGLE),v_node_ids[2],0)
 				},
 				{
-					l(t_port(PORT_DIRS::IN,0,SIGNAL_TYPES::SINGLE),v_node_ids[1],0), //gain_1
-					l(t_port(PORT_DIRS::OUT,0,SIGNAL_TYPES::SINGLE),v_node_ids[4],0)
+					l(t_port(PORT_DIRS::INW,0,SIGNAL_TYPES::SINGLE),v_node_ids[1],0), //gain_1
+					l(t_port(PORT_DIRS::OUTW,0,SIGNAL_TYPES::SINGLE),v_node_ids[4],0)
 				},
 				{
-					l(t_port(PORT_DIRS::IN,0,SIGNAL_TYPES::SINGLE),v_node_ids[4],0), //to_console_0
+					l(t_port(PORT_DIRS::INW,0,SIGNAL_TYPES::SINGLE),v_node_ids[4],0), //to_console_0
 				},
 				{
-					l(t_port(PORT_DIRS::IN,0,SIGNAL_TYPES::SINGLE),v_node_ids[2],0), //mult_0
-					l(t_port(PORT_DIRS::OUT,0,SIGNAL_TYPES::SINGLE),v_node_ids[3],0),
-					l(t_port(PORT_DIRS::IN,0,SIGNAL_TYPES::SINGLE),v_node_ids[5],1),
+					l(t_port(PORT_DIRS::INW,0,SIGNAL_TYPES::SINGLE),v_node_ids[2],0), //mult_0
+					l(t_port(PORT_DIRS::OUTW,0,SIGNAL_TYPES::SINGLE),v_node_ids[3],0),
+					l(t_port(PORT_DIRS::INW,0,SIGNAL_TYPES::SINGLE),v_node_ids[5],1),
 				},
 				{
-					l(t_port(PORT_DIRS::OUT,0,SIGNAL_TYPES::SINGLE),v_node_ids[4],1), //cont_1
+					l(t_port(PORT_DIRS::OUTW,0,SIGNAL_TYPES::SINGLE),v_node_ids[4],1), //cont_1
 				}
 
 			};
@@ -234,7 +234,7 @@ TEST_CASE("Test b_task", "[std]") {
 				n0->node_task_id = "0";
 				n0->node_lib_path = "core/sources/constant";
 				n0->node_exec_order = 0;
-				t_port p0(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE);
+				t_port p0(PORT_DIRS::OUTW, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(node_ids[1], 0));
 				n0->addPort(p0);
 				t0.addNode(move(n0));
@@ -246,7 +246,7 @@ TEST_CASE("Test b_task", "[std]") {
 				n0->node_task_id = "0";
 				n0->node_lib_path = "core/sinks/to_console";
 				n0->node_exec_order = 2;
-				t_port p0(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE);
+				t_port p0(PORT_DIRS::INW, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[0]), 0));
 				n0->addPort(p0); 
 				t0.addNode(move(n0));
@@ -273,7 +273,7 @@ TEST_CASE("Test b_task", "[std]") {
 				n0->node_task_id = "0";
 				n0->node_lib_path = "core/sources/constant";
 				n0->node_exec_order = 0;
-				t_port p0(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE);
+				t_port p0(PORT_DIRS::OUTW, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(node_ids[1], 0));
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(node_ids[2], 0));
 				n0->addPort(p0);
@@ -286,10 +286,10 @@ TEST_CASE("Test b_task", "[std]") {
 				n0->node_task_id = "0";
 				n0->node_lib_path = "core/math/gain";
 				n0->node_exec_order = 2;
-				t_port p0(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE);
+				t_port p0(PORT_DIRS::INW, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[0]), 0));
 				n0->addPort(p0);
-				t_port p1(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE);
+				t_port p1(PORT_DIRS::OUTW, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[3]), 0));
 				n0->addPort(p1);
 				t0.addNode(move(n0));
@@ -300,10 +300,10 @@ TEST_CASE("Test b_task", "[std]") {
 				n0->node_task_id = "0";
 				n0->node_lib_path = "core/math/gain";
 				n0->node_exec_order = 2;
-				t_port p0(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE);
+				t_port p0(PORT_DIRS::INW, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[0]), 0));
 				n0->addPort(p0);
-				t_port p1(PORT_DIRS::OUT, 0, SIGNAL_TYPES::SINGLE);
+				t_port p1(PORT_DIRS::OUTW, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[3]), 0));
 				n0->addPort(p1);
 				t0.addNode(move(n0));
@@ -315,10 +315,10 @@ TEST_CASE("Test b_task", "[std]") {
 				n0->node_task_id = "0";
 				n0->node_lib_path = "core/sinks/to_console";
 				n0->node_exec_order = 2;
-				t_port p0(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE);
+				t_port p0(PORT_DIRS::INW, 0, SIGNAL_TYPES::SINGLE);
 				p0.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[2]), 0));
 				n0->addPort(p0);
-				t_port p1(PORT_DIRS::IN, 0, SIGNAL_TYPES::SINGLE);
+				t_port p1(PORT_DIRS::INW, 0, SIGNAL_TYPES::SINGLE);
 				p1.v_pair_remote_node_id_remote_port_nr.push_back(pair<string, short >(string(node_ids[1]), 0));
 				n0->addPort(p1);
 				t0.addNode(move(n0));
