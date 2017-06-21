@@ -47,8 +47,8 @@
 	</Node_execution>
 	<Node_visualisation>
 		<Node_shape shape="rectangle">
-			<Node_width>50</Node_width>
-			<Node_height>50</Node_height>
+			<Node_width>50.1</Node_width>
+			<Node_height>50.2</Node_height>
 		</Node_shape>
 		<Node_position>
 			<X>1</X>

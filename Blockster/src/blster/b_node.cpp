@@ -146,6 +146,16 @@ bster::SIGNAL_TYPES bster::signal_type_str_to_enum(std::string type)
 
 }
 
+std::string bster::shape_enum_to_str(SHAPE type)
+{
+    { if (type == SHAPE::RECTANGLE) return "rectangle"; else return ""; }
+}
+
+bster::SHAPE bster::shape_str_to_enum(std::string type)
+{
+    { if (type == "rectangle") return SHAPE::RECTANGLE; else return SHAPE::INVALID; }
+}
+
 bster::port::port() : port(PORT_DIRS::INVALID, -1, SIGNAL_TYPES::INVALID_TYPE)
 {
 }

@@ -132,6 +132,13 @@ bster::b_node bster::xml_el_to_node(pugi::xml_node root_node)
     node.node_pos.z = tmp_node.text().as_double();
     tmp_node = root_node.first_element_by_path("./Node_visualisation/Node_position/Rotation_degrees");
     node.node_pos.rot = tmp_node.text().as_double();
+
+    //get node shape 
+    tmp_node = root_node.first_element_by_path("./Node_visualisation/Node_shape");
+    node.node_shape = shape_str_to_enum(tmp_node.attribute("shape").as_string());
+    node.node_width = tmp_node.first_element_by_path("./Node_width").text().as_double();
+    node.node_height = tmp_node.first_element_by_path("./Node_height").text().as_double();
+
     return node;
 }
 
@@ -277,7 +284,7 @@ std::string bster::node_to_xml_str(const b_node& node)
     //add a child with name and with text value
     // node.appen_child(node_pcdata).set_value(text) means add text to a node
     // <Node>text</Node>
-    tmp_node.append_child("Node_name").append_child(pugi::node_pcdata).
+    tmp_node.append_child("Node_name").append_child(pugi::node_cdata).
         set_value(node.node_name.c_str());
     {
         xml_node Node_type = tmp_node.append_child("Node_type");
@@ -353,6 +360,10 @@ std::string bster::node_to_xml_str(const b_node& node)
             set_value(std::to_string(node.node_pos.z).c_str());
         node_pos.append_child("Rotation_degrees").append_child(node_pcdata).
             set_value(std::to_string(node.node_pos.rot).c_str());
+        xml_node node_shape = node_vis.append_child("Node_shape");
+        node_shape.append_attribute("shape").set_value(shape_enum_to_str(node.node_shape).c_str());
+        node_shape.append_child("Node_width").append_child(node_pcdata).set_value(std::to_string(node.node_width).c_str());
+        node_shape.append_child("Node_height").append_child(node_pcdata).set_value(std::to_string(node.node_height).c_str());
     }
 
     doc.save(ss);

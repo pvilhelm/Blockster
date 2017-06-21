@@ -76,6 +76,9 @@ TEST_CASE("Test b_xml", "[std]") {
 </Node>)asd";
 
 		b_node node = xml_str_to_node(str_node_xml);
+        REQUIRE(node.node_shape == SHAPE::RECTANGLE);
+        REQUIRE(node.node_height == 50);
+        REQUIRE(node.node_width == 50);
 		REQUIRE(node.node_lib_type == "cpp");
 		REQUIRE(node.node_pos.x == 1);
 		REQUIRE(node.node_pos.y == 2);
@@ -114,6 +117,9 @@ TEST_CASE("Test b_xml", "[std]") {
 
 		b_node node;
 		REQUIRE_NOTHROW(node = xml_file_to_node(R"(aconstnode.xml)"));
+        REQUIRE(node.node_shape == SHAPE::RECTANGLE);
+        REQUIRE(node.node_height == 50.2);
+        REQUIRE(node.node_width == 50.1);
 		REQUIRE(node.node_pos.x == 1);
 		REQUIRE(node.node_pos.y == 2);
 		REQUIRE(node.node_pos.z == 3.5);

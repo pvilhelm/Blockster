@@ -88,8 +88,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\libs\pugixml\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Repos\boost\boost_1_64_0\;..\..\..\libs\pugixml\src\</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>C:\Repos\boost\boost_1_64_0\stage32\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -106,11 +109,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\..\libs\pugixml\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Repos\boost\boost_1_64_0\;..\..\..\libs\pugixml\src\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Repos\boost\boost_1_64_0\stage32\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -129,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Blockster\src\blster\b_block.h" />
+    <ClInclude Include="..\..\..\Blockster\src\blster\b_lib_tree.h" />
     <ClInclude Include="..\..\..\Blockster\src\blster\b_node.h" />
     <ClInclude Include="..\..\..\Blockster\src\blster\b_node_stash.h" />
     <ClInclude Include="..\..\..\Blockster\src\blster\b_program_tree.h" />
@@ -139,10 +144,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Blockster\src\blster\b_block.cpp" />
+    <ClCompile Include="..\..\..\Blockster\src\blster\b_lib_tree.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\b_node.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\b_program_tree.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\b_task.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\b_xml.cpp" />
+    <ClCompile Include="..\..\..\Blockster\src\blster\test_b_lib_tree.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\test_b_node.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\test_b_program_tree.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\test_b_task.cpp" />

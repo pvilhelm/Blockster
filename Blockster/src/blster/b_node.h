@@ -99,8 +99,8 @@ namespace bster{
 		INVALID
 	};
 
-	std::string shape_enum_to_str(SHAPE type) { if (type == SHAPE::RECTANGLE) return "rectangle"; else return ""; }
-	SHAPE shape_str_to_enum(std::string type) { if (type == "rectangle") return SHAPE::RECTANGLE; else return SHAPE::INVALID; }
+    std::string shape_enum_to_str(SHAPE type);
+    SHAPE shape_str_to_enum(std::string type);
 
     class b_node
     {
@@ -113,7 +113,7 @@ namespace bster{
         std::string node_lib_path = ""; //ie. the path to the nodes lib folder
         std::string node_task_id = "";
         std::string node_lib_type = ""; //attribute type of Node_type
-		SHAPE shape = SHAPE::INVALID;
+		SHAPE node_shape = SHAPE::INVALID;
 		double node_width = 0;
 		double node_height = 0;
 

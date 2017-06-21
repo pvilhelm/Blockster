@@ -39,6 +39,9 @@
     <ClInclude Include="..\..\..\libs\pugixml\src\pugixml.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Blockster\src\blster\b_lib_tree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Blockster\src\blster\test_main.cpp">
@@ -72,6 +75,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\libs\pugixml\src\pugixml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Blockster\src\blster\b_lib_tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Blockster\src\blster\test_b_lib_tree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
