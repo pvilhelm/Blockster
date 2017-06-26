@@ -8,7 +8,7 @@
 #include <memory>
 #include <sstream>
 
-void throw_if_not(bool cond, std::string message = "", int line = 0, char * file = nullptr) {
+void throw_if_not(bool cond, std::string message = "", int line = 0, const char file[] = nullptr) {
     if (!cond) throw std::runtime_error(message +" "+ (line ? std::to_string(line) : "") +
         (file ? ":"+std::string(file) : ""));
 };
@@ -133,7 +133,7 @@ bster::b_node bster::xml_el_to_node(pugi::xml_node root_node)
     tmp_node = root_node.first_element_by_path("./Node_visualisation/Node_position/Rotation_degrees");
     node.node_pos.rot = tmp_node.text().as_double();
 
-    //get node shape 
+    //get node shape
     tmp_node = root_node.first_element_by_path("./Node_visualisation/Node_shape");
     node.node_shape = shape_str_to_enum(tmp_node.attribute("shape").as_string());
     node.node_width = tmp_node.first_element_by_path("./Node_width").text().as_double();

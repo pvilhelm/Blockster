@@ -8,18 +8,19 @@
 #include "b_node.h"
 
 
-class block_item : public QGraphicsItem
+class BlockItem : public QObject, public QGraphicsItem
 {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 public:
-    block_item(QGraphicsItem* parent, std::shared_ptr<bster::b_node> node);
+    BlockItem(QGraphicsItem* parent, std::shared_ptr<bster::b_node> node);
 
     std::shared_ptr<bster::b_node> this_node;
 
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
-    QRectF boundingRect();
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+    QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
 signals:
     void nodeMoved();
 

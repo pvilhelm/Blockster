@@ -34,12 +34,16 @@ SOURCES += main.cpp\
     ../Blockster/src/blster/b_task.cpp \
     ../Blockster/src/blster/b_xml.cpp \
     ../libs/pugixml/src/pugixml.cpp \
-    block_item.cpp
+    block_item.cpp \
+    port_item.cpp \
+    lib_scene.cpp
 
 HEADERS  += mainwindow.h \
     program_container.h \
     program_scene.h \
-    block_item.h
+    block_item.h \
+    port_item.h \
+    lib_scene.h
 
 INCLUDEPATH += ../Blockster/src/blster/ \
     ../libs/pugixml/src/

@@ -10,6 +10,7 @@
 
 #include "program_container.h"
 #include "b_node.h"
+#include "block_item.h"
 
 class ProgramContainer;
 
@@ -23,7 +24,7 @@ public:
     ProgramContainer* program_container;
     std::vector<std::shared_ptr<bster::b_node>> v_bnodes; //Vector of bster nodes assosiated with this scene
 
-    void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
+    //void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 
 
 signals:
