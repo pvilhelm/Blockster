@@ -13,8 +13,6 @@
 
 using namespace bster;
 
-
-
 TEST_CASE("Test b_program_tree", "[std]") {
 	SECTION("Constructor") {
 		b_program_tree* bpt = 0;

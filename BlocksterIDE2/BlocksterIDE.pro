@@ -36,14 +36,20 @@ SOURCES += main.cpp\
     ../libs/pugixml/src/pugixml.cpp \
     block_item.cpp \
     port_item.cpp \
-    lib_scene.cpp
+    lib_scene.cpp \
+    ../Blockster/src/blster/b_lib_tree.cpp \
+    lib_container.cpp
 
 HEADERS  += mainwindow.h \
     program_container.h \
     program_scene.h \
     block_item.h \
     port_item.h \
-    lib_scene.h
+    lib_scene.h \
+    lib_container.h
 
 INCLUDEPATH += ../Blockster/src/blster/ \
-    ../libs/pugixml/src/
+    ../libs/pugixml/src/ \
+    C:/Repos/boost/boost_1_64_0
+
+LIBS += "-LC:/Repos/boost/boost_1_64_0/mscv64-14.1/lib"

@@ -11,7 +11,6 @@ class InportItem : public QObject, public QGraphicsItem
 public:
     InportItem(QGraphicsItem* parent, int local_port_nr);
 
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
@@ -30,7 +29,6 @@ class OutportItem : public QObject, public QGraphicsItem
 public:
     OutportItem(QGraphicsItem* parent, int local_port_nr);
 
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 

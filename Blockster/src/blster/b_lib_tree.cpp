@@ -6,7 +6,6 @@
 #include <sstream>
 #include <stdexcept>
 
-
 bster::b_lib_tree::b_lib_tree()
 {
 }
@@ -19,7 +18,7 @@ bster::b_lib_tree::~b_lib_tree()
 void bster::b_lib_tree::parseFolderTree(std::string str_path, bool is_root)
 {
     using namespace boost::filesystem;
-    
+
     path p_dir(str_path);
     p_dir.normalize();
 
@@ -32,16 +31,16 @@ void bster::b_lib_tree::parseFolderTree(std::string str_path, bool is_root)
 
     if (is_root) {
         this->root_dir = p_dir.generic_string();//sets root_dir
-        root_path = p_dir; 
+        root_path = p_dir;
     }
 
-    
-    
+
+
     for (auto i : directory_iterator(p_dir)) {
-        
+
         path p = i.path();
         p.normalize();
-        
+
         //if p is a dir, walk it
         if (is_directory(p)) parseFolderTree(p.generic_string());
 

@@ -102,3 +102,15 @@ void bster::b_program_tree::addNode(b_node node)
     this->v_tasks[task_id]->addNode(node);
     this->v_tasks[task_id]->processAllNodes();
 }
+
+std::string bster::b_program_tree::getNextNodeId(std::string node_lib_path)
+{
+    std::map<std::string, int> map_node_lib_path_to_n_nodes;
+
+    for (auto& task : v_tasks) {
+        for (auto n : task->v_ptr_nodes) {
+            std::string lib_path = n->node_lib_path;
+            map_node_lib_path_to_n_nodes[lib_path]++;//todo
+        }
+    }
+}

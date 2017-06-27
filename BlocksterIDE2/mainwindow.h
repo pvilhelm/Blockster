@@ -17,7 +17,6 @@ public:
 
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
-    QWidget *centralWidget;
     QStatusBar *statusBar;
 private:
 
