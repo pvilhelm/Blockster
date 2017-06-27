@@ -6,6 +6,19 @@
 #include <limits>
 #include <sstream>
 #include <memory>
+#include <regex>
+#include <cstdio>
+
+std::string getLastFolderName(std::string path){
+    std::regex r(R"((?:.*[\\\/])?(\w+))");
+    std::smatch sm;
+    std::regex_match (path,sm,r);
+    if(sm.size()!=2){
+    throw std::runtime_error("No last folder to get name from in "+path+". "
+                    +std::to_string(__LINE__)+":"+__FILE__);
+    }
+    return sm[1];
+}
 
 bster::b_program_tree::b_program_tree()
 {
@@ -22,6 +35,8 @@ void bster::b_program_tree::setVectorOfNodes(std::vector<std::shared_ptr<b_node>
 
 void bster::b_program_tree::makeTaskVectors()
 {
+
+
     std::vector<int> task_ids;
 
     for (auto&& node : this->v_nodes) {
@@ -55,7 +70,7 @@ void bster::b_program_tree::makeTaskVectors()
         this->v_tasks.push_back(std::move(task));
     }
 
-    //asure all tasks ids are: n_(k+1) = n_k+1 except inf
+    //asure all tasks ids are: n_(k+1) = n_k+1
     for (unsigned i = 0; i < v_tasks.size(); i++) {
         auto& t = v_tasks[i];
 
@@ -68,6 +83,32 @@ void bster::b_program_tree::makeTaskVectors()
             }
         }
     }
+
+	//map each of the last folder in all node_lib_paths to a vector of node_ids
+	//that corrensponds to that path
+	// ie /core/bla/constant -> last_folder == constant
+	for (auto& node : this->v_nodes) {
+		std::string last_folder = getLastFolderName(node->node_lib_path);
+		std::string node_id = node->node_id;
+		//if there is no entry for last_folder 
+		if (map_last_folder_to_set_of_nodeids.end() == 
+			map_last_folder_to_set_of_nodeids.find(last_folder)) {
+
+			map_last_folder_to_set_of_nodeids[last_folder] = std::set<std::string>{ node_id };
+		}
+		else {
+			map_last_folder_to_set_of_nodeids[last_folder].insert(node_id);
+		}
+	}
+
+	//check that there are a equal amount of nodes as unique node ids 
+	unsigned long n = 0;
+	for (auto& p : map_last_folder_to_set_of_nodeids) {
+		auto& v = p.second;
+		n += v.size();
+	}
+	if (n != this->v_nodes.size())
+		throw std::runtime_error("Not all nodes has unique ids."+std::string(" ")+__FILE__);
 
     //assign nodes to their tasks
     for (auto&& node : this->v_nodes) {
@@ -105,12 +146,18 @@ void bster::b_program_tree::addNode(b_node node)
 
 std::string bster::b_program_tree::getNextNodeId(std::string node_lib_path)
 {
-    std::map<std::string, int> map_node_lib_path_to_n_nodes;
+    //extract last folder in node_lib_path
+    std::string folder_name = getLastFolderName(node_lib_path);
+    unsigned int n_last = map_last_folder_in_node_path_to_n_nodes[folder_name];
+    unsigned int n_new = ++n_last;
+    map_last_folder_in_node_path_to_n_nodes[folder_name] = n_new;
 
-    for (auto& task : v_tasks) {
-        for (auto n : task->v_ptr_nodes) {
-            std::string lib_path = n->node_lib_path;
-            map_node_lib_path_to_n_nodes[lib_path]++;//todo
-        }
-    }
+    size_t size = 1+snprintf(nullptr,0,"%06u",n_new);
+
+    char* buffer = new char[size];
+    snprintf(buffer,sizeof(char)*size,"%06u",n_new);
+    std::string full_id = folder_name+"_"+buffer;
+    delete[] buffer;
+
+    return full_id;
 }
