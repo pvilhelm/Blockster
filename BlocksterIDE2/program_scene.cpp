@@ -23,4 +23,5 @@ ProgramScene::ProgramScene(QObject *parent) : QGraphicsScene(parent)
 /*void ProgramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     emit nodeUpdateRequest();
-}*/
+}
+*/
