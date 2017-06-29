@@ -16,17 +16,11 @@ class ProgramContainer;
 
 class ProgramScene : public QGraphicsScene
 {
-
     Q_OBJECT
-
 public:
     ProgramScene(QObject *parent);
-    std::weak_ptr<ProgramContainer> program_container;
-
-    //std::vector<std::shared_ptr<bster::b_node>> v_bnodes; //Vector of bster nodes assosiated with this scene
 
     void dragMoveEvent(QGraphicsSceneDragDropEvent *event) override;
-    //void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
     void dropEvent(QGraphicsSceneDragDropEvent *event);
 
 signals:

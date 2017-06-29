@@ -9,9 +9,8 @@ LibContainer::LibContainer(QWidget *parent) : QWidget(parent)
 
     QHBoxLayout* ptr_layout = new QHBoxLayout(this);
 
-    ptr_to_self = std::make_shared<LibContainer>(this);
-
     root_scene = new LibScene(R"(C:\Repos\Blockster\Blockster\blocks)");
+    root_scene->setObjectName("lib_scene");
     root_view = new QGraphicsView(root_scene);
     root_view->show();
     ptr_layout->addWidget(root_view);

@@ -31,7 +31,6 @@ bster::b_node bster::xml_el_to_node(pugi::xml_node root_node)
     using namespace pugi;
     using namespace bster;
 
-
     b_node node;
     xml_node tmp_node;
     xml_attribute tmp_attr;
@@ -192,7 +191,6 @@ bster::b_program_tree bster::xml_str_to_program_tree(std::string str_xml)
     pt.program_name = root.first_element_by_path("./Meta/Program_name").text().as_string();
 
     //add nodes to v_nodes
-
     xml_node nodes = root.first_element_by_path("./Nodes");
 
     //parse all nodes

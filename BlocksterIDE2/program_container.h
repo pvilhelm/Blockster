@@ -7,6 +7,7 @@
 #include <QVector>
 
 #include <memory>
+#include <string>
 
 #include "program_scene.h"
 #include "b_program_tree.h"
@@ -19,12 +20,10 @@ class ProgramContainer : public QWidget
     Q_OBJECT
 public:
     explicit ProgramContainer(QWidget *parent = 0);
-
-    std::shared_ptr<ProgramContainer> ptr_to_self;
-    std::weak_ptr<LibContainer> ptr_lib_cont;
+    explicit ProgramContainer(std::string path_to_xml_file);
 
     QGraphicsView* root_view;
-    ProgramScene* root_scene;
+
 
     bster::b_program_tree program_tree;
 

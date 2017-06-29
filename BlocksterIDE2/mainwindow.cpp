@@ -1,9 +1,8 @@
 #include "mainwindow.h"
 
-#include "program_container.h"
-#include "lib_container.h"
-
 #include <QLayout>
+
+#include "blockster_session.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -15,26 +14,18 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setMenuBar(menuBar);
     mainToolBar = new QToolBar(this);
     mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-
-    QWidget* centralWidget = new QWidget();
-    this->setCentralWidget(centralWidget);
-
     this->addToolBar(mainToolBar);
-    QHBoxLayout* hb = new QHBoxLayout(centralWidget);
 
     statusBar = new QStatusBar(this);
     statusBar->setObjectName(QStringLiteral("statusBar"));
     this->setStatusBar(statusBar);
     QMetaObject::connectSlotsByName(this);
 
-    ProgramContainer* pc = new ProgramContainer();
-    hb->addWidget(pc);
-    LibContainer* lib_c = new LibContainer();
-    hb->addWidget(lib_c);
+    BlocksterSession* centralWidget = new BlocksterSession();
+    this->setCentralWidget(centralWidget);
 
-    pc->ptr_lib_cont = lib_c->ptr_to_self;
-
-
+    centralWidget->addLibBrowser();
+    centralWidget->addProgram();
 }
 
 MainWindow::~MainWindow()

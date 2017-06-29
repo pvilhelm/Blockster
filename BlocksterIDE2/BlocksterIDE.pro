@@ -38,7 +38,9 @@ SOURCES += main.cpp\
     port_item.cpp \
     lib_scene.cpp \
     ../Blockster/src/blster/b_lib_tree.cpp \
-    lib_container.cpp
+    lib_container.cpp \
+    blockster_session.cpp \
+    config.cpp
 
 HEADERS  += mainwindow.h \
     program_container.h \
@@ -47,7 +49,9 @@ HEADERS  += mainwindow.h \
     port_item.h \
     lib_scene.h \
     lib_container.h \
-    blockster_session.h
+    blockster_session.h \
+    config.h \
+    findparent.h
 
 INCLUDEPATH += ../Blockster/src/blster/ \
     ../libs/pugixml/src/ \

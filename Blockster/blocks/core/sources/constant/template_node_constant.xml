@@ -2,7 +2,7 @@
 <Node id="">
   <Node_name>Constant</Node_name>
   <Node_type type="cpp">
-    <Lib_path>core/sources/constant</Lib_path>
+    <Lib_path>core/sources/constant/template_node_constant.xml</Lib_path>
   </Node_type>
   <Node_init>
     <Members>
