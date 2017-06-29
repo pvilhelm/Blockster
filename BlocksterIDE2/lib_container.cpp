@@ -1,5 +1,6 @@
 #include "lib_container.h"
 
+#include <memory>
 #include <QHBoxLayout>
 
 LibContainer::LibContainer(QWidget *parent) : QWidget(parent)
@@ -7,6 +8,8 @@ LibContainer::LibContainer(QWidget *parent) : QWidget(parent)
     this->resize(300, 600);
 
     QHBoxLayout* ptr_layout = new QHBoxLayout(this);
+
+    ptr_to_self = std::make_shared<LibContainer>(this);
 
     root_scene = new LibScene(R"(C:\Repos\Blockster\Blockster\blocks)");
     root_view = new QGraphicsView(root_scene);

@@ -4,12 +4,14 @@
 
 ProgramContainer::ProgramContainer(QWidget *parent) : QWidget(parent)
 {
-    this->resize(700, 600);
+    //to avoid dangling pointer from children
+    ptr_to_self = std::make_shared<ProgramContainer>(this);
 
+    this->resize(700, 600);
     QHBoxLayout* ptr_layout = new QHBoxLayout(this);
 
     root_scene = new ProgramScene(ptr_layout);
-
+    root_scene->program_container = ptr_to_self;
     root_view = new QGraphicsView(root_scene);
     //root_view->resize(this->width(), this->height());
     root_view->show();
@@ -17,6 +19,8 @@ ProgramContainer::ProgramContainer(QWidget *parent) : QWidget(parent)
 
     //connects signals
     connect(root_scene,SIGNAL(nodeUpdateRequest()),this,SLOT(nodeUpdateRequestSlot()));
+
+
 
 }
 

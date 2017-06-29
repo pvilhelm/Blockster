@@ -7,6 +7,13 @@
 #include "block_item.h"
 #include "lib_scene.h"
 
+#include <QGraphicsSceneMouseEvent>
+#include <QObject>
+#include <QGraphicsScene>
+#include <QMimeData>
+#include <QDrag>
+#include <QString>
+
 LibScene::LibScene(std::string lib_path)
 {
     this->lib.parseFolderTree(lib_path,true);
@@ -43,4 +50,23 @@ void LibScene::addBlockToScene(QPointF pos, std::string& xml_str)
     b->node_pos.y = pos.y();
     BlockItem* bl = new BlockItem(nullptr,std::move(b));
     this->addItem(bl);
+}
+
+void LibScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
+{
+    //Qt::MouseButton a1 = mouseEvent->button();
+    //QGraphicsItem* a2 = this->itemAt(mouseEvent->scenePos(),QTransform());
+
+    if (mouseEvent->button() == Qt::LeftButton && this->itemAt(mouseEvent->scenePos(),QTransform())) {
+
+        BlockItem* clickedBlock = dynamic_cast<BlockItem*>(this->itemAt(mouseEvent->scenePos(),QTransform()));
+
+        if(clickedBlock){
+            QDrag *drag = new QDrag(this);
+            QMimeData *mimeData = new QMimeData;
+            mimeData->setText(clickedBlock->this_node->node_lib_path.c_str());
+            drag->setMimeData(mimeData);
+            drag->exec();
+        }
+    }
 }

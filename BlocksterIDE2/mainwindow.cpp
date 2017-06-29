@@ -32,6 +32,9 @@ MainWindow::MainWindow(QWidget *parent) :
     LibContainer* lib_c = new LibContainer();
     hb->addWidget(lib_c);
 
+    pc->ptr_lib_cont = lib_c->ptr_to_self;
+
+
 }
 
 MainWindow::~MainWindow()

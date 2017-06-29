@@ -19,7 +19,7 @@ class LibContainer : public QWidget
 public:
     explicit LibContainer(QWidget *parent = 0);
 
-
+    std::shared_ptr<LibContainer> ptr_to_self;
     QGraphicsView* root_view;
     LibScene* root_scene;
 

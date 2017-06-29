@@ -100,7 +100,6 @@ void bster::b_program_tree::makeTaskVectors()
     for (unsigned i = 0; i < v_tasks.size(); i++) {
         auto& t = v_tasks[i];
 
-
         if (i != v_tasks.size() - 1){
             //if id is not one smaller then the following id
             if (t->task_id+1 != v_tasks[i + 1]->task_id) {

@@ -10,6 +10,7 @@
 
 #include "program_scene.h"
 #include "b_program_tree.h"
+#include "lib_container.h"
 
 class ProgramScene;
 
@@ -19,6 +20,8 @@ class ProgramContainer : public QWidget
 public:
     explicit ProgramContainer(QWidget *parent = 0);
 
+    std::shared_ptr<ProgramContainer> ptr_to_self;
+    std::weak_ptr<LibContainer> ptr_lib_cont;
 
     QGraphicsView* root_view;
     ProgramScene* root_scene;

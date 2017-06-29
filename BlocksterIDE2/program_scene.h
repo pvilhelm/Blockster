@@ -21,11 +21,13 @@ class ProgramScene : public QGraphicsScene
 
 public:
     ProgramScene(QObject *parent);
-    ProgramContainer* program_container;
+    std::weak_ptr<ProgramContainer> program_container;
+
     //std::vector<std::shared_ptr<bster::b_node>> v_bnodes; //Vector of bster nodes assosiated with this scene
 
+    void dragMoveEvent(QGraphicsSceneDragDropEvent *event) override;
     //void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
-
+    void dropEvent(QGraphicsSceneDragDropEvent *event);
 
 signals:
     void nodeUpdateRequest();

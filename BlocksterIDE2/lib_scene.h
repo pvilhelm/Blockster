@@ -18,6 +18,7 @@ public:
 
     bster::b_lib_tree lib;
     //std::vector<std::shared_ptr<bster::b_node>> v_bnodes;
+    void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 
 public slots:
     void reparseLib();

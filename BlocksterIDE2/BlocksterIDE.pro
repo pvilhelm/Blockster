@@ -46,7 +46,8 @@ HEADERS  += mainwindow.h \
     block_item.h \
     port_item.h \
     lib_scene.h \
-    lib_container.h
+    lib_container.h \
+    blockster_session.h
 
 INCLUDEPATH += ../Blockster/src/blster/ \
     ../libs/pugixml/src/ \
