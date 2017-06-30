@@ -92,6 +92,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\Repos\boost\boost_1_64_0\mscv32-14.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -115,6 +116,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>C:\Repos\boost\boost_1_64_0\mscv32-14.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -134,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\Blockster\src\blster\b_block.h" />
     <ClInclude Include="..\..\..\Blockster\src\blster\b_lib_tree.h" />
+    <ClInclude Include="..\..\..\Blockster\src\blster\b_meta_signal.h" />
     <ClInclude Include="..\..\..\Blockster\src\blster\b_node.h" />
     <ClInclude Include="..\..\..\Blockster\src\blster\b_node_stash.h" />
     <ClInclude Include="..\..\..\Blockster\src\blster\b_program_tree.h" />
@@ -145,11 +148,13 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\Blockster\src\blster\b_block.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\b_lib_tree.cpp" />
+    <ClCompile Include="..\..\..\Blockster\src\blster\b_meta_signal.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\b_node.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\b_program_tree.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\b_task.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\b_xml.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\test_b_lib_tree.cpp" />
+    <ClCompile Include="..\..\..\Blockster\src\blster\test_b_meta_signal.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\test_b_node.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\test_b_program_tree.cpp" />
     <ClCompile Include="..\..\..\Blockster\src\blster\test_b_task.cpp" />

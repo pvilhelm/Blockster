@@ -2,7 +2,7 @@
 <Node id="" libpath="core/math/gain" subtype="gain">
   <Node_name>Gain</Node_name>
   <Node_type type="cpp">
-    <Lib_path>core/math/gain</Lib_path>
+    <Lib_path>core/math/gain/template_node_gain.xml</Lib_path>
   </Node_type>
   <Node_init>
     <Members>

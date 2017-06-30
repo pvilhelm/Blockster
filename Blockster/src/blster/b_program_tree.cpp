@@ -11,7 +11,7 @@
 #include <numeric>
 
 std::string getLastFolderName(std::string path){
-    std::regex r(R"((?:.*[\\\/])?(\w+))");
+    std::regex r(R"((?:.*[\\\/])?\w+\/template_node_(\w+)\.xml)");
     std::smatch sm;
     std::regex_match (path,sm,r);
     if(sm.empty()){
@@ -32,7 +32,7 @@ void bster::b_program_tree::mapNodeLastFolder(bster::b_node& node) {
     }
     else {//add node id to set at entry
         //check if node_id is allready added to the program tree 
-        if (map_last_folder_to_set_of_nodeids[last_folder].find(node_id) ==
+        if (map_last_folder_to_set_of_nodeids[last_folder].find(node_id) !=
             map_last_folder_to_set_of_nodeids[last_folder].end()) {
             throw std::runtime_error("Node id " + node_id + "already added to program tree. " +
                                       std::to_string(__LINE__)+":"+__FILE__);

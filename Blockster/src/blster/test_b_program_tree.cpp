@@ -61,16 +61,16 @@ TEST_CASE("Test b_program_tree", "[std]") {
 		const int n_tasks = 3;
 		for (int i = 0; i < n; i++) {
 			b_node n0; 
-			n0.node_lib_path = "test/type"; 
+			n0.node_lib_path = "test/type/template_node_type.xml"; 
 			n0.node_id = (boost::format("type_%08u") % i).str();
 			n0.node_task_id = "0"; 
 			b_node n1; 
             
-			n1.node_lib_path = "is/another/typetyyy"; 
+			n1.node_lib_path = "is/another/typetyyy/template_node_typetyyy.xml"; 
             n1.node_id = (boost::format("typetyyy_%08u") % i ).str();
 			n1.node_task_id = "1"; 
 			b_node n2; 
-			n2.node_lib_path = "is/yet/another/typety"; 
+			n2.node_lib_path = "is/yet/typety/template_node_typety.xml"; 
 			n2.node_id = (boost::format("typety_%08u") % i).str();
 			n2.node_task_id = "2"; 
 			n0.node_exec_order = i;
@@ -94,8 +94,8 @@ TEST_CASE("Test b_program_tree", "[std]") {
 		// Assure that the temporary v_nodes is acctually cleared
 		REQUIRE(bpt.v_nodes.size() == 0);
 
-        REQUIRE(bpt.getNextNodeId("type") == "type_00000016");
-        REQUIRE(bpt.getNextNodeId("typety") == "typety_00000016");
+        REQUIRE(bpt.getNextNodeId("type/template_node_type.xml") == "type_00000016");
+        REQUIRE(bpt.getNextNodeId("typety/template_node_typety.xml") == "typety_00000016");
 		// Test addNode()
 		
 		{
@@ -108,11 +108,11 @@ TEST_CASE("Test b_program_tree", "[std]") {
 					n0.node_id = "type_" + std::to_string(i); 
 					n0.node_task_id = "0"; 
 					b_node n1; 
-					n1.node_lib_path = "is/another/typety"; 
+					n1.node_lib_path = "is/another/typety/template_node_typety.xml"; 
 					n1.node_id = "typety_" + std::to_string(i); 
 					n1.node_task_id = "1"; 
 					b_node n2; 
-					n2.node_lib_path = "is/yet/another/yettypety"; 
+					n2.node_lib_path = "is/yet/another/yettypety/template_node_yettypetyy.xml"; 
 					n2.node_id = "yettypety_" + std::to_string(i); 
 					n2.node_task_id = "3"; 
 					n0.node_exec_order = i;
@@ -132,15 +132,15 @@ TEST_CASE("Test b_program_tree", "[std]") {
 			for (int i = 0; i < n; i++) {
 
 				b_node n0;
-				n0.node_lib_path = "test/type";
+				n0.node_lib_path = "test/type/template_node_type.xml";
 				n0.node_id = "type_" + std::to_string(i);
 				n0.node_task_id = "0";
 				b_node n1;
-				n1.node_lib_path = "is/another/typety";
+				n1.node_lib_path = "is/another/typety/template_node_typety.xml";
 				n1.node_id = "typety_" + std::to_string(i);
 				n1.node_task_id = "1";
 				b_node n2;
-				n2.node_lib_path = "is/yet/another/typety";
+				n2.node_lib_path = "is/yet/another/yettypety/template_node_yettypety.xml";
 				n2.node_id = "yettypety_" + std::to_string(i);
 				n2.node_task_id = "-1";
 				n0.node_exec_order = i;
@@ -169,16 +169,16 @@ TEST_CASE("Test b_program_tree", "[std]") {
 
 		b_node node;
 		node.node_task_id = "0";
-		node.node_lib_path = "iso/piso";
+		node.node_lib_path = "iso/piso/template_node_piso.xml";
 		node.node_lib_type = "cpp";
-		node.node_id = bpt.getNextNodeId("iso/piso");
+		node.node_id = bpt.getNextNodeId("iso/piso/template_node_piso.xml");
 		
         //assure next node id acctually gets updated
 		bpt.addNode(node);
-        std::string next_node_id = bpt.getNextNodeId("iso/piso");
+        std::string next_node_id = bpt.getNextNodeId("iso/piso/template_node_piso.xml");
         REQUIRE(next_node_id != node.node_id);
         //assure two calls to getNextNodeId delivers same results
-        REQUIRE(bpt.getNextNodeId("iso/piso") == bpt.getNextNodeId("iso/piso"));
+        REQUIRE(bpt.getNextNodeId("iso/piso/template_node_piso.xml") == bpt.getNextNodeId("iso/piso/template_node_piso.xml"));
 
         //assure the node is added to map and is same as before adding
 		auto ptr_node_ans = bpt.v_tasks[0]->map_nodeidstr_to_nodeptr["piso_00000000"];

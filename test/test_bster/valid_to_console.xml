@@ -2,7 +2,7 @@
 <Node id="">
   <Node_name>To console</Node_name>
   <Node_type type="cpp">
-    <Lib_path>core/sinks/to_console</Lib_path>
+    <Lib_path>core/sinks/to_console/template_node_to_console.xml</Lib_path>
   </Node_type>
   <Ports>
     <Inports>

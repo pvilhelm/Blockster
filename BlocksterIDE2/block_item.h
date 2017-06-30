@@ -3,7 +3,10 @@
 
 #include <string>
 #include <memory>
+
 #include <QGraphicsItem>
+#include <QObject>
+
 
 #include "b_node.h"
 
@@ -24,6 +27,24 @@ public:
 signals:
     void nodeMoved();
 
+public slots:
+    void nameBoxChanged(std::string new_name);
+
 };
+
+class BlockTextItem : public QGraphicsTextItem
+{
+    Q_OBJECT
+public:
+    BlockTextItem(BlockItem* parent);
+
+signals:
+    void nameChangedSignal(std::string new_name);
+
+public slots:
+    void nameChanged();
+
+};
+
 
 #endif // BLOCK_ITEM_H

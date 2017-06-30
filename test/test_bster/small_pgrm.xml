@@ -12,7 +12,7 @@
     <Node id="constant_0000000">
       <Node_name>Constant 0</Node_name>
       <Node_type type="cpp">
-        <Lib_path>core/sources/constant</Lib_path>
+        <Lib_path>core/sources/constant/template_node_constant.xml</Lib_path>
       </Node_type>
       <Node_init>
         <Members>
@@ -41,7 +41,7 @@
     <Node id="gain_0000000">
       <Node_name>Gain 0</Node_name>
       <Node_type type="cpp">
-        <Lib_path>core/math/gain</Lib_path>
+        <Lib_path>core/math/gain/template_node_gain.xml</Lib_path>
       </Node_type>
       <Node_init>
         <Members>
@@ -77,7 +77,7 @@
     <Node id="to_console_0000000">
       <Node_name>To console 0</Node_name>
       <Node_type type="cpp">
-        <Lib_path>core/sinks/to_console</Lib_path>
+        <Lib_path>core/sinks/to_console/template_node_to_console.xml</Lib_path>
       </Node_type>
       <Node_init>
         <Members>
