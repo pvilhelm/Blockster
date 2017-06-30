@@ -14,6 +14,12 @@
 
 class ProgramContainer;
 
+/**
+ * @brief The ProgramScene class is the graphical representation of the /ref b_program_tree
+ *
+ * It also processes graphical user input.
+ */
+
 class ProgramScene : public QGraphicsScene
 {
     Q_OBJECT
