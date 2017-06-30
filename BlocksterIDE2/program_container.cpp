@@ -5,6 +5,17 @@
 #include "b_program_tree.h"
 #include "b_xml.h"
 
+/**
+ * @brief Constructs a ProgramContainer
+ * @param[in] parent Address of parent widget
+ *
+ * The constructor takes the parent widget address as a parameter and:
+ * - Constructs a ProgramScene.
+ * - Constructs a QGraphicsView for that scene.
+ * - Adds the view to this and shows it.
+ * - Connects slot/signals.
+ */
+
 ProgramContainer::ProgramContainer(QWidget *parent) : QWidget(parent)
 {
 
@@ -19,6 +30,16 @@ ProgramContainer::ProgramContainer(QWidget *parent) : QWidget(parent)
     //connects signals
     connect(root_scene,SIGNAL(nodeUpdateRequest()),this,SLOT(nodeUpdateRequestSlot()));
 }
+
+/**
+ * @brief Constructs a ProgramContainer
+ * @param[in] path_to_xml_file The path to a xml file that holds a Blockster program
+ *
+ * The constructor takes a string with the path to a Blockster program xml
+ * file and populates the bster::b_program_tree #program_tree with it.
+ *
+ * Then it calls #ProgramContainer(QWidget*).
+ */
 
 ProgramContainer::ProgramContainer(std::string path_to_xml_file)
 {
