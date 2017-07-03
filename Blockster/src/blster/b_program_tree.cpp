@@ -148,25 +148,31 @@ void bster::b_program_tree::makeTaskVectors()
     return;
 }
 
-void bster::b_program_tree::addNode(b_node node)
-{
-    //if default node id, assign node id
-    if (node.node_id == "") {
-        node.node_id = getNextNodeId(node.node_lib_path);
-    }
-    mapNodeLastFolder(node);
+std::shared_ptr<bster::b_node> bster::b_program_tree::addNode(std::shared_ptr<b_node> node) {
+	//if default node id, assign node id
+	if (node->node_id == "") {
+		node->node_id = getNextNodeId(node->node_lib_path);
+	}
+	mapNodeLastFolder(node);
 
-    int task_id = std::stoi(node.node_task_id);
-    if (v_tasks.size() - 1 < task_id)
-        throw std::runtime_error("Task id greater then index of v_task vector. " + std::to_string(__LINE__) + ":" + __FILE__);
-    if (this->v_tasks[task_id]->task_id != task_id) {
-        std::stringstream ss;
-        for (auto task : v_tasks)
-            ss << "Task id: " + std::to_string(task->task_id) << "\n";
-        throw std::runtime_error("Task id parameter doens't match task id in v_tasks. Task id:s " + ss.str() + "\n" + std::to_string(__LINE__) + ":" + __FILE__);
-    }
-    this->v_tasks[task_id]->addNode(node);
-    this->v_tasks[task_id]->processAllNodes();
+	int task_id = std::stoi(node->node_task_id);
+	if (v_tasks.size() - 1 < task_id)
+		throw std::runtime_error("Task id greater then index of v_task vector. " + std::to_string(__LINE__) + ":" + __FILE__);
+	if (this->v_tasks[task_id]->task_id != task_id) {
+		std::stringstream ss;
+		for (auto task : v_tasks)
+			ss << "Task id: " + std::to_string(task->task_id) << "\n";
+		throw std::runtime_error("Task id parameter doens't match task id in v_tasks. Task id:s " + ss.str() + "\n" + std::to_string(__LINE__) + ":" + __FILE__);
+	}
+	this->v_tasks[task_id]->addNode(node);
+	this->v_tasks[task_id]->processAllNodes();
+	return node; 
+}
+
+std::shared_ptr<bster::b_node> bster::b_program_tree::addNode(b_node node)
+{
+	auto node_ptr = std::make_shared<b_node>(node);
+	return addNode(node_ptr);
 }
 
 std::string bster::b_program_tree::getNextNodeId(std::string node_lib_path)

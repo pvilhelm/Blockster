@@ -6,7 +6,11 @@
 
 #include "b_node.h"
 
+
+
 namespace bster {
+	
+	class b_meta_signal_node;
 
 	class b_meta_signal {
 

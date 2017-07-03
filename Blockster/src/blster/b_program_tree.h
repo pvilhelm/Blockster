@@ -24,7 +24,9 @@ namespace bster{
 
             void setVectorOfNodes(std::vector<std::shared_ptr<b_node>> v_nodes);//Move
             void makeTaskVectors();
-            void addNode(b_node node);
+			std::shared_ptr<b_node> addNode(b_node node);
+			std::shared_ptr<b_node> addNode(std::shared_ptr<b_node> node);
+
             std::string getNextNodeId(std::string node_lib_path);
     private:
             void mapNodeLastFolder(std::shared_ptr<bster::b_node>& node);

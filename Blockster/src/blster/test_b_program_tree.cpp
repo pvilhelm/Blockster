@@ -185,7 +185,20 @@ TEST_CASE("Test b_program_tree", "[std]") {
 		REQUIRE(ptr_node_ans->node_id == node.node_id);
 		REQUIRE(ptr_node_ans->node_exec_order > 0);
 
-        REQUIRE_THROWS(bpt.addNode(node));
+        REQUIRE_THROWS(bpt.addNode(node));//same node id makes it throw
+
+		{//just check that addning node as a shared ptr also works
+			b_node node;
+			node.node_task_id = "0";
+			node.node_lib_path = "iso/piso/template_node_piso.xml";
+			node.node_lib_type = "cpp";
+			node.node_id = bpt.getNextNodeId("iso/piso/template_node_piso.xml");
+			auto n_ptr = std::make_shared<b_node>(node);
+			auto n_ptr2 = bpt.addNode(n_ptr);
+			REQUIRE(n_ptr == n_ptr2);
+			REQUIRE(n_ptr->node_id == n_ptr2->node_id);
+			REQUIRE(node.node_id == n_ptr->node_id);
+		}
 	}
 }
 

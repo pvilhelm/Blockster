@@ -253,7 +253,8 @@ std::string bster::program_tree_to_xml_str(const b_program_tree & program_tree)
             xml_document tmp_doc;
             //load a doc with node as xml string
             std::string node_str = node_to_xml_str(*node).c_str();
-            tmp_doc.load(node_str.c_str());
+			#pragma warning(suppress : 4996)            
+			tmp_doc.load(node_str.c_str()); 
             //move the first node in tmp_doc from tmp_doc to Nodes
             xml_node tmp = tmp_doc.first_child();
             tmp_node.append_copy(tmp);
