@@ -1,4 +1,4 @@
-# Blockster
+# Blockster : Discontinued work
 A Simulation and Code generation language. 
 
 The long term goal is to make a visual programming language for simulations, stand alone programs with or without user interfaces and code generation of librarys.
